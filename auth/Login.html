@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,94 +8,97 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Cdn pour icons -->
     <script src="https://unpkg.com/feather-icons"></script>
+    <script src="../translation/i18n.js"></script>
     <title>Connexion - Gestion Hospitalière</title>
 </head>
+
 <body class="">
-    
-    <main class="min-h-screen flex flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 p-6 md:p-10">
+    <div class="text-right mb-4">
+        <select id="langSelect" class="border rounded px-2 py-1">
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+        </select>
+    </div>
+
+    <main
+        class="min-h-screen flex flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 p-6 md:p-10">
         <!-- Image animé -->
         <div class="order-1 md:order-2 flex items-center justify-center">
-            <img src="../images/svg/doctor.svg" alt="doctors" class="w-64 md:w-96 lg:w-[500px] max-w-full h-auto">
+            <img src="../assets/svg/doctor.svg" alt="doctors" class="w-64 md:w-96 lg:w-[500px] max-w-full h-auto">
         </div>
 
         <!-- Formulaire -->
         <div class="w-full max-w-md order-2 md:order-1">
             <!-- titre -->
             <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800">Gestion Hospitalière</h1>
-                <p class="text-gray-600 mt-2">Connectez-vous à votre espace</p>
+                <h1 class="text-3xl font-bold text-gray-800" data-i18n="Gestion Hospitalière"></h1>
+                <p class="text-gray-600 mt-2" data-i18n="Connectez-vous à votre espace"></p>
             </div>
 
             <div class="bg-white rounded-2xl shadow-xl p-8">
                 <form action="" class="space-y-6">
                     <!-- Champ Email -->
                     <div class="relative">
-                        <label for="email" class="block text-sm font-medium text-gray-700 ">
-                            Adresse email
-                        </label>
-                        <div>
-                            <div class="relative top-9 pl-3 ">
-                                <i data-feather="mail" class="w-5 h-5 text-gray-400"></i>
+                        <label for="email" class="block text-sm font-medium text-gray-700 "
+                            data-i18n="Adresse email"></label>
+                        <div
+                            class="input-container flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                            <!-- Icône -->
+                            <div class="pl-3 pr-3 text-gray-400 flex-shrink-0">
+                                <i data-feather="mail" class="w-5 h-5"></i>
                             </div>
-                            <input 
-                                type="email" 
-                                name="email" 
-                                id="email" 
-                                placeholder="votre.email@hopital.com"
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent  outline-none"
-                                required
-                            >
+
+                            <!-- Input -->
+                            <input type="email" name="email" id="email" placeholder="votre.email@hopital.com"
+                                class="flex-1 py-3 outline-none" required>
                         </div>
+                        <p id="errorEmail" class="text-red-600 ml-2 text-sm mt-2"></p>
+
                         <p id="errorEmail" class="text-red-600 ml-2 text-sm mt-2"></p>
                     </div>
 
                     <!-- Champ Mot de passe -->
                     <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700">
-                            Mot de passe
+                        <label for="password" class="block text-sm font-medium text-gray-700" data-i18n="Mot de passe">
+
                         </label>
-                        <div>
-                            <div class="relative top-9 pl-3 ">
-                                <i data-feather="lock" class="w-5 h-5 text-gray-400"></i>
+                        <div
+                            class="input-container flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                            <div class="pl-3 pr-3 text-gray-400 flex-shrink-0">
+                                <i data-feather="lock" class="w-5 h-5"></i>
                             </div>
-                            <input 
-                                type="password" 
-                                name="password" 
-                                id="password" 
-                                placeholder="••••••••"
-                                class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 outline-none"
-                                required
-                            >
+                            <input type="password" name="password" id="password" placeholder="••••••••"
+                                class="flex-1 py-3 outline-none" required>
                         </div>
                         <p id="errorPassword" class="text-red-600 ml-2 text-sm mt-2"></p>
                     </div>
 
                     <!-- Mot de passe oublié -->
                     <div class="">
-  
-                        <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-500 transition">
-                            Mot de passe oublié ?
+
+                        <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-500 transition"
+                            data-i18n="Mot de passe oublié ?">
+
                         </a>
                     </div>
 
                     <!-- Bouton de connexion -->
-                    
-                        <button 
-                        type="submit" 
-                        id="connexion"
+
+                    <button type="submit" id="connexion"
                         class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
-                    >
-                        Connexion
+                        data-i18n="Connexion">
+
                     </button>
-                    
+
                 </form>
 
                 <!-- Lien d'aide -->
                 <div class="mt-6 text-center">
-                    <p class="text-sm text-gray-600">
-                        Besoin d'aide ? 
-                        <a href="#" class="font-medium text-blue-600 hover:text-blue-500 transition">
-                            Contactez le support
+                    <p class="text-sm text-gray-600" data-i18n="Besoin d'aide ?">
+                        <a href="#" class="font-medium text-blue-600 hover:text-blue-500 transition"
+                            data-i18n="Contactez le support">
+
                         </a>
                     </p>
                 </div>
@@ -105,4 +109,5 @@
 
     <script src="./Auth.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,63 @@
+{
+  "Gestion Hospitalière": {
+    "fr": "Gestion Hospitalière",
+    "en": "Hospital Management",
+    "ar": "إدارة المستشفى"
+  },
+  "Connectez-vous à votre espace": {
+    "fr": "Connectez-vous à votre espace",
+    "en": "Sign in to your account",
+    "ar": "تسجيل الدخول إلى حسابك"
+  },
+  "Adresse email": {
+    "fr": "Adresse email",
+    "en": "Email address",
+    "ar": "البريد الإلكتروني"
+  },
+  "votre.email@hopital.com": {
+    "fr": "votre.email@hopital.com",
+    "en": "your.email@hospital.com",
+    "ar": "بريدك@المستشفى.com"
+  },
+  "Mot de passe": {
+    "fr": "Mot de passe",
+    "en": "Password",
+    "ar": "كلمة المرور"
+  },
+  "••••••••": {
+    "fr": "••••••••",
+    "en": "••••••••",
+    "ar": "••••••••"
+  },
+  "Mot de passe oublié ?": {
+    "fr": "Mot de passe oublié ?",
+    "en": "Forgot password?",
+    "ar": "هل نسيت كلمة المرور؟"
+  },
+  "Connexion": {
+    "fr": "Connexion",
+    "en": "Login",
+    "ar": "تسجيل الدخول"
+  },
+  "Besoin d'aide ?": {
+    "fr": "Besoin d'aide ?",
+    "en": "Need help?",
+    "ar": "تحتاج مساعدة؟"
+  },
+  "Contactez le support": {
+    "fr": "Contactez le support",
+    "en": "Contact support",
+    "ar": "اتصل بالدعم"
+  },
+"Veuillez remplir l'email": {
+  "fr": "Veuillez remplir l'email",
+  "en": "Please fill in the email",
+  "ar": "الرجاء تعبئة البريد الإلكتروني"
+},
+"Veuillez remplir le mot de passe": {
+  "fr": "Veuillez remplir le mot de passe",
+  "en": "Please fill in the password",
+  "ar": "الرجاء تعبئة كلمة المرور"
+}
+
+}
