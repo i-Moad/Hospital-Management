@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "email": "admin@medicool.com",
+    "password": "123456",
+    "role": "admin",
+    "name": "Admin"
+  },
+  {
+    "id": 2,
+    "email": "doctor@medicool.com",
+    "password": "123456",
+    "role": "medecin",
+    "name": "Dr Salma"
+  },
+  {
+    "id": 3,
+    "email": "patient@medicool.com",
+    "password": "123456",
+    "role": "patient",
+    "name": "Ahmed"
+  }
+]
