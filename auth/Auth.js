@@ -1,11 +1,10 @@
 feather.replace();
-
 // Fonction pour afficher un message d'erreur
 const showError = (element, message, icon = "alert-circle") => {
     element.innerHTML = `
         <div class="flex items-center gap-2 text-red-600">
             <i data-feather="${icon}" class="w-[15px] h-[15px]"></i>
-            ${message}
+            ${t(message)}
         </div>
     `;
     feather.replace();
@@ -76,3 +75,20 @@ button.addEventListener("click", (e) => {
     e.preventDefault();
     handleLogin();
 });
+
+document.addEventListener("DOMContentLoaded", async () => {
+    // Initialiser i18n
+    await initI18n();
+
+    const langSelect = document.getElementById("langSelect");
+
+    // Définir la langue sélectionnée par défaut
+    langSelect.value = localStorage.getItem("lang") || "fr";
+
+    // Écouter le changement
+    langSelect.addEventListener("change", (e) => {
+        const selectedLang = e.target.value;
+        setLang(selectedLang);
+    });
+});
+
