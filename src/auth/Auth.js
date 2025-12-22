@@ -84,9 +84,9 @@ LangToogle.addEventListener("click", () => {
   const div = document.getElementById("LangSelect");
 
   const languages = [
-    { name: "Français", code: "fr", flag: "../assets/png/fr.png" },
-    { name: "English", code: "en", flag: "../assets/png/en.png" },
-    { name: "العربية", code: "ar", flag: "../assets/png/ma.png" },
+    { name: "Français", code: "fr", flag: "../../assets/png/fr.png" },
+    { name: "English", code: "en", flag: "../../assets/png/en.png" },
+    { name: "العربية", code: "ar", flag: "../../assets/png/ma.png" },
   ];
 
   let buttons = "";
