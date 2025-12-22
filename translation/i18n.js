@@ -1,11 +1,11 @@
 let translations = {};
-let currentLang = "fr"; // déclaration correcte
+let currentLang = "fr"; // lang par defaut
 
 async function initI18n() {
   const res = await fetch("../translation/translation.json");
   translations = await res.json();
 
-  // Récupérer la langue depuis localStorage ou mettre par défaut
+  // Récupérer la langue depuis localStorage si existe sinon fr par defaut
   currentLang = localStorage.getItem("lang") || "fr";
 
   applyTranslations();
@@ -22,13 +22,13 @@ function setLang(lang) {
 }
 
 function applyTranslations() {
-  // 🔹 Texte
+  // Texte
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.dataset.i18n;
     el.textContent = t(key);
   });
 
-  // 🔹 Placeholders
+  //Placeholders 
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
     const key = el.dataset.i18nPlaceholder;
     el.placeholder = t(key);
@@ -50,8 +50,6 @@ function applyTranslations() {
       el.style.transform = "";
     }
   });
-
- 
 }
 
 // Rendre global
