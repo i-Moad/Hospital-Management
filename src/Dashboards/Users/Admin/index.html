@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../../../translation/i18n.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            await initI18n();
+        });
+    </script>
+    <title>Admin Dashboard</title>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 z-50 w-full h-16 bg-white border-b border-gray-200">
+        <div class="h-full px-3 lg:px-5">
+            <div class="flex items-center justify-between h-full">
+
+                <div class="flex items-center">
+                    <!-- Toggle mobile -->
+                    <button id="toggleSidebar"
+                        class="inline-flex items-center p-2 text-gray-500 rounded-lg sm:hidden hover:bg-gray-100">
+                        <i data-feather="menu"></i>
+                    </button>
+
+                    <!-- Logo -->
+                    <a href="#" class="flex items-center ml-2 ">
+                        <img src="../../../../assets/png/logoEmsiHealth4.png" class=" " alt="EMSI Health"
+                            width="150px" />
+                    </a>
+                    <div class="flex justify-end mx-10 relative">
+                        <i data-feather="globe" id="LangToogle"
+                            class="cursor-pointer hover:text-blue-600 transition-colors"></i>
+                        <div id="LangSelect" class="absolute top-8   z-50">
+                            <!-- Les boutons s'afficheront ici -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avatar -->
+                <button class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300">
+                    <img class="w-8 h-8 rounded-full"
+                        src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff">
+                </button>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed top-0  z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
+            <ul class="space-y-2 font-medium">
+                <li>
+                    <a href="#dashboard"
+                        class="nav-link flex items-center p-2 text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 group"
+                        data-page="dashboard">
+                        <i data-feather="pie-chart"
+                            class="w-5 h-5 text-blue-600 transition duration-75 group-hover:text-blue-700"></i>
+                        <span class="ml-3" data-i18n="Tableau de Bord"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#users"
+                        class="nav-link flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+                        data-page="users">
+                        <i data-feather="users"
+                            class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
+                        <span class="flex-1 ml-3 whitespace-nowrap" data-i18n="Gestion des utilisateurs"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#services"
+                        class="nav-link flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+                        data-page="services">
+                        <i data-feather="inbox"
+                            class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
+                        <span class="flex-1 ml-3 whitespace-nowrap" data-i18n="Gestion des services"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#hopital"
+                        class="nav-link flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+                        data-page="hopital">
+                        <i data-feather="home"
+                            class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
+                        <span class="flex-1 ml-3 whitespace-nowrap" data-i18n="Gestion d'hôpital"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="p-4  mt-14" id="main">
+        <!-- Dashboard Content -->
+        <div id="page-dashboard" class="page-content hidden">
+            <div class="page-header mb-6">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Tableau de Bord"></h1>
+                <p class="text-gray-600" data-i18n="Vue d'ensemble de votre système"></p>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                    <div class="text-sm text-gray-500 mb-2" data-i18n="Utilisateurs Totaux"></div>
+                    <div class="text-2xl font-bold text-gray-900 mb-2">1,234</div>
+                    <div class="flex items-center text-sm text-green-600">
+                        <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
+
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                    <div class="text-sm text-gray-500 mb-2" data-i18n="Hôpitaux Actifs"></div>
+                    <div class="text-2xl font-bold text-gray-900 mb-2">48</div>
+                    <div class="flex items-center text-sm text-green-600">
+                        <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
+
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                    <div class="text-sm text-gray-500 mb-2" data-i18n="Services Médicaux"></div>
+                    <div class="text-2xl font-bold text-gray-900 mb-2">156</div>
+                    <div class="flex items-center text-sm text-green-600">
+                        <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
+
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                    <div class="text-sm text-gray-500 mb-2" data-i18n="Taux d'Occupation"></div>
+                    <div class="text-2xl font-bold text-gray-900 mb-2">78%</div>
+                    <div class="flex items-center text-sm text-red-600">
+                        <i data-feather="trending-down" class="w-4 h-4 mr-1"></i>
+
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                    <h2 class="text-lg font-semibold mb-4" data-i18n="Utilisateurs et Hôpitaux"></h2>
+                    <canvas id="usersHospitalsChart" class="w-full h-64"></canvas>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                    <h2 class="text-lg font-semibold mb-4" data-i18n="Taux d'Occupation"></h2>
+                    <canvas id="occupationChart" class="w-full h-64"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Métrique">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Valeur">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Évolution">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Tendance">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400 italic">Aucune donnée disponible
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400 italic">Aucune donnée disponible
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400 italic">Aucune donnée disponible
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400 italic">Aucune donnée disponible
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
+                                        <i data-feather="edit" class="w-5 h-5 inline"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-800 transition-colors mx-1">
+                                        <i data-feather="trash" class="w-5 h-5 inline"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-800 transition-colors mx-1">
+                                        <i data-feather="eye" class="w-5 h-5 inline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Content -->
+        <div id="page-users" class="page-content hidden">
+            <div class="page-header mb-6">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Gestion des Utilisateurs"></h1>
+                <p class="text-gray-600" data-i18n="Gérez tous les utilisateurs du système"></p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="ID">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="CIN">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nom">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Prénom">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Email">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Téléphone">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Adresse">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Role">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Statut">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
+                                        <i data-feather="edit" class="w-5 h-5 inline"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-800 transition-colors mx-1">
+                                        <i data-feather="trash" class="w-5 h-5 inline"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-800 transition-colors mx-1">
+                                        <i data-feather="eye" class="w-5 h-5 inline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="px-6 py-12 text-center">
+                                    <div class="flex flex-col items-center justify-center">
+                                        <i data-feather="users" class="w-12 h-12 text-gray-400 mb-4"></i>
+                                        <span class="text-gray-500 mb-4" data-i18n="Aucun utilisateur trouvé"></span>
+                                        <button
+                                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                            data-i18n="Ajouter un utilisateur">
+                                            <i data-feather="plus" class="w-4 h-4 inline mr-2"></i>
+
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Content -->
+        <div id="page-services" class="page-content hidden">
+            <div class="page-header mb-6">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Gestion des Services"></h1>
+                <p class="text-gray-600" data-i18n="Gérez tous les services médicaux"></p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="ID Service">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nom du Service">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Description">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Hôpital">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Chef de Service">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nombre de Lits">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Taux d'Occupation">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Statut">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
+                                        <i data-feather="edit" class="w-5 h-5 inline"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-800 transition-colors mx-1">
+                                        <i data-feather="trash" class="w-5 h-5 inline"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-800 transition-colors mx-1">
+                                        <i data-feather="eye" class="w-5 h-5 inline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hopital Content -->
+        <div id="page-hopital" class="page-content hidden">
+            <div class="page-header mb-6">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Gestion des Hôpitaux"></h1>
+                <p class="text-gray-600" data-i18n="Gérez les informations des hôpitaux"></p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="ID Hôpital">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nom de l'Hôpital">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Adresse">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Téléphone">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Email">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Directeur">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nombre de Services">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nombre de Lits">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Statut">
+                                    Statut</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
+                                        <i data-feather="edit" class="w-5 h-5 inline"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-800 transition-colors mx-1">
+                                        <i data-feather="trash" class="w-5 h-5 inline"></i>
+                                    </button>
+                                    <button class="text-green-600 hover:text-green-800 transition-colors mx-1">
+                                        <i data-feather="eye" class="w-5 h-5 inline"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialiser les icônes Feather
+        feather.replace();
+
+        // Toggle sidebar pour mobile
+        const toggleButton = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleButton.addEventListener('click', function () {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        // Fonction pour changer de page
+        function navigateToPage(pageId) {
+            // Retirer la classe active de tous les liens
+            document.querySelectorAll('.nav-link').forEach(navLink => {
+                navLink.classList.remove('text-blue-600', 'bg-blue-50', 'hover:bg-blue-100');
+                navLink.classList.add('text-gray-900', 'hover:bg-gray-100');
+
+                // Réinitialiser les icônes
+                const icon = navLink.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('text-blue-600');
+                    icon.classList.add('text-gray-500');
+                }
+            });
+
+            // Activer le lien correspondant
+            const activeLink = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+            if (activeLink) {
+                activeLink.classList.remove('text-gray-900', 'hover:bg-gray-100');
+                activeLink.classList.add('text-blue-600', 'bg-blue-50', 'hover:bg-blue-100');
+
+                // Mettre l'icône en bleu
+                const icon = activeLink.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('text-gray-500');
+                    icon.classList.add('text-blue-600');
+                }
+            }
+
+            // Masquer toutes les pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('active');
+            });
+
+            // Afficher la page cible
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('active');
+
+                // Ajouter une animation fade
+                targetPage.classList.add('opacity-0');
+                setTimeout(() => {
+                    targetPage.classList.remove('opacity-0');
+                    targetPage.classList.add('opacity-100');
+                }, 10);
+            }
+
+            // Fermer la sidebar sur mobile après clic
+            if (window.innerWidth < 640) {
+                sidebar.classList.add('-translate-x-full');
+            }
+
+            // Mettre à jour les icônes
+            feather.replace();
+        }
+
+        // Navigation entre les pages
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Récupérer la page cible
+                const pageId = this.getAttribute('data-page');
+
+                // Mettre à jour l'URL avec le hash
+                window.location.hash = pageId;
+
+                // Naviguer vers la page
+                navigateToPage(pageId);
+            });
+        });
+
+        // Gérer le hash dans l'URL
+        function handleHashChange() {
+            const hash = window.location.hash.substring(1); // Enlever le #
+            const validPages = ['dashboard', 'users', 'services', 'hopital'];
+
+            // Si le hash est valide, naviguer vers cette page
+            if (validPages.includes(hash)) {
+                navigateToPage(hash);
+            } else {
+                // Par défaut, aller au dashboard
+                navigateToPage('dashboard');
+                window.location.hash = 'dashboard';
+            }
+        }
+
+        // Écouter les changements de hash
+        window.addEventListener('hashchange', handleHashChange);
+        window.addEventListener('popstate', handleHashChange);
+
+        // Fermer la sidebar quand on clique en dehors (mobile uniquement)
+        document.addEventListener('click', function (event) {
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickOnToggle = toggleButton.contains(event.target);
+            const isMobile = window.innerWidth < 640;
+
+            if (!isClickInsideSidebar && !isClickOnToggle && isMobile && !sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        // Ajuster au redimensionnement de la fenêtre
+        window.addEventListener('resize', function () {
+            if (window.innerWidth >= 640) {
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        // Initialiser la page au chargement
+        document.addEventListener('DOMContentLoaded', function () {
+            // Vérifier le hash dans l'URL
+            handleHashChange();
+
+            // Si pas de hash, mettre dashboard par défaut
+            if (!window.location.hash) {
+                window.location.hash = 'dashboard';
+            }
+
+            // Mettre à jour les icônes
+            feather.replace();
+        });
+
+        const ctx1 = document.getElementById('usersHospitalsChart').getContext('2d');
+        const usersHospitalsChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Utilisateurs', 'Hôpitaux', 'Services Médicaux'],
+                datasets: [{
+                    label: 'Nombre',
+                    data: [1234, 48, 156],
+                    backgroundColor: ['#3B82F6', '#10B981', '#F59E0B'],
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: true }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Chart 2: Taux d'occupation (line)
+        const ctx2 = document.getElementById('occupationChart').getContext('2d');
+        const occupationChart = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+                datasets: [{
+                    label: 'Taux d\'Occupation (%)',
+                    data: [70, 72, 75, 78, 76, 78],
+                    borderColor: '#EF4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    tension: 0.3,
+                    fill: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#EF4444'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: true }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+        if (localStorage.getItem("lang") == "ar") {
+            document.getElementById("main").classList.add("sm:mr-64");
+            document.getElementById("sidebar").classList.add("right-0")
+        }
+        else {
+            document.getElementById("main").classList.add("sm:ml-64");
+            document.getElementById("sidebar").classList.add("left-0")
+        }
+
+
+        let isLangOpen = false;
+        const LangToogle = document.getElementById("LangToogle");
+        const LangSelect = document.getElementById("LangSelect");
+
+        /* ---------- Position RTL / LTR ---------- */
+        function updateLangPosition() {
+            const isRTL = localStorage.getItem("lang") === "ar";
+
+            if (isRTL) {
+                LangSelect.classList.remove("right-0");
+                LangSelect.classList.add("left-0");
+                document.documentElement.dir = "rtl";
+            } else {
+                LangSelect.classList.add("right-0");
+                LangSelect.classList.remove("left-0");
+                document.documentElement.dir = "ltr";
+            }
+        }
+
+        /* ---------- Changer la langue ---------- */
+        function setLang(lang) {
+            localStorage.setItem("lang", lang);
+            updateLangPosition();
+
+            LangSelect.innerHTML = "";
+            isLangOpen = false;
+
+            location.reload(); // optionnel
+        }
+
+        /* ---------- Ouvrir / Fermer ---------- */
+        LangToogle.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            if (isLangOpen) {
+                LangSelect.innerHTML = "";
+                isLangOpen = false;
+                return;
+            }
+
+            updateLangPosition();
+
+            const languages = [
+                { name: "Français", code: "fr", flag: "../../../../assets/png/fr.png" },
+                { name: "English", code: "en", flag: "../../../../assets/png/en.png" },
+                { name: "العربية", code: "ar", flag: "../../../../assets/png/ma.png" },
+            ];
+
+            let buttons = "";
+
+            for (let lang of languages) {
+                buttons += `
+      <button
+        onclick="setLang('${lang.code}')"
+        class="flex items-center gap-2 w-full px-4 py-3
+               bg-white hover:bg-gray-50 border border-gray-200
+               rounded-lg transition-all hover:shadow-md">
+        <img src="${lang.flag}" width="20">
+        <span class="font-medium text-gray-700">${lang.name}</span>
+      </button>
+    `;
+            }
+
+            LangSelect.innerHTML = `
+    <div class="flex flex-col gap-2 mt-2 p-2
+                bg-white rounded-lg shadow-lg border">
+      ${buttons}
+    </div>
+  `;
+
+            isLangOpen = true;
+        });
+
+        /* ---------- Click ailleurs = fermer ---------- */
+        document.addEventListener("click", () => {
+            LangSelect.innerHTML = "";
+            isLangOpen = false;
+        });
+
+    </script>
+</body>
+
+</html>

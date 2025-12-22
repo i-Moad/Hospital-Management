@@ -2,7 +2,7 @@ let translations = {};
 let currentLang = "fr"; // lang par defaut
 
 async function initI18n() {
-  const res = await fetch("../../translation/translation.json");
+  const res = await fetch("/translation/translation.json");
   translations = await res.json();
 
   // Récupérer la langue depuis localStorage si existe sinon fr par defaut
