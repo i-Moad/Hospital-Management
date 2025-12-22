@@ -58,6 +58,216 @@
   "fr": "Veuillez remplir le mot de passe",
   "en": "Please fill in the password",
   "ar": "الرجاء تعبئة كلمة المرور"
-}
+},
+  "Tableau de Bord": {
+    "fr": "Tableau de Bord",
+    "en": "Dashboard",
+    "ar": "لوحة التحكم"
+  },
+  "Vue d'ensemble de votre système": {
+    "fr": "Vue d'ensemble de votre système",
+    "en": "Overview of your system",
+    "ar": "نظرة عامة على نظامك"
+  },
+  "Utilisateurs Totaux": {
+    "fr": "Utilisateurs Totaux",
+    "en": "Total Users",
+    "ar": "إجمالي المستخدمين"
+  },
+  "Hôpitaux Actifs": {
+    "fr": "Hôpitaux Actifs",
+    "en": "Active Hospitals",
+    "ar": "المستشفيات النشطة"
+  },
+  "Services Médicaux": {
+    "fr": "Services Médicaux",
+    "en": "Medical Services",
+    "ar": "الخدمات الطبية"
+  },
+  "Taux d'Occupation": {
+    "fr": "Taux d'Occupation",
+    "en": "Occupancy Rate",
+    "ar": "معدل الإشغال"
+  },
+  "Utilisateurs et Hôpitaux": {
+    "fr": "Utilisateurs et Hôpitaux",
+    "en": "Users and Hospitals",
+    "ar": "المستخدمون والمستشفيات"
+  },
+  "Métrique": {
+    "fr": "Métrique",
+    "en": "Metric",
+    "ar": "المقياس"
+  },
+  "Valeur": {
+    "fr": "Valeur",
+    "en": "Value",
+    "ar": "القيمة"
+  },
+  "Évolution": {
+    "fr": "Évolution",
+    "en": "Evolution",
+    "ar": "التطور"
+  },
+  "Tendance": {
+    "fr": "Tendance",
+    "en": "Trend",
+    "ar": "الاتجاه"
+  },
+  "Actions": {
+    "fr": "Actions",
+    "en": "Actions",
+    "ar": "الإجراءات"
+  },
+  "Gestion des utilisateurs": {
+    "fr": "Gestion des utilisateurs",
+    "en": "User Management",
+    "ar": "إدارة المستخدمين"
+  },
+  "Gestion des services": {
+    "fr": "Gestion des services",
+    "en": "Service Management",
+    "ar": "إدارة الخدمات"
+  },
+  "Gestion d'hôpital": {
+    "fr": "Gestion d'hôpital",
+    "en": "Hospital Management",
+    "ar": "إدارة المستشفى"
+  },
+  "Gestion des Utilisateurs": {
+    "fr": "Gestion des Utilisateurs",
+    "en": "User Management",
+    "ar": "إدارة المستخدمين"
+  },
+  "Gérez tous les utilisateurs du système": {
+    "fr": "Gérez tous les utilisateurs du système",
+    "en": "Manage all system users",
+    "ar": "إدارة جميع مستخدمي النظام"
+  },
+  "ID": {
+    "fr": "ID",
+    "en": "ID",
+    "ar": "المعرف"
+  },
+  "CIN": {
+    "fr": "CIN",
+    "en": "ID Card",
+    "ar": "البطاقة الوطنية"
+  },
+  "Nom": {
+    "fr": "Nom",
+    "en": "Last Name",
+    "ar": "الاسم العائلي"
+  },
+  "Prénom": {
+    "fr": "Prénom",
+    "en": "First Name",
+    "ar": "الاسم الشخصي"
+  },
+  "Email": {
+    "fr": "Email",
+    "en": "Email",
+    "ar": "البريد الإلكتروني"
+  },
+  "Téléphone": {
+    "fr": "Téléphone",
+    "en": "Phone",
+    "ar": "الهاتف"
+  },
+  "Adresse": {
+    "fr": "Adresse",
+    "en": "Address",
+    "ar": "العنوان"
+  },
+  "Role": {
+    "fr": "Role",
+    "en": "Role",
+    "ar": "الدور"
+  },
+  "Statut": {
+    "fr": "Statut",
+    "en": "Status",
+    "ar": "الحالة"
+  },
+  "Aucun utilisateur trouvé": {
+    "fr": "Aucun utilisateur trouvé",
+    "en": "No users found",
+    "ar": "لم يتم العثور على مستخدمين"
+  },
+  "Ajouter un utilisateur": {
+    "fr": "Ajouter un utilisateur",
+    "en": "Add a user",
+    "ar": "إضافة مستخدم"
+  },
+  "Gestion des Services": {
+    "fr": "Gestion des Services",
+    "en": "Service Management",
+    "ar": "إدارة الخدمات"
+  },
+  "Gérez tous les services médicaux": {
+    "fr": "Gérez tous les services médicaux",
+    "en": "Manage all medical services",
+    "ar": "إدارة جميع الخدمات الطبية"
+  },
+  "ID Service": {
+    "fr": "ID Service",
+    "en": "Service ID",
+    "ar": "معرف الخدمة"
+  },
+  "Nom du Service": {
+    "fr": "Nom du Service",
+    "en": "Service Name",
+    "ar": "اسم الخدمة"
+  },
+  "Description": {
+    "fr": "Description",
+    "en": "Description",
+    "ar": "الوصف"
+  },
+  "Hôpital": {
+    "fr": "Hôpital",
+    "en": "Hospital",
+    "ar": "المستشفى"
+  },
+  "Chef de Service": {
+    "fr": "Chef de Service",
+    "en": "Head of Service",
+    "ar": "رئيس الخدمة"
+  },
+  "Nombre de Lits": {
+    "fr": "Nombre de Lits",
+    "en": "Number of Beds",
+    "ar": "عدد الأسرة"
+  },
+  "Gestion des Hôpitaux": {
+    "fr": "Gestion des Hôpitaux",
+    "en": "Hospital Management",
+    "ar": "إدارة المستشفيات"
+  },
+  "Gérez les informations des hôpitaux": {
+    "fr": "Gérez les informations des hôpitaux",
+    "en": "Manage hospital information",
+    "ar": "إدارة معلومات المستشفيات"
+  },
+  "ID Hôpital": {
+    "fr": "ID Hôpital",
+    "en": "Hospital ID",
+    "ar": "معرف المستشفى"
+  },
+  "Nom de l'Hôpital": {
+    "fr": "Nom de l'Hôpital",
+    "en": "Hospital Name",
+    "ar": "اسم المستشفى"
+  },
+  "Directeur": {
+    "fr": "Directeur",
+    "en": "Director",
+    "ar": "المدير"
+  },
+  "Nombre de Services": {
+    "fr": "Nombre de Services",
+    "en": "Number of Services",
+    "ar": "عدد الخدمات"
+  }
 
 }
