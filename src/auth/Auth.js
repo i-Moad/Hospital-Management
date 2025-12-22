@@ -43,7 +43,7 @@ const handleLogin = async () => {
     `;
     // récuperer les données des users dans le fichier json et vérifier est ce que les champs de email et password de user connecté existe
     try {
-        const response = await fetch("../data/users.json");
+        const response = await fetch("../../data/users.json");
         const users = await response.json(); 
 
         const user = users.find(u => u.email === email && u.password === password);
@@ -53,7 +53,7 @@ const handleLogin = async () => {
             button.innerHTML = "Connexion";
 
             if (user) {
-                window.location.href = "/index.html"; // redirection
+                window.location.href = "../index.html"; // redirection
             } else {
                 showError(errorEmail, "Email ou mot de passe incorrect");
                 showError(errorPassword, "Email ou mot de passe incorrect");
