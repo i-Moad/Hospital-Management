@@ -42,10 +42,10 @@ const handleLogin = async () => {
         Connexion en cours
         <div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block ml-2"></div>
     `;
-  // récuperer les données des users dans le fichier json et vérifier est ce que les champs de email et password de user connecté existe
-  try {
-    const response = await fetch("../data/users.json");
-    const users = await response.json();
+    // récuperer les données des users dans le fichier json et vérifier est ce que les champs de email et password de user connecté existe
+    try {
+        const response = await fetch("../../data/users.json");
+        const users = await response.json(); 
 
     const user = users.find(
       (u) => u.email === email && u.password === password
@@ -55,20 +55,21 @@ const handleLogin = async () => {
       button.disabled = false;
       button.innerHTML = "Connexion";
 
-      if (user) {
-        window.location.href = "/index.html"; // redirection
-      } else {
-        showError(errorEmail, "Email ou mot de passe incorrect");
-        showError(errorPassword, "Email ou mot de passe incorrect");
-      }
-    }, 1000);
-  } catch (err) {
-    //En cas d'erreur afficher l'erreur dans console
-    console.error(err);
-    console.log("Erreur serveur ou fichier JSON introuvable");
-    button.disabled = false;
-    button.innerHTML = "Connexion";
-  }
+            if (user) {
+                window.location.href = "../index.html"; // redirection
+            } else {
+                showError(errorEmail, "Email ou mot de passe incorrect");
+                showError(errorPassword, "Email ou mot de passe incorrect");
+            }
+        }, 1000);
+
+    } catch (err) {
+        //En cas d'erreur afficher l'erreur dans console
+        console.error(err);
+        console.log("Erreur serveur ou fichier JSON introuvable");
+        button.disabled = false;
+        button.innerHTML = "Connexion";
+    }
 };
 
 // L'evenement click de button connexion
@@ -83,9 +84,9 @@ LangToogle.addEventListener("click", () => {
   const div = document.getElementById("LangSelect");
 
   const languages = [
-    { name: "Français", code: "fr", flag: "../assets/png/fr.png" },
-    { name: "English", code: "en", flag: "../assets/png/en.png" },
-    { name: "العربية", code: "ar", flag: "../assets/png/ma.png" },
+    { name: "Français", code: "fr", flag: "../../assets/png/fr.png" },
+    { name: "English", code: "en", flag: "../../assets/png/en.png" },
+    { name: "العربية", code: "ar", flag: "../../assets/png/ma.png" },
   ];
 
   let buttons = "";
