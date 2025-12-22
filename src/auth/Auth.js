@@ -78,10 +78,47 @@ button.addEventListener("click", (e) => {
   e.preventDefault();
   handleLogin();
 });
+let isLangOpen = false;
 const LangToogle = document.getElementById("LangToogle");
+const LangSelect = document.getElementById("LangSelect");
 
-LangToogle.addEventListener("click", () => {
-  const div = document.getElementById("LangSelect");
+/* ---------- Position RTL / LTR ---------- */
+function updateLangPosition() {
+  const isRTL = localStorage.getItem("lang") === "ar";
+
+  if (isRTL) {
+    LangSelect.classList.remove("right-0");
+    LangSelect.classList.add("left-0");
+    document.documentElement.dir = "rtl";
+  } else {
+    LangSelect.classList.add("right-0");
+    LangSelect.classList.remove("left-0");
+    document.documentElement.dir = "ltr";
+  }
+}
+
+/* ---------- Changer la langue ---------- */
+function setLang(lang) {
+  localStorage.setItem("lang", lang);
+  updateLangPosition();
+
+  LangSelect.innerHTML = "";
+  isLangOpen = false;
+
+  location.reload(); // optionnel
+}
+
+/* ---------- Ouvrir / Fermer ---------- */
+LangToogle.addEventListener("click", (e) => {
+  e.stopPropagation();
+
+  if (isLangOpen) {
+    LangSelect.innerHTML = "";
+    isLangOpen = false;
+    return;
+  }
+
+  updateLangPosition();
 
   const languages = [
     { name: "Français", code: "fr", flag: "../../assets/png/fr.png" },
@@ -92,41 +129,36 @@ LangToogle.addEventListener("click", () => {
   let buttons = "";
 
   for (let lang of languages) {
-    const isRTL = localStorage.getItem("lang") === "ar";
-    if (isRTL) {
-      div.classList.remove("right-0");
-      div.classList.add("left-0");
-    } else {
-      div.classList.add("right-0");
-      div.classList.remove("left-0");
-    }
     buttons += `
-        <button 
-            value="${lang.code}"
-            onclick="setLang('${lang.code}')"
-            class="
-                flex items-center w-full px-4 py-3
-                bg-white hover:bg-gray-50
-                border border-gray-200 rounded-lg
-                transition-all duration-200
-                hover:border-blue-500 hover:shadow-md
-                btnLang
-            "
-        >
-            <img src="${lang.flag}" alt="${lang.code}" width="20px">
-            <span class="font-medium text-gray-700">
-                ${lang.name}
-            </span>
-        </button>
+      <button
+        onclick="setLang('${lang.code}')"
+        class="flex items-center gap-2 w-full px-4 py-3
+               bg-white hover:bg-gray-50 border border-gray-200
+               rounded-lg transition-all hover:shadow-md">
+        <img src="${lang.flag}" width="20">
+        <span class="font-medium text-gray-700">${lang.name}</span>
+      </button>
     `;
   }
 
-  div.innerHTML = `
-        <div class="flex flex-col gap-2 mt-2 p-2 bg-white rounded-lg shadow-lg border border-gray-200">
-            ${buttons}
-        </div>
-    `;
+  LangSelect.innerHTML = `
+    <div class="flex flex-col gap-2 mt-2 p-2
+                bg-white rounded-lg shadow-lg border">
+      ${buttons}
+    </div>
+  `;
+
+  isLangOpen = true;
 });
+
+/* ---------- Click ailleurs = fermer ---------- */
+document.addEventListener("click", () => {
+  LangSelect.innerHTML = "";
+  isLangOpen = false;
+});
+
+/* ---------- Init au chargement ---------- */
+updateLangPosition();
 
 document.addEventListener("DOMContentLoaded", async () => {
   await initI18n();
