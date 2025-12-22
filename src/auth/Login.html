@@ -13,15 +13,15 @@
 </head>
 
 <body class="">
-    <div class="text-right mb-4">
-        <select id="langSelect" class="border rounded px-2 py-1">
-            <option value="fr">Français</option>
-            <option value="en">English</option>
-            <option value="ar">العربية</option>
-        </select>
+<div class="flex justify-end mx-10 relative">
+    <i data-feather="globe" id="LangToogle" class="cursor-pointer hover:text-blue-600 transition-colors"></i>
+    <div id="LangSelect" class="absolute top-8   z-50">
+        <!-- Les boutons s'afficheront ici -->
     </div>
+</div>
 
     <main
+    
         class="min-h-screen flex flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 p-6 md:p-10">
         <!-- Image animé -->
         <div class="order-1 md:order-2 flex items-center justify-center">
