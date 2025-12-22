@@ -21,10 +21,10 @@ export default class Auth {
     return true;
   }
 
-  static login(CIN, password) {
+  static login(email, password) {
     const users = Storage.load(this.USERS_KEY) || [];
     const user = users.find(
-      u => u.CIN === CIN && u.password === password
+      u => u.email === email && u.password === password
     );
 
     if (!user) {
