@@ -10,8 +10,8 @@
     <script src="../../../../translation/i18n.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
-    await initI18n();
-});
+            await initI18n();
+        });
     </script>
     <title>Admin Dashboard</title>
 </head>
@@ -31,10 +31,17 @@
                     </button>
 
                     <!-- Logo -->
-                    <a href="#" class="flex items-center ml-2 md:mr-24">
+                    <a href="#" class="flex items-center ml-2 ">
                         <img src="../../../../assets/png/logoEmsiHealth4.png" class=" " alt="EMSI Health"
                             width="150px" />
                     </a>
+                    <div class="flex justify-end mx-10 relative">
+                        <i data-feather="globe" id="LangToogle"
+                            class="cursor-pointer hover:text-blue-600 transition-colors"></i>
+                        <div id="LangSelect" class="absolute top-8   z-50">
+                            <!-- Les boutons s'afficheront ici -->
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Avatar -->
@@ -109,7 +116,7 @@
                     <div class="text-2xl font-bold text-gray-900 mb-2">1,234</div>
                     <div class="flex items-center text-sm text-green-600">
                         <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                        
+
                     </div>
                 </div>
                 <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
@@ -117,7 +124,7 @@
                     <div class="text-2xl font-bold text-gray-900 mb-2">48</div>
                     <div class="flex items-center text-sm text-green-600">
                         <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                        
+
                     </div>
                 </div>
                 <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
@@ -125,7 +132,7 @@
                     <div class="text-2xl font-bold text-gray-900 mb-2">156</div>
                     <div class="flex items-center text-sm text-green-600">
                         <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                        
+
                     </div>
                 </div>
                 <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
@@ -133,7 +140,7 @@
                     <div class="text-2xl font-bold text-gray-900 mb-2">78%</div>
                     <div class="flex items-center text-sm text-red-600">
                         <i data-feather="trending-down" class="w-4 h-4 mr-1"></i>
-                        
+
                     </div>
                 </div>
             </div>
@@ -153,21 +160,21 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Métrique">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Valeur">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Évolution">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Tendance">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Actions">
-                                    </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Métrique">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Valeur">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Évolution">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Tendance">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions">
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -210,36 +217,36 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="ID">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="CIN">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Nom">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Prénom">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Email">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Téléphone">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Adresse">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Role">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Statut">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Actions">
-                                    </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="ID">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="CIN">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nom">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Prénom">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Email">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Téléphone">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Adresse">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Role">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Statut">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions">
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -271,9 +278,10 @@
                                         <i data-feather="users" class="w-12 h-12 text-gray-400 mb-4"></i>
                                         <span class="text-gray-500 mb-4" data-i18n="Aucun utilisateur trouvé"></span>
                                         <button
-                                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors" data-i18n="Ajouter un utilisateur">
+                                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                                            data-i18n="Ajouter un utilisateur">
                                             <i data-feather="plus" class="w-4 h-4 inline mr-2"></i>
-                                            
+
                                         </button>
                                     </div>
                                 </td>
@@ -296,33 +304,33 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="ID Service">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Nom du Service">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Description">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Hôpital">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Chef de Service">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Nombre de Lits">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Taux d'Occupation">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Statut">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Actions">
-                                    </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="ID Service">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nom du Service">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Description">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Hôpital">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Chef de Service">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nombre de Lits">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Taux d'Occupation">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Statut">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions">
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -365,36 +373,36 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="ID Hôpital">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Nom de l'Hôpital">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Adresse">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Téléphone">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Email">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Directeur">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Nombre de Services">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Nombre de Lits">
-                                    </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Statut">
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="ID Hôpital">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nom de l'Hôpital">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Adresse">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Téléphone">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Email">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Directeur">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nombre de Services">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Nombre de Lits">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Statut">
                                     Statut</th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Actions">
-                                    </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions">
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -623,16 +631,95 @@
                 }
             }
         });
-        if(localStorage.getItem("lang")=="ar"){
+        if (localStorage.getItem("lang") == "ar") {
             document.getElementById("main").classList.add("sm:mr-64");
             document.getElementById("sidebar").classList.add("right-0")
         }
-        else{
+        else {
             document.getElementById("main").classList.add("sm:ml-64");
             document.getElementById("sidebar").classList.add("left-0")
         }
-        
-        
+
+
+        let isLangOpen = false;
+        const LangToogle = document.getElementById("LangToogle");
+        const LangSelect = document.getElementById("LangSelect");
+
+        /* ---------- Position RTL / LTR ---------- */
+        function updateLangPosition() {
+            const isRTL = localStorage.getItem("lang") === "ar";
+
+            if (isRTL) {
+                LangSelect.classList.remove("right-0");
+                LangSelect.classList.add("left-0");
+                document.documentElement.dir = "rtl";
+            } else {
+                LangSelect.classList.add("right-0");
+                LangSelect.classList.remove("left-0");
+                document.documentElement.dir = "ltr";
+            }
+        }
+
+        /* ---------- Changer la langue ---------- */
+        function setLang(lang) {
+            localStorage.setItem("lang", lang);
+            updateLangPosition();
+
+            LangSelect.innerHTML = "";
+            isLangOpen = false;
+
+            location.reload(); // optionnel
+        }
+
+        /* ---------- Ouvrir / Fermer ---------- */
+        LangToogle.addEventListener("click", (e) => {
+            e.stopPropagation();
+
+            if (isLangOpen) {
+                LangSelect.innerHTML = "";
+                isLangOpen = false;
+                return;
+            }
+
+            updateLangPosition();
+
+            const languages = [
+                { name: "Français", code: "fr", flag: "../../../../assets/png/fr.png" },
+                { name: "English", code: "en", flag: "../../../../assets/png/en.png" },
+                { name: "العربية", code: "ar", flag: "../../../../assets/png/ma.png" },
+            ];
+
+            let buttons = "";
+
+            for (let lang of languages) {
+                buttons += `
+      <button
+        onclick="setLang('${lang.code}')"
+        class="flex items-center gap-2 w-full px-4 py-3
+               bg-white hover:bg-gray-50 border border-gray-200
+               rounded-lg transition-all hover:shadow-md">
+        <img src="${lang.flag}" width="20">
+        <span class="font-medium text-gray-700">${lang.name}</span>
+      </button>
+    `;
+            }
+
+            LangSelect.innerHTML = `
+    <div class="flex flex-col gap-2 mt-2 p-2
+                bg-white rounded-lg shadow-lg border">
+      ${buttons}
+    </div>
+  `;
+
+            isLangOpen = true;
+        });
+
+        /* ---------- Click ailleurs = fermer ---------- */
+        document.addEventListener("click", () => {
+            LangSelect.innerHTML = "";
+            isLangOpen = false;
+        });
+
     </script>
 </body>
 
