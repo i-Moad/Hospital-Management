@@ -1,0 +1,25 @@
+{
+  "name": "hospital-management",
+  "version": "1.0.0",
+  "description": "Hospital Management - A web app project designed to manage hospital operations.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/i-Moad/Hospital-Management.git"
+  },
+  "keywords": [],
+  "author": "Moad AIT IDIR & Mustapha EZZIT",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/i-Moad/Hospital-Management/issues"
+  },
+  "homepage": "https://github.com/i-Moad/Hospital-Management#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "tailwindcss": "^4.1.18"
+  }
+}
