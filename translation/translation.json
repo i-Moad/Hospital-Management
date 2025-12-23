@@ -239,15 +239,15 @@
     "en": "Number of Beds",
     "ar": "عدد الأسرة"
   },
-  "Gestion des Hôpitaux": {
-    "fr": "Gestion des Hôpitaux",
+  "Gestion de l'Hôpital": {
+    "fr": "Gestion de l'Hôpital",
     "en": "Hospital Management",
-    "ar": "إدارة المستشفيات"
+    "ar": "إدارة المستشفى"
   },
-  "Gérez les informations des hôpitaux": {
-    "fr": "Gérez les informations des hôpitaux",
+  "Gérez les informations de l'hôpital": {
+    "fr": "Gérez les informations de l'hôpital",
     "en": "Manage hospital information",
-    "ar": "إدارة معلومات المستشفيات"
+    "ar": "إدارة معلومات المستشفى"
   },
   "ID Hôpital": {
     "fr": "ID Hôpital",
@@ -268,6 +268,67 @@
     "fr": "Nombre de Services",
     "en": "Number of Services",
     "ar": "عدد الخدمات"
+  },
+    "Informations de l'Hôpital": {
+    "fr": "Informations de l'Hôpital",
+    "en": "Hospital Information",
+    "ar": "معلومات المستشفى"
+  },
+  "Nom hopital": {
+    "fr": "Nom de l'hôpital",
+    "en": "Hospital Name",
+    "ar": "اسم المستشفى"
+  },
+  "Entrez le nom de l'hôpital": {
+    "fr": "Entrez le nom de l'hôpital",
+    "en": "Enter hospital name",
+    "ar": "أدخل اسم المستشفى"
+  },
+  "Entrez l'adresse complète": {
+    "fr": "Entrez l'adresse complète",
+    "en": "Enter full address",
+    "ar": "أدخل العنوان الكامل"
+  },
+  "Logo URL": {
+    "fr": "URL du logo",
+    "en": "Logo URL",
+    "ar": "رابط الشعار"
+  },
+  "Lien vers l'image du logo": {
+    "fr": "Lien vers l'image du logo",
+    "en": "Link to logo image",
+    "ar": "رابط صورة الشعار"
+  },
+  "Annuler": {
+    "fr": "Annuler",
+    "en": "Cancel",
+    "ar": "إلغاء"
+  },
+  "Enregistrer": {
+    "fr": "Enregistrer",
+    "en": "Save",
+    "ar": "حفظ"
+  },
+  "exemple@hopital.com": {
+    "fr": "exemple@hopital.com",
+    "en": "example@hospital.com",
+    "ar": "مثال@مستشفى.com"
+  },
+  "https://exemple.com/logo.png": {
+    "fr": "https://exemple.com/logo.png",
+    "en": "https://example.com/logo.png",
+    "ar": "https://مثال.com/logo.png"
+  },
+  "Ex: +212 600-000000": {
+    "fr": "Ex: +212 600-000000",
+    "en": "Ex: +212 600-000000",
+    "ar": "مثال: +212 600-000000"
+  },
+  "Paramètre": {
+    "fr": "Paramètre",
+    "en": "Settings",
+    "ar": "الإعدادات"
   }
+
 
 }
