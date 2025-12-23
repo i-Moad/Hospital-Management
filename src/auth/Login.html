@@ -4,26 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- cli pour tailwind css -->
-    <link href="../output.css" rel="stylesheet">
-    <!-- Cdn pour icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="../../translation/i18n.js"></script>
+    <script>
+        
+    </script>
     <title>Connexion - Gestion Hospitalière</title>
 </head>
 
-<body data-page="Auth" class="">
-<div class="flex justify-end mx-10 relative">
-    <i data-feather="globe" id="LangToogle" class="cursor-pointer hover:text-blue-600 transition-colors"></i>
-    <div id="LangSelect" class="absolute top-8   z-50">
-        <!-- Les boutons s'afficheront ici -->
-    </div>
-</div>
+<body data-page="Auth" class="bg-gray-50">
+    <!-- Navbar -->
+    <nav class="fixed top-0 z-50 w-full h-16 bg-white border-b border-gray-200 shadow-sm">
+        <div class="h-full px-6 lg:px-8">
+            <div class="flex items-center justify-between h-full">
+                <!-- Logo -->
+                <a href="#" class="flex items-center">
+                    <img src="../../assets/png/logoEmsiHealth4.png" alt="EMSI Health" class="h-auto" width="150px" />
+                </a>
 
-    <main
-    
-        class="min-h-screen flex flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 p-6 md:p-10">
-        <!-- Image animé -->
+                <!-- Sélecteur de langue -->
+                <div class="relative">
+                    <button id="LangToogle"
+                        class="flex items-center px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 group">
+                        <i data-feather="globe" class="w-5 h-5 text-blue-600"></i>
+                        <span class="ml-2 text-sm font-semibold text-gray-700" id="currentLang">FR</span>
+                        <i data-feather="chevron-down"
+                            class="w-4 h-4 ml-2 text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
+                    </button>
+                    <div id="LangSelect"
+                        class="absolute top-12 right-0 w-48 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden opacity-0 invisible transition-all duration-200 z-50 transform -translate-y-2">
+                        <!-- Les boutons s'afficheront ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal avec marge pour la navbar -->
+    <main class="pt-16 min-h-screen flex flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 p-6 md:p-10">
+        <!-- Image animée -->
         <div class="order-1 md:order-2 flex items-center justify-center">
             <img src="../../assets/svg/doctor.svg" alt="doctors" class="w-64 md:w-96 lg:w-[500px] max-w-full h-auto">
         </div>
@@ -32,39 +52,29 @@
         <div class="w-full max-w-md order-2 md:order-1">
             <!-- titre -->
             <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800" data-i18n="Gestion Hospitalière"></h1>
-                <p class="text-gray-600 mt-2" data-i18n="Connectez-vous à votre espace"></p>
+                <h1 class="text-3xl font-bold text-gray-800" data-i18n="Gestion Hospitalière">Gestion Hospitalière</h1>
+                <p class="text-gray-600 mt-2" data-i18n="Connectez-vous à votre espace">Connectez-vous à votre espace</p>
             </div>
 
             <div class="bg-white rounded-2xl shadow-xl p-8">
                 <form action="" class="space-y-6">
                     <!-- Champ Email -->
                     <div class="relative">
-                        <label for="email" class="block text-sm font-medium text-gray-700 "
-                            data-i18n="Adresse email"></label>
-                        <div
-                            class="input-container flex items-center border border-gray-300 rounded-lg overflow-hidden">
-                            <!-- Icône -->
+                        <label for="email" class="block text-sm font-medium text-gray-700" data-i18n="Adresse email">Adresse email</label>
+                        <div class="input-container flex items-center border border-gray-300 rounded-lg overflow-hidden mt-1">
                             <div class="pl-3 pr-3 text-gray-400 flex-shrink-0">
                                 <i data-feather="mail" class="w-5 h-5"></i>
                             </div>
-
-                            <!-- Input -->
                             <input type="email" name="email" id="email" placeholder="votre.email@hopital.com"
                                 class="flex-1 py-3 outline-none" required>
                         </div>
-                        <p id="errorEmail" class="text-red-600 ml-2 text-sm mt-2"></p>
-
                         <p id="errorEmail" class="text-red-600 ml-2 text-sm mt-2"></p>
                     </div>
 
                     <!-- Champ Mot de passe -->
                     <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700" data-i18n="Mot de passe">
-
-                        </label>
-                        <div
-                            class="input-container flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                        <label for="password" class="block text-sm font-medium text-gray-700" data-i18n="Mot de passe">Mot de passe</label>
+                        <div class="input-container flex items-center border border-gray-300 rounded-lg overflow-hidden mt-1">
                             <div class="pl-3 pr-3 text-gray-400 flex-shrink-0">
                                 <i data-feather="lock" class="w-5 h-5"></i>
                             </div>
@@ -75,39 +85,30 @@
                     </div>
 
                     <!-- Mot de passe oublié -->
-                    <div class="">
-
+                    <div>
                         <a href="#" class="text-sm font-medium text-blue-600 hover:text-blue-500 transition"
-                            data-i18n="Mot de passe oublié ?">
-
-                        </a>
+                            data-i18n="Mot de passe oublié ?">Mot de passe oublié ?</a>
                     </div>
 
                     <!-- Bouton de connexion -->
-
                     <button type="submit" id="connexion"
                         class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
-                        data-i18n="Connexion">
-
-                    </button>
-
+                        data-i18n="Connexion">Connexion</button>
                 </form>
 
                 <!-- Lien d'aide -->
                 <div class="mt-6 text-center">
-                    <p class="text-sm text-gray-600" data-i18n="Besoin d'aide ?">
-                        <a href="#" class="font-medium text-blue-600 hover:text-blue-500 transition"
-                            data-i18n="Contactez le support">
-
-                        </a>
+                    <p class="text-sm text-gray-600">
+                        <span data-i18n="Besoin d'aide ?">Besoin d'aide ?</span>
+                        <a href="#" class="font-medium text-blue-600 hover:text-blue-500 transition ml-1"
+                            data-i18n="Contactez le support">Contactez le support</a>
                     </p>
                 </div>
             </div>
         </div>
-
     </main>
 
-    <script src="./Auth.js"></script>
+          <script src="./Auth.js"></script>
     <script type="module" src="../main.js"></script>
 </body>
 

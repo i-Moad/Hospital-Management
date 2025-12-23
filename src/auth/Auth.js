@@ -81,19 +81,44 @@ feather.replace();
 let isLangOpen = false;
 const LangToogle = document.getElementById("LangToogle");
 const LangSelect = document.getElementById("LangSelect");
+const currentLangSpan = document.getElementById("currentLang");
+
+/* ---------- Mettre à jour l'affichage de la langue ---------- */
+function updateCurrentLangDisplay() {
+  const lang = localStorage.getItem("lang") || "fr";
+  const langMap = {
+    fr: "FR",
+    en: "EN",
+    ar: "AR"
+  };
+  if (currentLangSpan) {
+    currentLangSpan.textContent = langMap[lang] || "FR";
+  }
+}
 
 /* ---------- Position RTL / LTR ---------- */
 function updateLangPosition() {
   const isRTL = localStorage.getItem("lang") === "ar";
 
-  if (isRTL) {
-    LangSelect.classList.remove("right-0");
-    LangSelect.classList.add("left-0");
-    document.documentElement.dir = "rtl";
-  } else {
-    LangSelect.classList.add("right-0");
-    LangSelect.classList.remove("left-0");
-    document.documentElement.dir = "ltr";
+  if (LangSelect) {
+    if (isRTL) {
+      LangSelect.classList.remove("right-0");
+      LangSelect.classList.add("left-0");
+      document.documentElement.dir = "rtl";
+    } else {
+      LangSelect.classList.add("right-0");
+      LangSelect.classList.remove("left-0");
+      document.documentElement.dir = "ltr";
+    }
+  }
+}
+
+/* ---------- Fermer le menu ---------- */
+function closeLangMenu() {
+  if (LangSelect) {
+    LangSelect.classList.add("opacity-0", "invisible", "-translate-y-2");
+    LangSelect.classList.remove("opacity-100", "visible", "translate-y-0");
+    isLangOpen = false;
   }
 }
 
@@ -101,72 +126,97 @@ function updateLangPosition() {
 function setLang(lang) {
   localStorage.setItem("lang", lang);
   updateLangPosition();
-
-  LangSelect.innerHTML = "";
-  isLangOpen = false;
-
+  updateCurrentLangDisplay();
+  closeLangMenu();
+  
   location.reload(); // optionnel
 }
 
 /* ---------- Ouvrir / Fermer ---------- */
-LangToogle.addEventListener("click", (e) => {
-  e.stopPropagation();
+if (LangToogle) {
+  LangToogle.addEventListener("click", (e) => {
+    e.stopPropagation();
 
-  if (isLangOpen) {
-    LangSelect.innerHTML = "";
-    isLangOpen = false;
-    return;
-  }
+    if (isLangOpen) {
+      closeLangMenu();
+      return;
+    }
 
-  updateLangPosition();
+    updateLangPosition();
 
-  const languages = [
-    { name: "Français", code: "fr", flag: "../../assets/png/fr.png" },
-    { name: "English", code: "en", flag: "../../assets/png/en.png" },
-    { name: "العربية", code: "ar", flag: "../../assets/png/ma.png" },
-  ];
+    const languages = [
+      { name: "Français", code: "fr", flag: "../../assets/png/fr.png" },
+      { name: "English", code: "en", flag: "../../assets/png/en.png" },
+      { name: "العربية", code: "ar", flag: "../../assets/png/ma.png" },
+    ];
 
-  let buttons = "";
+    const currentLang = localStorage.getItem("lang") || "fr";
+    let buttons = "";
 
-  for (let lang of languages) {
-    buttons += `
-      <button
-        onclick="setLang('${lang.code}')"
-        class="flex items-center gap-2 w-full px-4 py-3
-               bg-white hover:bg-gray-50 border border-gray-200
-               rounded-lg transition-all hover:shadow-md">
-        <img src="${lang.flag}" width="20">
-        <span class="font-medium text-gray-700">${lang.name}</span>
-      </button>
+    languages.forEach(lang => {
+      const isActive = lang.code === currentLang;
+      buttons += `
+        <button onclick="setLang('${lang.code}')"
+          class="flex items-center justify-between w-full px-4 py-3
+                 ${isActive ? 'bg-blue-50 border-l-4 border-blue-500' : 'bg-white hover:bg-gray-50'} 
+                 transition-all duration-200">
+          <div class="flex items-center">
+            <img src="${lang.flag}" width="24" class="rounded-sm" alt="${lang.name}">
+            <span class="ml-3 font-medium ${isActive ? 'text-blue-600' : 'text-gray-700'}">
+              ${lang.name}
+            </span>
+          </div>
+          ${isActive ? '<i data-feather="check" class="w-4 h-4 text-blue-500"></i>' : ''}
+        </button>
+      `;
+    });
+
+    LangSelect.innerHTML = `
+      <div class="py-2">
+        <div class="px-4 py-2 border-b border-gray-100">
+          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider" data-i18n="Sélectionner la langue">Sélectionner la langue</p>
+        </div>
+        ${buttons}
+      </div>
     `;
-  }
 
-  LangSelect.innerHTML = `
-    <div class="flex flex-col gap-2 mt-2 p-2
-                bg-white rounded-lg shadow-lg border">
-      ${buttons}
-    </div>
-  `;
+    // Afficher le menu avec animation
+    LangSelect.classList.remove("opacity-0", "invisible", "-translate-y-2");
+    LangSelect.classList.add("opacity-100", "visible", "translate-y-0");
 
-  isLangOpen = true;
-});
+    isLangOpen = true;
+
+    // Mettre à jour les icônes Feather
+    if (typeof feather !== 'undefined') {
+      feather.replace();
+    }
+  });
+}
 
 /* ---------- Click ailleurs = fermer ---------- */
 document.addEventListener("click", () => {
-  LangSelect.innerHTML = "";
-  isLangOpen = false;
+  if (isLangOpen) {
+    closeLangMenu();
+  }
 });
 
 /* ---------- Init au chargement ---------- */
 updateLangPosition();
+updateCurrentLangDisplay();
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await initI18n();
+  // Initialiser i18n si la fonction existe
+  if (typeof initI18n === 'function') {
+    await initI18n();
+  }
 
+  // Mettre à jour l'affichage après l'init
+  updateCurrentLangDisplay();
+  
+  // Si c'est un élément SELECT (ancien style)
   const langSelect = document.getElementById("LangSelect");
-  let currentLang = "fr";
-
   if (langSelect && langSelect.tagName === "SELECT") {
+    let currentLang = localStorage.getItem("lang") || "fr";
     langSelect.value = currentLang;
 
     langSelect.addEventListener("change", (e) => {
