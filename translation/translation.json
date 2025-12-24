@@ -239,15 +239,15 @@
     "en": "Number of Beds",
     "ar": "عدد الأسرة"
   },
-  "Gestion des Hôpitaux": {
-    "fr": "Gestion des Hôpitaux",
+  "Gestion de l'Hôpital": {
+    "fr": "Gestion de l'Hôpital",
     "en": "Hospital Management",
-    "ar": "إدارة المستشفيات"
+    "ar": "إدارة المستشفى"
   },
-  "Gérez les informations des hôpitaux": {
-    "fr": "Gérez les informations des hôpitaux",
+  "Gérez les informations de l'hôpital": {
+    "fr": "Gérez les informations de l'hôpital",
     "en": "Manage hospital information",
-    "ar": "إدارة معلومات المستشفيات"
+    "ar": "إدارة معلومات المستشفى"
   },
   "ID Hôpital": {
     "fr": "ID Hôpital",
@@ -268,6 +268,359 @@
     "fr": "Nombre de Services",
     "en": "Number of Services",
     "ar": "عدد الخدمات"
+  },
+    "Informations de l'Hôpital": {
+    "fr": "Informations de l'Hôpital",
+    "en": "Hospital Information",
+    "ar": "معلومات المستشفى"
+  },
+  "Nom hopital": {
+    "fr": "Nom de l'hôpital",
+    "en": "Hospital Name",
+    "ar": "اسم المستشفى"
+  },
+  "Entrez le nom de l'hôpital": {
+    "fr": "Entrez le nom de l'hôpital",
+    "en": "Enter hospital name",
+    "ar": "أدخل اسم المستشفى"
+  },
+  "Entrez l'adresse complète": {
+    "fr": "Entrez l'adresse complète",
+    "en": "Enter full address",
+    "ar": "أدخل العنوان الكامل"
+  },
+  "Logo URL": {
+    "fr": "URL du logo",
+    "en": "Logo URL",
+    "ar": "رابط الشعار"
+  },
+  "Lien vers l'image du logo": {
+    "fr": "Lien vers l'image du logo",
+    "en": "Link to logo image",
+    "ar": "رابط صورة الشعار"
+  },
+  "exemple@hopital.com": {
+    "fr": "exemple@hopital.com",
+    "en": "example@hospital.com",
+    "ar": "مثال@مستشفى.com"
+  },
+  "https://exemple.com/logo.png": {
+    "fr": "https://exemple.com/logo.png",
+    "en": "https://example.com/logo.png",
+    "ar": "https://مثال.com/logo.png"
+  },
+  "Ex: +212 600-000000": {
+    "fr": "Ex: +212 600-000000",
+    "en": "Ex: +212 600-000000",
+    "ar": "مثال: +212 600-000000"
+  },
+  "Paramètre": {
+    "fr": "Paramètre",
+    "en": "Settings",
+    "ar": "الإعدادات"
+  },
+  "Mes Patients": {
+    "fr": "Mes Patients",
+    "en": "My Patients",
+    "ar": "مرضاي"
+  },
+  "Rendez-vous": {
+    "fr": "Rendez-vous",
+    "en": "Appointments",
+    "ar": "المواعيد"
+  },
+  "Consultations": {
+    "fr": "Consultations",
+    "en": "Consultations",
+    "ar": "الاستشارات"
+  },
+  "Mon Profil": {
+    "fr": "Mon Profil",
+    "en": "My Profile",
+    "ar": "ملفي الشخصي"
+  },
+  "Tableau de Bord Médecin": {
+    "fr": "Tableau de Bord Médecin",
+    "en": "Doctor Dashboard",
+    "ar": "لوحة تحكم الطبيب"
+  },
+  "Vue d'ensemble de votre activité médicale": {
+    "fr": "Vue d'ensemble de votre activité médicale",
+    "en": "Overview of your medical activity",
+    "ar": "نظرة عامة على نشاطك الطبي"
+  },
+  "Patients du Jour": {
+    "fr": "Patients du Jour",
+    "en": "Today's Patients",
+    "ar": "مرضى اليوم"
+  },
+  "Rendez-vous à Venir": {
+    "fr": "Rendez-vous à Venir",
+    "en": "Upcoming Appointments",
+    "ar": "المواعيد القادمة"
+  },
+  "Consultations Cette Semaine": {
+    "fr": "Consultations Cette Semaine",
+    "en": "This Week's Consultations",
+    "ar": "استشارات هذا الأسبوع"
+  },
+  "Disponibilité": {
+    "fr": "Disponibilité",
+    "en": "Availability",
+    "ar": "التوفر"
+  },
+  "Patients": {
+    "fr": "Patients",
+    "en": "Patients",
+    "ar": "المرضى"
+  },
+  "RDV": {
+    "fr": "RDV",
+    "en": "Appt",
+    "ar": "موعد"
+  },
+  "Activité Hebdomadaire": {
+    "fr": "Activité Hebdomadaire",
+    "en": "Weekly Activity",
+    "ar": "النشاط الأسبوعي"
+  },
+  "Répartition des Patients": {
+    "fr": "Répartition des Patients",
+    "en": "Patients Distribution",
+    "ar": "توزيع المرضى"
+  },
+  "Rendez-vous d'Aujourd'hui": {
+    "fr": "Rendez-vous d'Aujourd'hui",
+    "en": "Today's Appointments",
+    "ar": "مواعيد اليوم"
+  },
+  "Heure": {
+    "fr": "Heure",
+    "en": "Time",
+    "ar": "الوقت"
+  },
+  "Patient": {
+    "fr": "Patient",
+    "en": "Patient",
+    "ar": "المريض"
+  },
+  "Motif": {
+    "fr": "Motif",
+    "en": "Reason",
+    "ar": "السبب"
+  },
+  "Détails": {
+    "fr": "Détails",
+    "en": "Details",
+    "ar": "التفاصيل"
+  },
+  "Commencer": {
+    "fr": "Commencer",
+    "en": "Start",
+    "ar": "بدء"
+  },
+  "Gérez votre liste de patients": {
+    "fr": "Gérez votre liste de patients",
+    "en": "Manage your patient list",
+    "ar": "إدارة قائمة المرضى"
+  },
+  "Liste des Patients": {
+    "fr": "Liste des Patients",
+    "en": "Patients List",
+    "ar": "قائمة المرضى"
+  },
+  "Nouveau Patient": {
+    "fr": "Nouveau Patient",
+    "en": "New Patient",
+    "ar": "مريض جديد"
+  },
+  "Âge": {
+    "fr": "Âge",
+    "en": "Age",
+    "ar": "العمر"
+  },
+  "Dernière Visite": {
+    "fr": "Dernière Visite",
+    "en": "Last Visit",
+    "ar": "آخر زيارة"
+  },
+  "Prochain RDV": {
+    "fr": "Prochain RDV",
+    "en": "Next Appointment",
+    "ar": "الموعد القادم"
+  },
+  "Voir": {
+    "fr": "Voir",
+    "en": "View",
+    "ar": "عرض"
+  },
+  "Contacter": {
+    "fr": "Contacter",
+    "en": "Contact",
+    "ar": "اتصال"
+  },
+  "Gérez votre calendrier de rendez-vous": {
+    "fr": "Gérez votre calendrier de rendez-vous",
+    "en": "Manage your appointment calendar",
+    "ar": "إدارة تقويم المواعيد"
+  },
+  "Calendrier des rendez-vous": {
+    "fr": "Calendrier des rendez-vous",
+    "en": "Appointment Calendar",
+    "ar": "تقويم المواعيد"
+  },
+  "Le calendrier sera affiché ici": {
+    "fr": "Le calendrier sera affiché ici",
+    "en": "Calendar will be displayed here",
+    "ar": "سيتم عرض التقويم هنا"
+  },
+  "Ajouter un Rendez-vous": {
+    "fr": "Ajouter un Rendez-vous",
+    "en": "Add Appointment",
+    "ar": "إضافة موعد"
+  },
+  "Sélectionner un patient": {
+    "fr": "Sélectionner un patient",
+    "en": "Select a patient",
+    "ar": "اختر مريضاً"
+  },
+  "Date et Heure": {
+    "fr": "Date et Heure",
+    "en": "Date and Time",
+    "ar": "التاريخ والوقت"
+  },
+  "Programmer": {
+    "fr": "Programmer",
+    "en": "Schedule",
+    "ar": "جدولة"
+  },
+  "Historique des consultations médicales": {
+    "fr": "Historique des consultations médicales",
+    "en": "Medical consultations history",
+    "ar": "سجل الاستشارات الطبية"
+  },
+  "Consultations Récentes": {
+    "fr": "Consultations Récentes",
+    "en": "Recent Consultations",
+    "ar": "الاستشارات الحديثة"
+  },
+  "Nouvelle Consultation": {
+    "fr": "Nouvelle Consultation",
+    "en": "New Consultation",
+    "ar": "استشارة جديدة"
+  },
+  "Gérez vos informations personnelles": {
+    "fr": "Gérez vos informations personnelles",
+    "en": "Manage your personal information",
+    "ar": "إدارة معلوماتك الشخصية"
+  },
+
+  "Spécialité": {
+    "fr": "Spécialité",
+    "en": "Specialty",
+    "ar": "التخصص"
+  },
+
+  "N° Licence": {
+    "fr": "N° Licence",
+    "en": "License Number",
+    "ar": "رقم الرخصة"
+  },
+  "Adresse du Cabinet": {
+    "fr": "Adresse du Cabinet",
+    "en": "Office Address",
+    "ar": "عنوان العيادة"
+  },
+  "Biographie": {
+    "fr": "Biographie",
+    "en": "Biography",
+    "ar": "السيرة الذاتية"
+  },
+  "Annuler": {
+    "fr": "Annuler",
+    "en": "Cancel",
+    "ar": "إلغاء"
+  },
+  "Enregistrer": {
+    "fr": "Enregistrer",
+    "en": "Save",
+    "ar": "حفظ"
+  },
+  "Mettre à jour": {
+    "fr": "Mettre à jour",
+    "en": "Update",
+    "ar": "تحديث"
+  },
+  "Paramètres": {
+    "fr": "Paramètres",
+    "en": "Settings",
+    "ar": "الإعدادات"
+  },
+  "Déconnexion": {
+    "fr": "Déconnexion",
+    "en": "Logout",
+    "ar": "تسجيل الخروج"
+  },
+  "Sélectionner la langue": {
+    "fr": "Sélectionner la langue",
+    "en": "Select language",
+    "ar": "اختر اللغة"
+  },
+  "Confirmé": {
+    "fr": "Confirmé",
+    "en": "Confirmed",
+    "ar": "مؤكد"
+  },
+  "Spécialité médicale": {
+    "fr": "Spécialité médicale",
+    "en": "Medical specialty",
+    "ar": "التخصص الطبي"
+  },
+  "email@exemple.com": {
+    "fr": "email@exemple.com",
+    "en": "email@example.com",
+    "ar": "بريد@مثال.com"
+  },
+  "Numéro de licence médicale": {
+    "fr": "Numéro de licence médicale",
+    "en": "Medical license number",
+    "ar": "رقم الرخصة الطبية"
+  },
+  "Adresse complète du cabinet": {
+    "fr": "Adresse complète du cabinet",
+    "en": "Complete office address",
+    "ar": "عنوان العيادة الكامل"
+  },
+  "Décrivez votre expérience et spécialités...": {
+    "fr": "Décrivez votre expérience et spécialités...",
+    "en": "Describe your experience and specialties...",
+    "ar": "صف خبرتك وتخصصاتك..."
+  },
+  "Contrôle cardiaque": {
+    "fr": "Contrôle cardiaque",
+    "en": "Cardiac checkup",
+    "ar": "فحص القلب"
+  },
+  "+3 aujourd'hui": {
+    "fr": "+3 aujourd'hui",
+    "en": "+3 today",
+    "ar": "+3 اليوم"
+  },
+  "Prochain: 10:30": {
+    "fr": "Prochain: 10:30",
+    "en": "Next: 10:30",
+    "ar": "التالي: 10:30"
+  },
+  "Moyenne: 14/jour": {
+    "fr": "Moyenne: 14/jour",
+    "en": "Average: 14/day",
+    "ar": "المتوسط: 14/يوم"
+  },
+  "En service": {
+    "fr": "En service",
+    "en": "On duty",
+    "ar": "في الخدمة"
   }
+
 
 }
