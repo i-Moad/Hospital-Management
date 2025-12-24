@@ -219,6 +219,11 @@
     "en": "Service Name",
     "ar": "اسم الخدمة"
   },
+  "Nom du service...": {
+    "fr": "Nom du Service...",
+    "en": "Service Name...",
+    "ar": "اسم الخدمة..."
+  },
   "Description": {
     "fr": "Description",
     "en": "Description",
@@ -620,7 +625,453 @@
     "fr": "En service",
     "en": "On duty",
     "ar": "في الخدمة"
-  }
+  },
+    "Détails de l'utilisateur": {
+    "fr": "Détails de l'utilisateur",
+    "en": "User Details",
+    "ar": "تفاصيل المستخدم"
+  },
+  "Informations complètes de l'utilisateur": {
+    "fr": "Informations complètes de l'utilisateur",
+    "en": "Complete User Information",
+    "ar": "معلومات كاملة للمستخدم"
+  },
+  "Informations Personnelles": {
+    "fr": "Informations Personnelles",
+    "en": "Personal Information",
+    "ar": "المعلومات الشخصية"
+  },
+  "Nom Complet": {
+    "fr": "Nom Complet",
+    "en": "Full Name",
+    "ar": "الاسم الكامل"
+  },
+  "Date de Naissance": {
+    "fr": "Date de Naissance",
+    "en": "Date of Birth",
+    "ar": "تاريخ الميلاد"
+  },
+  "Contact": {
+    "fr": "Contact",
+    "en": "Contact",
+    "ar": "الاتصال"
+  },
+  "Date d'inscription": {
+    "fr": "Date d'inscription",
+    "en": "Registration Date",
+    "ar": "تاريخ التسجيل"
+  },
+  "Hôpital Assigné": {
+    "fr": "Hôpital Assigné",
+    "en": "Assigned Hospital",
+    "ar": "المستشفى المخصص"
+  },
+  "Département": {
+    "fr": "Département",
+    "en": "Department",
+    "ar": "القسم"
+  },
+  "Fermer": {
+    "fr": "Fermer",
+    "en": "Close",
+    "ar": "إغلاق"
+  },
+  "Modifier": {
+    "fr": "Modifier",
+    "en": "Edit",
+    "ar": "تعديل"
+  },
+  "Modifier l'utilisateur": {
+    "fr": "Modifier l'utilisateur",
+    "en": "Edit User",
+    "ar": "تعديل المستخدم"
+  },
+  "Mettre à jour les informations de l'utilisateur": {
+    "fr": "Mettre à jour les informations de l'utilisateur",
+    "en": "Update user information",
+    "ar": "تحديث معلومات المستخدم"
+  },
+  "Entrez le prénom": {
+    "fr": "Entrez le prénom",
+    "en": "Enter first name",
+    "ar": "أدخل الاسم الأول"
+  },
+  "Entrez le nom": {
+    "fr": "Entrez le nom",
+    "en": "Enter last name",
+    "ar": "أدخل اسم العائلة"
+  },
+  "Entrez le CIN": {
+    "fr": "Entrez le CIN",
+    "en": "Enter ID card number",
+    "ar": "أدخل رقم البطاقة الوطنية"
+  },
+  "+212 600-000000": {
+    "fr": "+212 600-000000",
+    "en": "+212 600-000000",
+    "ar": "+212 600-000000"
+  },
+  "Administrateur": {
+    "fr": "Administrateur",
+    "en": "Administrator",
+    "ar": "المسؤول"
+  },
+  "Médecin": {
+    "fr": "Médecin",
+    "en": "Doctor",
+    "ar": "طبيب"
+  },
+  "Infirmier": {
+    "fr": "Infirmier",
+    "en": "Nurse",
+    "ar": "ممرض"
+  },
+  "Personnel": {
+    "fr": "Personnel",
+    "en": "Staff",
+    "ar": "الموظفين"
+  },
+  "Actif": {
+    "fr": "Actif",
+    "en": "Active",
+    "ar": "نشط"
+  },
+  "Inactif": {
+    "fr": "Inactif",
+    "en": "Inactive",
+    "ar": "غير نشط"
+  },
+  "Suspendu": {
+    "fr": "Suspendu",
+    "en": "Suspended",
+    "ar": "معلق"
+  },
+  "Supprimer l'utilisateur": {
+    "fr": "Supprimer l'utilisateur",
+    "en": "Delete User",
+    "ar": "حذف المستخدم"
+  },
+  "Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.": {
+    "fr": "Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.",
+    "en": "Are you sure you want to delete this user? This action is irreversible.",
+    "ar": "هل أنت متأكد من رغبتك في حذف هذا المستخدم؟ هذا الإجراء غير قابل للتراجع."
+  },
+  "Cette action supprimera toutes les données associées à cet utilisateur, y compris son historique et ses permissions.": {
+    "fr": "Cette action supprimera toutes les données associées à cet utilisateur, y compris son historique et ses permissions.",
+    "en": "This action will delete all data associated with this user, including their history and permissions.",
+    "ar": "سيحذف هذا الإجراء جميع البيانات المرتبطة بهذا المستخدم، بما في ذلك سجله وأذوناته."
+  },
+  "Supprimer définitivement": {
+    "fr": "Supprimer définitivement",
+    "en": "Delete Permanently",
+    "ar": "حذف نهائي"
+  },
+  "Détails du service": {
+    "fr": "Détails du service",
+    "en": "Service Details",
+    "ar": "تفاصيل الخدمة"
+  },
+  "Informations complètes du service médical": {
+    "fr": "Informations complètes du service médical",
+    "en": "Complete Medical Service Information",
+    "ar": "معلومات كاملة للخدمة الطبية"
+  },
+  "Code Service": {
+    "fr": "Code Service",
+    "en": "Service Code",
+    "ar": "رمز الخدمة"
+  },
+  "Date de création": {
+    "fr": "Date de création",
+    "en": "Creation Date",
+    "ar": "تاريخ الإنشاء"
+  },
+  "Capacité": {
+    "fr": "Capacité",
+    "en": "Capacity",
+    "ar": "السعة"
+  },
+  "Lits Totaux": {
+    "fr": "Lits Totaux",
+    "en": "Total Beds",
+    "ar": "إجمالي الأسرة"
+  },
+  "Lits Occupés": {
+    "fr": "Lits Occupés",
+    "en": "Occupied Beds",
+    "ar": "الأسرة المشغولة"
+  },
+  "Équipements Principaux": {
+    "fr": "Équipements Principaux",
+    "en": "Main Equipment",
+    "ar": "المعدات الرئيسية"
+  },
+  "Modifier le service": {
+    "fr": "Modifier le service",
+    "en": "Edit Service",
+    "ar": "تعديل الخدمة"
+  },
+  "Mettre à jour les informations du service": {
+    "fr": "Mettre à jour les informations du service",
+    "en": "Update service information",
+    "ar": "تحديث معلومات الخدمة"
+  },
+  "Entrez le nom du service": {
+    "fr": "Entrez le nom du service",
+    "en": "Enter service name",
+    "ar": "أدخل اسم الخدمة"
+  },
+  "SERV-XXX-001": {
+    "fr": "SERV-XXX-001",
+    "en": "SERV-XXX-001",
+    "ar": "SERV-XXX-001"
+  },
+  "En maintenance": {
+    "fr": "En maintenance",
+    "en": "Under Maintenance",
+    "ar": "قيد الصيانة"
+  },
+  "Fermé": {
+    "fr": "Fermé",
+    "en": "Closed",
+    "ar": "مغلق"
+  },
+  "Décrivez le service...": {
+    "fr": "Décrivez le service...",
+    "en": "Describe the service...",
+    "ar": "صف الخدمة..."
+  },
+  "Supprimer le service": {
+    "fr": "Supprimer le service",
+    "en": "Delete Service",
+    "ar": "حذف الخدمة"
+  },
+  "Êtes-vous sûr de vouloir supprimer ce service médical ?": {
+    "fr": "Êtes-vous sûr de vouloir supprimer ce service médical ?",
+    "en": "Are you sure you want to delete this medical service?",
+    "ar": "هل أنت متأكد من رغبتك في حذف هذه الخدمة الطبية؟"
+  },
+  "Chef de service": {
+    "fr": "Chef de service",
+    "en": "Service Head",
+    "ar": "رئيس الخدمة"
+  },
+  "Occupation": {
+    "fr": "Occupation",
+    "en": "Occupancy",
+    "ar": "الإشغال"
+  },
+  "Attention !": {
+    "fr": "Attention !",
+    "en": "Warning!",
+    "ar": "تحذير!"
+  },
+  "Cette action est critique car ce service contient actuellement 18 patients hospitalisés. Toutes les données du service seront définitivement supprimées.": {
+    "fr": "Cette action est critique car ce service contient actuellement 18 patients hospitalisés. Toutes les données du service seront définitivement supprimées.",
+    "en": "This action is critical because this service currently contains 18 hospitalized patients. All service data will be permanently deleted.",
+    "ar": "هذا الإجراء حرج لأن هذه الخدمة تحتوي حاليًا على 18 مريضًا داخليًا. سيتم حذف جميع بيانات الخدمة بشكل دائم."
+  },
+  "Transférer les patients vers un autre service avant suppression": {
+    "fr": "Transférer les patients vers un autre service avant suppression",
+    "en": "Transfer patients to another service before deletion",
+    "ar": "نقل المرضى إلى خدمة أخرى قبل الحذف"
+  },
+  "Sélectionner un service": {
+    "fr": "Sélectionner un service",
+    "en": "Select a service",
+    "ar": "اختر خدمة"
+  },
+  "Cardiologie": {
+    "fr": "Cardiologie",
+    "en": "Cardiology",
+    "ar": "أمراض القلب"
+  },
+  "Urgences": {
+    "fr": "Urgences",
+    "en": "Emergency",
+    "ar": "الطوارئ"
+  },
+  "Médecine interne": {
+    "fr": "Médecine interne",
+    "en": "Internal Medicine",
+    "ar": "الطب الباطني"
+  },
+  "Confirmer l'enregistrement": {
+    "fr": "Confirmer l'enregistrement",
+    "en": "Confirm Save",
+    "ar": "تأكيد الحفظ"
+  },
+  "Voulez-vous enregistrer les modifications apportées aux paramètres de l'hôpital ?": {
+    "fr": "Voulez-vous enregistrer les modifications apportées aux paramètres de l'hôpital ?",
+    "en": "Do you want to save the changes made to the hospital settings?",
+    "ar": "هل تريد حفظ التغييرات التي تم إجراؤها على إعدادات المستشفى؟"
+  },
+  "Modifications détectées": {
+    "fr": "Modifications détectées",
+    "en": "Detected Changes",
+    "ar": "التغييرات المكتشفة"
+  },
+  "Nom de l'hôpital modifié": {
+    "fr": "Nom de l'hôpital modifié",
+    "en": "Hospital name modified",
+    "ar": "تم تعديل اسم المستشفى"
+  },
+  "Numéro de téléphone mis à jour": {
+    "fr": "Numéro de téléphone mis à jour",
+    "en": "Phone number updated",
+    "ar": "تم تحديث رقم الهاتف"
+  },
+  "Confirmer": {
+    "fr": "Confirmer",
+    "en": "Confirm",
+    "ar": "تأكيد"
+  },
+  "Gérez tous les services médicaux et affectez les médecins": {
+    "fr": "Gérez tous les services médicaux et affectez les médecins",
+    "en": "Manage all medical services and assign doctors",
+    "ar": "إدارة جميع الخدمات الطبية وتعيين الأطباء"
+},
+"Liste des Services": {
+    "fr": "Liste des Services",
+    "en": "Services List",
+    "ar": "قائمة الخدمات"
+},
+"Affectation des Médecins": {
+    "fr": "Affectation des Médecins",
+    "en": "Doctors Assignment",
+    "ar": "تعيين الأطباء"
+},
+"Services Disponibles": {
+    "fr": "Services Disponibles",
+    "en": "Available Services",
+    "ar": "الخدمات المتاحة"
+},
+"Rechercher un service...": {
+    "fr": "Rechercher un service...",
+    "en": "Search a service...",
+    "ar": "بحث عن خدمة..."
+},
+"médecins": {
+    "fr": "médecins",
+    "en": "doctors",
+    "ar": "أطباء"
+},
+"Sélectionnez un service": {
+    "fr": "Sélectionnez un service",
+    "en": "Select a service",
+    "ar": "اختر خدمة"
+},
+"Cliquez sur un service pour voir les médecins": {
+    "fr": "Cliquez sur un service pour voir les médecins",
+    "en": "Click on a service to see doctors",
+    "ar": "انقر على خدمة لعرض الأطباء"
+},
+"Rechercher un médecin": {
+    "fr": "Rechercher un médecin",
+    "en": "Search a doctor",
+    "ar": "بحث عن طبيب"
+},
+"Toutes les spécialités": {
+    "fr": "Toutes les spécialités",
+    "en": "All specialties",
+    "ar": "جميع التخصصات"
+},
+"Médecins Disponibles": {
+    "fr": "Médecins Disponibles",
+    "en": "Available Doctors",
+    "ar": "الأطباء المتاحون"
+},
+"Affecter": {
+    "fr": "Affecter",
+    "en": "Assign",
+    "ar": "تعيين"
+},
+"Médecins Affectés": {
+    "fr": "Médecins Affectés",
+    "en": "Assigned Doctors",
+    "ar": "الأطباء المعينون"
+},
+"Aucun médecin affecté à ce service": {
+    "fr": "Aucun médecin affecté à ce service",
+    "en": "No doctor assigned to this service",
+    "ar": "لا يوجد طبيب معين لهذه الخدمة"
+},
+"Cliquez sur 'Affecter' pour ajouter des médecins": {
+    "fr": "Cliquez sur 'Affecter' pour ajouter des médecins",
+    "en": "Click 'Assign' to add doctors",
+    "ar": "انقر على 'تعيين' لإضافة أطباء"
+},
+"Réinitialiser": {
+    "fr": "Réinitialiser",
+    "en": "Reset",
+    "ar": "إعادة تعيين"
+},
+"Enregistrer les affectations": {
+    "fr": "Enregistrer les affectations",
+    "en": "Save assignments",
+    "ar": "حفظ التعيينات"
+},
+"Désaffecter": {
+    "fr": "Désaffecter",
+    "en": "Unassign",
+    "ar": "إلغاء التعيين"
+},
+"Médecins Assignés": {
+    "fr": "Médecins Assignés",
+    "en": "Assigned Doctors",
+    "ar": "الأطباء المعينون"
+},
+"Filtrer par rôle": {
+  "fr": "Filtrer par rôle",
+  "en": "Filter by role",
+  "ar": "التصفية حسب الدور"
+},
+"Filtrer par statut": {
+  "fr": "Filtrer par statut",
+  "en": "Filter by status",
+  "ar": "التصفية حسب الحالة"
+},
+"Rechercher": {
+  "fr": "Rechercher",
+  "en": "Search",
+  "ar": "بحث"
+},
+"Tous les roles": {
+  "fr": "Tous les roles",
+  "en": "All roles",
+  "ar": "جميع الأدوار"
+},
+"Tous les status": {
+  "fr": "Tous les status",
+  "en": "All statuses",
+  "ar": "جميع الحالات"
+},
+"Utilisateur": {
+  "fr": "Utilisateur",
+  "en": "User",
+  "ar": "مستخدم"
+},
+"Lignes par page": {
+  "fr": "Lignes par page",
+  "en": "Rows per page",
+  "ar": "عدد الصفوف في الصفحة"
+},
+"Nombre de Médecins": {
+  "fr": "Nombre de Médecins",
+  "en": "Number of Doctors",
+  "ar": "عدد الأطباء"
+},
+"Rôle": {
+  "fr": "rôle",
+  "en": "Role",
+  "ar": "الدور"
+},
+"Ajouter un service": {
+  "fr": "Ajouter un service",
+  "en": "Add a service",
+  "ar": "إضافة خدمة"
+}
+
 
 
 }
