@@ -1124,7 +1124,7 @@
     "en": "Medical notes",
     "ar": "الملاحظات الطبية"
   },
-  "Voir toutes": {
+  "Voir Toutes": {
     "fr": "Voir toutes",
     "en": "View all",
     "ar": "عرض الكل"
@@ -1283,5 +1283,110 @@
     "fr": "Annulé",
     "en": "Cancelled",
     "ar": "ملغى"
+  },
+   "Enregistrer un patient": {
+    "fr": "Enregistrer un patient",
+    "en": "Register a patient",
+    "ar": "تسجيل مريض"
+  },
+  "Date d'enregistrement": {
+    "fr": "Date d'enregistrement",
+    "en": "Registration date",
+    "ar": "تاريخ التسجيل"
+  },
+  "Plannings Médecins": {
+    "fr": "Plannings Médecins",
+    "en": "Doctors Schedules",
+    "ar": "جداول الأطباء"
+  },
+  "Gestion des Patients": {
+    "fr": "Gestion des Patients",
+    "en": "Patients Management",
+    "ar": "إدارة المرضى"
+  },
+  "Enregistrez et gérez les patients": {
+    "fr": "Enregistrez et gérez les patients",
+    "en": "Register and manage patients",
+    "ar": "سجل وأدر المرضى"
+  },
+  "Modifier le patient": {
+    "fr": "Modifier le patient",
+    "en": "Edit patient",
+    "ar": "تعديل المريض"
+  },
+  "Mettez à jour les informations du patient": {
+    "fr": "Mettez à jour les informations du patient",
+    "en": "Update patient information",
+    "ar": "قم بتحديث معلومات المريض"
+  },
+  "Date & Heure": {
+    "fr": "Date & Heure",
+    "en": "Date & Time",
+    "ar": "التاريخ والوقت"
+  },
+  "Nouveau rendez-vous": {
+    "fr": "Nouveau rendez-vous",
+    "en": "New appointment",
+    "ar": "موعد جديد"
+  },
+  "Créez et gérez les rendez-vous": {
+    "fr": "Créez et gérez les rendez-vous",
+    "en": "Create and manage appointments",
+    "ar": "إنشاء وإدارة المواعيد"
+  },
+  "Gestion des Rendez-vous": {
+    "fr": "Gestion des Rendez-vous",
+    "en": "Appointments Management",
+    "ar": "إدارة المواعيد"
+  },
+  "Consultez les plannings de tous les médecins": {
+    "fr": "Consultez les plannings de tous les médecins",
+    "en": "View all doctors' schedules",
+    "ar": "استعرض جداول جميع الأطباء"
+  },
+  "Plannings des Médecins": {
+    "fr": "Plannings des Médecins",
+    "en": "Doctors' Schedules",
+    "ar": "جداول الأطباء"
+  },
+  "Service": {
+    "fr": "Service",
+    "en": "Department",
+    "ar": "القسم"
+  },
+  "Tous les services": {
+    "fr": "Tous les services",
+    "en": "All departments",
+    "ar": "جميع الأقسام"
+  },
+  "Enregistrer les modifications": {
+    "fr": "Enregistrer les modifications",
+    "en": "Save changes",
+    "ar": "حفظ التعديلات"
+  },
+    "Vue d'ensemble de votre activité": {
+    "fr": "Vue d'ensemble de votre activité",
+    "en": "Overview of your activity",
+    "ar": "نظرة عامة على نشاطك"
+  },
+  "Rendez-vous à venir": {
+    "fr": "Rendez-vous à venir",
+    "en": "Upcoming appointments",
+    "ar": "المواعيد القادمة"
+  },
+  "Nom, CIN, téléphone...": {
+    "fr": "Nom, CIN, téléphone...",
+    "en": "Name, ID, phone...",
+    "ar": "الاسم، الهوية، الهاتف..."
+  },
+    "Terminé": {
+    "fr": "Terminé",
+    "en": "Completed",
+    "ar": "مكتمل"
+  },
+  "Tous les médecins": {
+    "fr": "Tous les médecins",
+    "en": "All doctors",
+    "ar": "جميع الأطباء"
   }
 }

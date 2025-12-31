@@ -1,0 +1,12 @@
+[
+  { "serviceId": 1, "serviceName": "Cardiology", "description": "Heart treatments", "isEnabled": true, "createdAt": "2025-01-01" },
+  { "serviceId": 2, "serviceName": "Dermatology", "description": "Skin care", "isEnabled": true, "createdAt": "2025-01-01" },
+  { "serviceId": 3, "serviceName": "Pediatrics", "description": "Children care", "isEnabled": true, "createdAt": "2025-01-01" },
+  { "serviceId": 4, "serviceName": "Orthopedics", "description": "Bones & joints", "isEnabled": true, "createdAt": "2025-01-01" },
+  { "serviceId": 5, "serviceName": "Neurology", "description": "Brain & nerves", "isEnabled": true, "createdAt": "2025-01-01" },
+  { "serviceId": 6, "serviceName": "Gynecology", "description": "Women health", "isEnabled": true, "createdAt": "2025-01-01" },
+  { "serviceId": 7, "serviceName": "ENT", "description": "Ear Nose Throat", "isEnabled": true, "createdAt": "2025-01-01" },
+  { "serviceId": 8, "serviceName": "Ophthalmology", "description": "Eye care", "isEnabled": true, "createdAt": "2025-01-01" },
+  { "serviceId": 9, "serviceName": "Radiology", "description": "Medical imaging", "isEnabled": true, "createdAt": "2025-01-01" },
+  { "serviceId": 10, "serviceName": "General Medicine", "description": "General health", "isEnabled": true, "createdAt": "2025-01-01" }
+]

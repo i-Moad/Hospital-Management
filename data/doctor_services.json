@@ -1,0 +1,12 @@
+[
+  { "doctorServiceId": 1, "doctorId": 2, "serviceId": 1 },
+  { "doctorServiceId": 2, "doctorId": 2, "serviceId": 5 },
+  { "doctorServiceId": 3, "doctorId": 3, "serviceId": 2 },
+  { "doctorServiceId": 4, "doctorId": 3, "serviceId": 4 },
+  { "doctorServiceId": 5, "doctorId": 2, "serviceId": 10 },
+  { "doctorServiceId": 6, "doctorId": 3, "serviceId": 9 },
+  { "doctorServiceId": 7, "doctorId": 2, "serviceId": 7 },
+  { "doctorServiceId": 8, "doctorId": 3, "serviceId": 8 },
+  { "doctorServiceId": 9, "doctorId": 2, "serviceId": 6 },
+  { "doctorServiceId": 10, "doctorId": 3, "serviceId": 3 }
+]
