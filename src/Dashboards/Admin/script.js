@@ -212,7 +212,7 @@ async function loadDashboardData() {
     feather.replace();
   } catch (error) {
     console.error("Erreur lors du chargement des données du dashboard:", error);
-    showToast("Erreur lors du chargement des données du dashboard", "error");
+    // showToast("Erreur lors du chargement des données du dashboard", "error");
   }
 }
 
@@ -366,10 +366,10 @@ async function loadUsersData() {
     ];
 
     filterAndPaginateUsers();
-    showToast("Utilisateurs chargés avec succès", "success");
+    // showToast("Utilisateurs chargés avec succès", "success");
   } catch (error) {
     console.error("Erreur lors du chargement des utilisateurs:", error);
-    showToast("Erreur lors du chargement des utilisateurs", "error");
+    // showToast("Erreur lors du chargement des utilisateurs", "error");
   }
 }
 
@@ -740,10 +740,10 @@ async function loadServicesData() {
     ];
 
     filterAndPaginateServices();
-    showToast("Services chargés avec succès", "success");
+    // showToast("Services chargés avec succès", "success");
   } catch (error) {
     console.error("Erreur lors du chargement des services:", error);
-    showToast("Erreur lors du chargement des services", "error");
+    // showToast("Erreur lors du chargement des services", "error");
   }
 }
 
@@ -975,7 +975,7 @@ function updateServicesPagination() {
 function openViewUserModal(userId) {
   const user = usersData.find((u) => u.id == userId);
   if (!user) {
-    showToast("Utilisateur non trouvé", "error");
+    // showToast("Utilisateur non trouvé", "error");
     return;
   }
 
@@ -1022,7 +1022,7 @@ function openViewUserModal(userId) {
 function openEditUserModal(userId) {
   const user = usersData.find((u) => u.id == userId);
   if (!user) {
-    showToast("Utilisateur non trouvé", "error");
+    // showToast("Utilisateur non trouvé", "error");
     return;
   }
 
@@ -1045,7 +1045,7 @@ function openEditUserModal(userId) {
 function openDeleteUserModal(userId) {
   const user = usersData.find((u) => u.id == userId);
   if (!user) {
-    showToast("Utilisateur non trouvé", "error");
+    // showToast("Utilisateur non trouvé", "error");
     return;
   }
 
@@ -1068,7 +1068,7 @@ function openDeleteUserModal(userId) {
 function openViewServiceModal(serviceId) {
   const service = servicesData.find((s) => s.id == serviceId);
   if (!service) {
-    showToast("Service non trouvé", "error");
+    // showToast("Service non trouvé", "error");
     return;
   }
 
@@ -1206,7 +1206,7 @@ function openViewServiceModal(serviceId) {
 function openEditServiceModal(serviceId) {
   const service = servicesData.find((s) => s.id == serviceId);
   if (!service) {
-    showToast("Service non trouvé", "error");
+    // showToast("Service non trouvé", "error");
     return;
   }
 
@@ -1234,7 +1234,7 @@ function openEditServiceModal(serviceId) {
 function openDeleteServiceModal(serviceId) {
   const service = servicesData.find((s) => s.id == serviceId);
   if (!service) {
-    showToast("Service non trouvé", "error");
+    // showToast("Service non trouvé", "error");
     return;
   }
 
@@ -1271,7 +1271,7 @@ function openDeleteServiceModal(serviceId) {
 function openAssignDoctorModal(serviceId) {
   const service = servicesData.find((s) => s.id == serviceId);
   if (!service) {
-    showToast("Service non trouvé", "error");
+    // showToast("Service non trouvé", "error");
     return;
   }
 
@@ -1320,19 +1320,19 @@ function handleDoctorAssignment(e) {
   const shift = document.getElementById("assignDoctorShift").value;
 
   if (!doctorId) {
-    showToast("Veuillez sélectionner un médecin", "error");
+    // showToast("Veuillez sélectionner un médecin", "error");
     return;
   }
 
   const serviceIndex = servicesData.findIndex((s) => s.id == serviceId);
   if (serviceIndex === -1) {
-    showToast("Service non trouvé", "error");
+    // showToast("Service non trouvé", "error");
     return;
   }
 
   const doctor = usersData.find((d) => d.id == doctorId);
   if (!doctor) {
-    showToast("Médecin non trouvé", "error");
+    // showToast("Médecin non trouvé", "error");
     return;
   }
 
@@ -1357,7 +1357,7 @@ function handleDoctorAssignment(e) {
 
   filterAndPaginateServices();
 
-  showToast("Médecin affecté au service avec succès", "success");
+  // showToast("Médecin affecté au service avec succès", "success");
 }
 
 // ============================================
@@ -1443,15 +1443,15 @@ function setupUsersEvents() {
       ).value;
 
       if (password !== confirmPassword) {
-        showToast("Les mots de passe ne correspondent pas", "error");
+        // showToast("Les mots de passe ne correspondent pas", "error");
         return;
       }
 
       if (password.length < 6) {
-        showToast(
-          "Le mot de passe doit contenir au moins 6 caractères",
-          "error"
-        );
+        // showToast(
+        //   "Le mot de passe doit contenir au moins 6 caractères",
+        //   "error"
+        // );
         return;
       }
 
@@ -1479,7 +1479,7 @@ function setupUsersEvents() {
       closeModal("addUserModal");
       filterAndPaginateUsers();
 
-      showToast("Utilisateur ajouté avec succès", "success");
+      // showToast("Utilisateur ajouté avec succès", "success");
     });
 
   // Edit user form
@@ -1492,7 +1492,7 @@ function setupUsersEvents() {
       const userIndex = usersData.findIndex((u) => u.id == userId);
 
       if (userIndex === -1) {
-        showToast("Utilisateur non trouvé", "error");
+        // showToast("Utilisateur non trouvé", "error");
         return;
       }
 
@@ -1517,7 +1517,7 @@ function setupUsersEvents() {
       closeModal("editUserModal");
       filterAndPaginateUsers();
 
-      showToast("Utilisateur modifié avec succès", "success");
+      // showToast("Utilisateur modifié avec succès", "success");
     });
 
   // Delete user confirmation
@@ -1530,7 +1530,7 @@ function setupUsersEvents() {
       closeModal("deleteUserModal");
       filterAndPaginateUsers();
 
-      showToast("Utilisateur supprimé avec succès", "success");
+      // showToast("Utilisateur supprimé avec succès", "success");
     });
 
   // Modal controls
@@ -1702,7 +1702,7 @@ function setupServicesEvents() {
       closeModal("addServiceModal");
       filterAndPaginateServices();
 
-      showToast("Service ajouté avec succès", "success");
+      // showToast("Service ajouté avec succès", "success");
     });
 
   // Edit service form
@@ -1715,7 +1715,7 @@ function setupServicesEvents() {
       const serviceIndex = servicesData.findIndex((s) => s.id == serviceId);
 
       if (serviceIndex === -1) {
-        showToast("Service non trouvé", "error");
+        // showToast("Service non trouvé", "error");
         return;
       }
 
@@ -1756,7 +1756,7 @@ function setupServicesEvents() {
       closeModal("editServiceModal");
       filterAndPaginateServices();
 
-      showToast("Service modifié avec succès", "success");
+      // showToast("Service modifié avec succès", "success");
     });
 
   // Delete service confirmation
@@ -1769,7 +1769,7 @@ function setupServicesEvents() {
       closeModal("deleteServiceModal");
       filterAndPaginateServices();
 
-      showToast("Service supprimé avec succès", "success");
+      // showToast("Service supprimé avec succès", "success");
     });
 
   // Modal controls
