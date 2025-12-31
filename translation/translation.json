@@ -49,16 +49,16 @@
     "en": "Contact support",
     "ar": "اتصل بالدعم"
   },
-"Veuillez remplir l'email": {
-  "fr": "Veuillez remplir l'email",
-  "en": "Please fill in the email",
-  "ar": "الرجاء تعبئة البريد الإلكتروني"
-},
-"Veuillez remplir le mot de passe": {
-  "fr": "Veuillez remplir le mot de passe",
-  "en": "Please fill in the password",
-  "ar": "الرجاء تعبئة كلمة المرور"
-},
+  "Veuillez remplir l'email": {
+    "fr": "Veuillez remplir l'email",
+    "en": "Please fill in the email",
+    "ar": "الرجاء تعبئة البريد الإلكتروني"
+  },
+  "Veuillez remplir le mot de passe": {
+    "fr": "Veuillez remplir le mot de passe",
+    "en": "Please fill in the password",
+    "ar": "الرجاء تعبئة كلمة المرور"
+  },
   "Tableau de Bord": {
     "fr": "Tableau de Bord",
     "en": "Dashboard",
@@ -274,7 +274,7 @@
     "en": "Number of Services",
     "ar": "عدد الخدمات"
   },
-    "Informations de l'Hôpital": {
+  "Informations de l'Hôpital": {
     "fr": "Informations de l'Hôpital",
     "en": "Hospital Information",
     "ar": "معلومات المستشفى"
@@ -519,13 +519,11 @@
     "en": "Manage your personal information",
     "ar": "إدارة معلوماتك الشخصية"
   },
-
   "Spécialité": {
     "fr": "Spécialité",
     "en": "Specialty",
     "ar": "التخصص"
   },
-
   "N° Licence": {
     "fr": "N° Licence",
     "en": "License Number",
@@ -626,7 +624,7 @@
     "en": "On duty",
     "ar": "في الخدمة"
   },
-    "Détails de l'utilisateur": {
+  "Détails de l'utilisateur": {
     "fr": "Détails de l'utilisateur",
     "en": "User Details",
     "ar": "تفاصيل المستخدم"
@@ -930,148 +928,360 @@
     "fr": "Gérez tous les services médicaux et affectez les médecins",
     "en": "Manage all medical services and assign doctors",
     "ar": "إدارة جميع الخدمات الطبية وتعيين الأطباء"
-},
-"Liste des Services": {
+  },
+  "Liste des Services": {
     "fr": "Liste des Services",
     "en": "Services List",
     "ar": "قائمة الخدمات"
-},
-"Affectation des Médecins": {
+  },
+  "Affectation des Médecins": {
     "fr": "Affectation des Médecins",
     "en": "Doctors Assignment",
     "ar": "تعيين الأطباء"
-},
-"Services Disponibles": {
+  },
+  "Services Disponibles": {
     "fr": "Services Disponibles",
     "en": "Available Services",
     "ar": "الخدمات المتاحة"
-},
-"Rechercher un service...": {
+  },
+  "Rechercher un service...": {
     "fr": "Rechercher un service...",
     "en": "Search a service...",
     "ar": "بحث عن خدمة..."
-},
-"médecins": {
+  },
+  "médecins": {
     "fr": "médecins",
     "en": "doctors",
     "ar": "أطباء"
-},
-"Sélectionnez un service": {
+  },
+  "Sélectionnez un service": {
     "fr": "Sélectionnez un service",
     "en": "Select a service",
     "ar": "اختر خدمة"
-},
-"Cliquez sur un service pour voir les médecins": {
+  },
+  "Cliquez sur un service pour voir les médecins": {
     "fr": "Cliquez sur un service pour voir les médecins",
     "en": "Click on a service to see doctors",
     "ar": "انقر على خدمة لعرض الأطباء"
-},
-"Rechercher un médecin": {
+  },
+  "Rechercher un médecin": {
     "fr": "Rechercher un médecin",
     "en": "Search a doctor",
     "ar": "بحث عن طبيب"
-},
-"Toutes les spécialités": {
+  },
+  "Toutes les spécialités": {
     "fr": "Toutes les spécialités",
     "en": "All specialties",
     "ar": "جميع التخصصات"
-},
-"Médecins Disponibles": {
+  },
+  "Médecins Disponibles": {
     "fr": "Médecins Disponibles",
     "en": "Available Doctors",
     "ar": "الأطباء المتاحون"
-},
-"Affecter": {
+  },
+  "Affecter": {
     "fr": "Affecter",
     "en": "Assign",
     "ar": "تعيين"
-},
-"Médecins Affectés": {
+  },
+  "Médecins Affectés": {
     "fr": "Médecins Affectés",
     "en": "Assigned Doctors",
     "ar": "الأطباء المعينون"
-},
-"Aucun médecin affecté à ce service": {
+  },
+  "Aucun médecin affecté à ce service": {
     "fr": "Aucun médecin affecté à ce service",
     "en": "No doctor assigned to this service",
     "ar": "لا يوجد طبيب معين لهذه الخدمة"
-},
-"Cliquez sur 'Affecter' pour ajouter des médecins": {
+  },
+  "Cliquez sur 'Affecter' pour ajouter des médecins": {
     "fr": "Cliquez sur 'Affecter' pour ajouter des médecins",
     "en": "Click 'Assign' to add doctors",
     "ar": "انقر على 'تعيين' لإضافة أطباء"
-},
-"Réinitialiser": {
+  },
+  "Réinitialiser": {
     "fr": "Réinitialiser",
     "en": "Reset",
     "ar": "إعادة تعيين"
-},
-"Enregistrer les affectations": {
+  },
+  "Enregistrer les affectations": {
     "fr": "Enregistrer les affectations",
     "en": "Save assignments",
     "ar": "حفظ التعيينات"
-},
-"Désaffecter": {
+  },
+  "Désaffecter": {
     "fr": "Désaffecter",
     "en": "Unassign",
     "ar": "إلغاء التعيين"
-},
-"Médecins Assignés": {
+  },
+  "Médecins Assignés": {
     "fr": "Médecins Assignés",
     "en": "Assigned Doctors",
     "ar": "الأطباء المعينون"
-},
-"Filtrer par rôle": {
-  "fr": "Filtrer par rôle",
-  "en": "Filter by role",
-  "ar": "التصفية حسب الدور"
-},
-"Filtrer par statut": {
-  "fr": "Filtrer par statut",
-  "en": "Filter by status",
-  "ar": "التصفية حسب الحالة"
-},
-"Rechercher": {
-  "fr": "Rechercher",
-  "en": "Search",
-  "ar": "بحث"
-},
-"Tous les roles": {
-  "fr": "Tous les roles",
-  "en": "All roles",
-  "ar": "جميع الأدوار"
-},
-"Tous les status": {
-  "fr": "Tous les status",
-  "en": "All statuses",
-  "ar": "جميع الحالات"
-},
-"Utilisateur": {
-  "fr": "Utilisateur",
-  "en": "User",
-  "ar": "مستخدم"
-},
-"Lignes par page": {
-  "fr": "Lignes par page",
-  "en": "Rows per page",
-  "ar": "عدد الصفوف في الصفحة"
-},
-"Nombre de Médecins": {
-  "fr": "Nombre de Médecins",
-  "en": "Number of Doctors",
-  "ar": "عدد الأطباء"
-},
-"Rôle": {
-  "fr": "rôle",
-  "en": "Role",
-  "ar": "الدور"
-},
-"Ajouter un service": {
-  "fr": "Ajouter un service",
-  "en": "Add a service",
-  "ar": "إضافة خدمة"
-}
-
-
-
+  },
+  "Filtrer par rôle": {
+    "fr": "Filtrer par rôle",
+    "en": "Filter by role",
+    "ar": "التصفية حسب الدور"
+  },
+  "Filtrer par statut": {
+    "fr": "Filtrer par statut",
+    "en": "Filter by status",
+    "ar": "التصفية حسب الحالة"
+  },
+  "Rechercher": {
+    "fr": "Rechercher",
+    "en": "Search",
+    "ar": "بحث"
+  },
+  "Tous les roles": {
+    "fr": "Tous les roles",
+    "en": "All roles",
+    "ar": "جميع الأدوار"
+  },
+  "Tous les status": {
+    "fr": "Tous les status",
+    "en": "All statuses",
+    "ar": "جميع الحالات"
+  },
+  "Utilisateur": {
+    "fr": "Utilisateur",
+    "en": "User",
+    "ar": "مستخدم"
+  },
+  "Lignes par page": {
+    "fr": "Lignes par page",
+    "en": "Rows per page",
+    "ar": "عدد الصفوف في الصفحة"
+  },
+  "Nombre de Médecins": {
+    "fr": "Nombre de Médecins",
+    "en": "Number of Doctors",
+    "ar": "عدد الأطباء"
+  },
+  "Rôle": {
+    "fr": "rôle",
+    "en": "Role",
+    "ar": "الدور"
+  },
+  "Ajouter un service": {
+    "fr": "Ajouter un service",
+    "en": "Add a service",
+    "ar": "إضافة خدمة"
+  },
+  "patient.phone": {
+    "fr": "Téléphone",
+    "en": "Phone",
+    "ar": "الهاتف"
+  },
+  "patient.last_visit": {
+    "fr": "Dernière visite",
+    "en": "Last visit",
+    "ar": "آخر زيارة"
+  },
+  "Prochain Rendez-vous": {
+    "fr": "Prochain Rendez-vous",
+    "en": "Next Appointment",
+    "ar": "الموعد القادم"
+  },
+  "Historique Médical": {
+    "fr": "Historique médical",
+    "en": "Medical history",
+    "ar": "السجل الطبي"
+  },
+  "Prescriptions Récentes": {
+    "fr": "Prescriptions récentes",
+    "en": "Recent prescriptions",
+    "ar": "الوصفات الحديثة"
+  },
+  "Prescription": {
+    "fr": "Prescription",
+    "en": "Prescription",
+    "ar": "الوصفة"
+  },
+  "Aucune consultation enregistrée": {
+    "fr": "Aucune consultation enregistrée",
+    "en": "No consultations recorded",
+    "ar": "لا توجد استشارات مسجلة"
+  },
+  "Aucune prescription enregistrée": {
+    "fr": "Aucune prescription enregistrée",
+    "en": "No prescriptions recorded",
+    "ar": "لا توجد وصفات مسجلة"
+  },
+  "Homme": {
+    "fr": "Homme",
+    "en": "Male",
+    "ar": "ذكر"
+  },
+  "Femme": {
+    "fr": "Femme",
+    "en": "Female",
+    "ar": "أنثى"
+  },
+  "Notes médicales": {
+    "fr": "Notes médicales",
+    "en": "Medical notes",
+    "ar": "الملاحظات الطبية"
+  },
+  "Voir toutes": {
+    "fr": "Voir toutes",
+    "en": "View all",
+    "ar": "عرض الكل"
+  },
+  "Nouvelle": {
+    "fr": "Nouvelle",
+    "en": "New",
+    "ar": "جديد"
+  },
+  "Informations complètes du patient": {
+    "fr": "Informations complètes du patient",
+    "en": "Complete patient information",
+    "ar": "المعلومات الكاملة للمريض"
+  },
+  "Détails du Patient": {
+    "fr": "Détails du patient",
+    "en": "Patient details",
+    "ar": "تفاصيل المريض"
+  },
+  "Enregistrez une nouvelle consultation médicale": {
+    "fr": "Enregistrez une nouvelle consultation médicale",
+    "en": "Register a new medical consultation",
+    "ar": "تسجيل استشارة طبية جديدة"
+  },
+  "Type de consultation": {
+    "fr": "Type de consultation",
+    "en": "Consultation type",
+    "ar": "نوع الاستشارة"
+  },
+  "Date": {
+    "fr": "Date",
+    "en": "Date",
+    "ar": "التاريخ"
+  },
+  "Diagnostic": {
+    "fr": "Diagnostic",
+    "en": "Diagnosis",
+    "ar": "التشخيص"
+  },
+  "Traitement prescrit": {
+    "fr": "Traitement prescrit",
+    "en": "Prescribed treatment",
+    "ar": "العلاج الموصوف"
+  },
+  "Enregistrer la consultation": {
+    "fr": "Enregistrer la consultation",
+    "en": "Save consultation",
+    "ar": "حفظ الاستشارة"
+  },
+  "Entrez le diagnostic...": {
+    "fr": "Entrez le diagnostic...",
+    "en": "Enter the diagnosis...",
+    "ar": "أدخل التشخيص..."
+  },
+  "Première consultation": {
+    "fr": "Première consultation",
+    "en": "First consultation",
+    "ar": "الاستشارة الأولى"
+  },
+  "Consultation spécialisée": {
+    "fr": "Consultation spécialisée",
+    "en": "Specialized consultation",
+    "ar": "استشارة متخصصة"
+  },
+  "Contrôle annuel": {
+    "fr": "Contrôle annuel",
+    "en": "Annual check-up",
+    "ar": "الفحص السنوي"
+  },
+  "Suivi de traitement": {
+    "fr": "Suivi de traitement",
+    "en": "Treatment follow-up",
+    "ar": "متابعة العلاج"
+  },
+  "Consultation générale": {
+    "fr": "Consultation générale",
+    "en": "General consultation",
+    "ar": "استشارة عامة"
+  },
+  "Décrivez le traitement prescrit...": {
+    "fr": "Décrivez le traitement prescrit...",
+    "en": "Describe the prescribed treatment...",
+    "ar": "صف العلاج الموصوف..."
+  },
+  "Ajoutez des notes supplémentaires...": {
+    "fr": "Ajoutez des notes supplémentaires...",
+    "en": "Add additional notes...",
+    "ar": "أضف ملاحظات إضافية..."
+  },
+  "Traitement Prescrit": {
+    "fr": "Traitement Prescrit",
+    "en": "Prescribed Treatment",
+    "ar": "العلاج الموصوف"
+  },
+  "Notes Médicales": {
+    "fr": "Notes Médicales",
+    "en": "Medical Notes",
+    "ar": "الملاحظات الطبية"
+  },
+  "Type": {
+    "fr": "Type",
+    "en": "Type",
+    "ar": "النوع"
+  },
+  "Détails de la Consultation": {
+    "fr": "Détails de la Consultation",
+    "en": "Consultation Details",
+    "ar": "تفاصيل الاستشارة"
+  },
+  "Informations complètes de la consultation": {
+    "fr": "Informations complètes de la consultation",
+    "en": "Complete Consultation Information",
+    "ar": "المعلومات الكاملة للاستشارة"
+  },
+  "Traitement": {
+    "fr": "Traitement:",
+    "en": "Treatment:",
+    "ar": "العلاج:"
+  },
+    "Durée (minutes)": {
+    "fr": "Durée (minutes)",
+    "en": "Duration (minutes)",
+    "ar": "المدة (بالدقائق)"
+  },
+    "15 minutes": {
+    "fr": "15 minutes",
+    "en": "15 minutes",
+    "ar": "15 دقيقة"
+  },
+  "30 minutes": {
+    "fr": "30 minutes",
+    "en": "30 minutes",
+    "ar": "30 دقيقة"
+  },
+  "45 minutes": {
+    "fr": "45 minutes",
+    "en": "45 minutes",
+    "ar": "45 دقيقة"
+  },
+  "60 minutes": {
+    "fr": "60 minutes",
+    "en": "60 minutes",
+    "ar": "60 دقيقة"
+  },
+    "Date/Heure": {
+    "fr": "Date/Heure",
+    "en": "Date/Time",
+    "ar": "التاريخ/الوقت"
+  },
+  "En_attente": {
+    "fr": "En attente",
+    "en": "Pending",
+    "ar": "قيد الانتظار"
+  },
+  "Annulé": {
+    "fr": "Annulé",
+    "en": "Cancelled",
+    "ar": "ملغى"
+  }
 }

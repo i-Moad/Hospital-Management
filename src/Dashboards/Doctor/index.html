@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../../../translation/i18n.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
@@ -14,6 +15,92 @@
         });
     </script>
     <title>Doctor Dashboard</title>
+    <style>
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .status-confirmed {
+            background-color: #10B981;
+            color: white;
+        }
+
+        .status-pending {
+            background-color: #F59E0B;
+            color: white;
+        }
+
+        .status-cancelled {
+            background-color: #EF4444;
+            color: white;
+        }
+
+        .modal-animation {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content-animation {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Styles pour le bouton Nouveau RDV sur mobile */
+        #mobile-add-appointment-btn {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            #mobile-add-appointment-btn {
+                display: inline-flex;
+            }
+
+            .lg\\:col-span-2 {
+                grid-column: span 1;
+            }
+        }
+
+        /* Scrollbar personnalisée */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+    </style>
 </head>
 
 <body data-page="Dashboard-Doctor" class="bg-gray-50">
@@ -86,8 +173,8 @@
                                 <span data-i18n="Paramètres"></span>
                             </a>
                             <div class="border-t border-gray-100 my-1"></div>
-                            <a href="#" id="logout"
-                                class="flex cursor-pointer items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                            <a id="logout"
+                                class="flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors">
                                 <i data-feather="log-out" class="w-4 h-4 mr-3"></i>
                                 <span data-i18n="Déconnexion"></span>
                             </a>
@@ -101,7 +188,7 @@
     <!-- Sidebar Doctor -->
     <aside id="sidebar"
         class="fixed top-0 z-40 w-64 h-screen pt-20 transition-transform bg-white border-r border-gray-200">
-        <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-white custom-scrollbar">
             <ul class="space-y-2 font-medium">
                 <li>
                     <a href="#dashboard"
@@ -232,21 +319,6 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200" id="today-appointments-list">
                             <!-- Les rendez-vous seront chargés ici -->
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
-                                    <i data-feather="edit" class="w-5 h-5 inline"></i>
-                                </button>
-                                <button class="text-red-600 hover:text-red-800 transition-colors mx-1">
-                                    <i data-feather="trash" class="w-5 h-5 inline"></i>
-                                </button>
-                                <button class="text-green-600 hover:text-green-800 transition-colors mx-1">
-                                    <i data-feather="eye" class="w-5 h-5 inline"></i>
-                                </button>
-                            </td>
                         </tbody>
                     </table>
                 </div>
@@ -264,11 +336,6 @@
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
                     <h2 class="text-lg font-semibold text-gray-900" data-i18n="Liste des Patients"></h2>
-                    <button id="add-patient-btn"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
-                        <i data-feather="plus" class="w-4 h-4 mr-2"></i>
-                        <span data-i18n="Nouveau Patient"></span>
-                    </button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
@@ -290,22 +357,6 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200" id="patients-list">
                             <!-- Les patients seront chargés ici -->
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex justify-center items-center">
-                                    <button class="text-green-600 hover:text-green-800 transition-colors">
-                                        <i data-feather="eye" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
-                            </td>
-
-
-
                         </tbody>
                     </table>
                 </div>
@@ -319,16 +370,41 @@
                 <p class="text-gray-600" data-i18n="Gérez votre calendrier de rendez-vous"></p>
             </div>
 
+            <!-- Bouton Nouveau RDV visible seulement sur mobile -->
+            <div class="mb-6 lg:hidden">
+                <button id="mobile-add-appointment-btn"
+                    class="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center">
+                    <i data-feather="plus" class="w-5 h-5 mr-2"></i>
+                    <span data-i18n="Nouveau RDV"></span>
+                </button>
+            </div>
+
             <!-- Calendar and Appointments -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2 bg-white rounded-lg shadow p-6">
-                    <div id="calendar-placeholder" class="text-center py-12">
-                        <i data-feather="calendar" class="w-16 h-16 text-gray-300 mx-auto mb-4"></i>
-                        <p class="text-gray-500" data-i18n="Calendrier des rendez-vous"></p>
-                        <p class="text-sm text-gray-400 mt-2" data-i18n="Le calendrier sera affiché ici"></p>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        data-i18n="Date/Heure"></th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        data-i18n="Patient"></th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        data-i18n="Motif"></th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        data-i18n="Statut"></th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                        data-i18n="Actions"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200" id="appointments-list">
+                                <!-- Les rendez-vous seront chargés ici -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="bg-white rounded-lg shadow p-6">
+                <div id="appointment-sidebar" class="hidden lg:block bg-white rounded-lg shadow p-6">
                     <h3 class="text-lg font-semibold mb-4" data-i18n="Ajouter un Rendez-vous"></h3>
                     <form id="add-appointment-form" class="space-y-4">
                         <div>
@@ -348,6 +424,17 @@
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Motif"></label>
                             <textarea id="appointment-reason" rows="3"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1"
+                                data-i18n="Durée (minutes)"></label>
+                            <select id="appointment-duration"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                <option value="15" data-i18n="15 minutes"></option>
+                                <option value="30" data-i18n="30 minutes"></option>
+                                <option value="45" data-i18n="45 minutes"></option>
+                                <option value="60" data-i18n="60 minutes"></option>
+                            </select>
                         </div>
                         <button type="submit"
                             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
@@ -402,7 +489,7 @@
                             </label>
                             <input type="text" id="doctor-nom" name="nom"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="Nom">
+                                data-i18n-placeholder="Nom">
                         </div>
 
                         <!-- Prénom -->
@@ -413,7 +500,7 @@
                             </label>
                             <input type="text" id="doctor-prenom" name="prenom"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="Prénom">
+                                data-i18n-placeholder="Prénom">
                         </div>
 
                         <!-- Spécialité -->
@@ -424,7 +511,7 @@
                             </label>
                             <input type="text" id="specialite" name="specialite"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="Spécialité médicale">
+                                data-i18n-placeholder="Spécialité médicale">
                         </div>
 
                         <!-- Email -->
@@ -435,7 +522,7 @@
                             </label>
                             <input type="email" id="doctor-email" name="email"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="email@exemple.com">
+                                data-i18n-placeholder="email@exemple.com">
                         </div>
 
                         <!-- Téléphone -->
@@ -446,7 +533,7 @@
                             </label>
                             <input type="tel" id="doctor-telephone" name="telephone"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="+212 600-000000">
+                                data-i18n-placeholder="+212 600-000000">
                         </div>
 
                         <!-- Numéro de licence -->
@@ -457,7 +544,7 @@
                             </label>
                             <input type="text" id="licence" name="licence"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="Numéro de licence médicale">
+                                data-i18n-placeholder="Numéro de licence médicale">
                         </div>
                     </div>
 
@@ -469,7 +556,7 @@
                         </label>
                         <textarea id="doctor-adresse" name="adresse" rows="3"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
-                            placeholder="Adresse complète du cabinet"></textarea>
+                            data-i18n-placeholder="Adresse complète du cabinet"></textarea>
                     </div>
 
                     <!-- Bio -->
@@ -480,7 +567,7 @@
                         </label>
                         <textarea id="bio" name="bio" rows="4"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
-                            placeholder="Décrivez votre expérience et spécialités..."></textarea>
+                            data-i18n-placeholder="Décrivez votre expérience et spécialités..."></textarea>
                     </div>
 
                     <!-- Boutons -->
@@ -501,584 +588,515 @@
         </div>
     </div>
 
-    <script type="module" src="../../main.js"></script>
-    <script>
-        // ============================================
-        // CONFIGURATION
-        // ============================================
+    <!-- ============================================ -->
+    <!-- TOUTES LES MODALES -->
+    <!-- ============================================ -->
 
-        const pages = ['dashboard', 'patients', 'rendezvous', 'consultations', 'profile'];
-
-        // ============================================
-        // FONCTIONS UTILITAIRES
-        // ============================================
-
-        function isMobile() {
-            return window.innerWidth < 640;
-        }
-
-        function isRTL() {
-            return localStorage.getItem('lang') === 'ar';
-        }
-
-        function getDirectionClasses() {
-            if (isRTL()) {
-                return {
-                    hidden: 'translate-x-full',
-                    visible: 'translate-x-0',
-                    position: 'right-0',
-                    margin: 'sm:mr-64',
-                    border: 'border-l'
-                };
-            } else {
-                return {
-                    hidden: '-translate-x-full',
-                    visible: 'translate-x-0',
-                    position: 'left-0',
-                    margin: 'sm:ml-64',
-                    border: 'border-r'
-                };
-            }
-        }
-
-        // ============================================
-        // GESTION DU SIDEBAR
-        // ============================================
-
-        function initSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const main = document.getElementById('main');
-            const direction = getDirectionClasses();
-
-            // Nettoyer les classes de position
-            ['left-0', 'right-0', 'sm:ml-64', 'sm:mr-64', 'border-l', 'border-r',
-                '-translate-x-full', 'translate-x-full', 'translate-x-0'].forEach(cls => {
-                    sidebar.classList.remove(cls);
-                    if (main) main.classList.remove(cls);
-                });
-
-            // Appliquer les nouvelles classes
-            sidebar.classList.add(direction.position);
-            main.classList.add(direction.margin);
-
-            // Gérer l'affichage initial
-            if (isMobile()) {
-                sidebar.classList.add(direction.hidden);
-            } else {
-                sidebar.classList.add('sm:translate-x-0');
-            }
-
-            // Gérer la bordure
-            sidebar.classList.add(direction.border);
-
-            // Direction du texte
-            document.documentElement.dir = isRTL() ? 'rtl' : 'ltr';
-            sidebar.setAttribute('dir', isRTL() ? 'rtl' : 'ltr');
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            if (!isMobile()) return;
-
-            const direction = getDirectionClasses();
-
-            if (sidebar.classList.contains(direction.hidden)) {
-                sidebar.classList.remove(direction.hidden);
-                sidebar.classList.add(direction.visible);
-            } else {
-                sidebar.classList.remove(direction.visible);
-                sidebar.classList.add(direction.hidden);
-            }
-        }
-
-        // ============================================
-        // GESTION DE LA NAVIGATION
-        // ============================================
-
-        function navigateToPage(pageId) {
-            // Validation
-            if (!pages.includes(pageId)) {
-                pageId = 'dashboard';
-            }
-
-            // Mettre à jour l'URL
-            window.location.hash = pageId;
-
-            // Mettre à jour la navigation active
-            updateActiveNav(pageId);
-
-            // Afficher/masquer les pages
-            showPage(pageId);
-
-            // Fermer le sidebar sur mobile
-            if (isMobile()) {
-                const sidebar = document.getElementById('sidebar');
-                const direction = getDirectionClasses();
-                sidebar.classList.remove(direction.visible);
-                sidebar.classList.add(direction.hidden);
-            }
-
-            // Mettre à jour les icônes
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
-
-        function updateActiveNav(activePage) {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                const page = link.getAttribute('data-page');
-
-                // Réinitialiser
-                link.classList.remove('text-blue-600', 'bg-blue-50', 'hover:bg-blue-100');
-                link.querySelector('i')?.classList.remove('text-blue-600');
-
-                link.classList.add('text-gray-900', 'hover:bg-gray-100');
-                link.querySelector('i')?.classList.add('text-gray-500');
-
-                // Activer si correspond
-                if (page === activePage) {
-                    link.classList.remove('text-gray-900', 'hover:bg-gray-100');
-                    link.classList.add('text-blue-600', 'bg-blue-50', 'hover:bg-blue-100');
-
-                    link.querySelector('i')?.classList.remove('text-gray-500');
-                    link.querySelector('i')?.classList.add('text-blue-600');
-                }
-            });
-        }
-
-        function showPage(pageId) {
-            // Masquer toutes les pages
-            document.querySelectorAll('.page-content').forEach(page => {
-                page.classList.add('hidden');
-            });
-
-            // Afficher la page demandée
-            const targetPage = document.getElementById(`page-${pageId}`);
-            if (targetPage) {
-                targetPage.classList.remove('hidden');
-
-                // Animation d'apparition
-                targetPage.style.opacity = '0';
-                setTimeout(() => {
-                    targetPage.style.transition = 'opacity 0.3s ease';
-                    targetPage.style.opacity = '1';
-                }, 10);
-            }
-        }
-
-        function handleHashChange() {
-            const hash = window.location.hash.substring(1);
-            navigateToPage(pages.includes(hash) ? hash : 'dashboard');
-        }
-
-        // ============================================
-        // INITIALISATION DES CHARTES (VIDES)
-        // ============================================
-
-        function initCharts() {
-            // Chart 1: Weekly Activity
-            const ctx1 = document.getElementById('weeklyActivityChart');
-            if (ctx1) {
-                new Chart(ctx1.getContext('2d'), {
-                    type: 'line',
-                    data: {
-                        labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
-                        datasets: [{
-                            label: 'Consultations',
-                            data: [0, 0, 0, 0, 0, 0, 0],
-                            borderColor: '#3B82F6',
-                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                            tension: 0.3,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: false } },
-                        scales: { y: { beginAtZero: true } }
-                    }
-                });
-            }
-
-            // Chart 2: Patients Chart
-            const ctx2 = document.getElementById('patientsChart');
-            if (ctx2) {
-                new Chart(ctx2.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['Catégorie 1', 'Catégorie 2', 'Catégorie 3'],
-                        datasets: [{
-                            label: 'Patients',
-                            data: [0, 0, 0],
-                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B']
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: false } }
-                    }
-                });
-            }
-        }
-
-        // ============================================
-        // GESTION DE LA LANGUE
-        // ============================================
-
-        let isLangOpen = false;
-
-        // Mettre à jour l'affichage de la langue courante
-        function updateCurrentLangDisplay() {
-            const currentLang = localStorage.getItem("lang") || "fr";
-            const langDisplay = document.getElementById("currentLang");
-
-            if (langDisplay) {
-                switch (currentLang) {
-                    case "fr":
-                        langDisplay.textContent = "FR";
-                        break;
-                    case "en":
-                        langDisplay.textContent = "EN";
-                        break;
-                    case "ar":
-                        langDisplay.textContent = "العربية";
-                        break;
-                }
-            }
-        }
-
-        // Position du menu langue (RTL/LTR)
-        function updateLangPosition() {
-            const isRTL = localStorage.getItem("lang") === "ar";
-            const LangSelect = document.getElementById('LangSelect');
-
-            if (LangSelect) {
-                if (isRTL) {
-                    LangSelect.classList.remove("right-0");
-                    LangSelect.classList.add("left-0");
-                } else {
-                    LangSelect.classList.remove("left-0");
-                    LangSelect.classList.add("right-0");
-                }
-            }
-        }
-
-        // Ouvrir/Fermer le menu langue
-        function toggleLangMenu(e) {
-            e.stopPropagation();
-            const LangSelect = document.getElementById('LangSelect');
-
-            if (isLangOpen) {
-                closeLangMenu();
-                return;
-            }
-
-            updateLangPosition();
-
-            const languages = [
-                { name: "Français", code: "fr", flag: "../../../../assets/png/fr.png" },
-                { name: "English", code: "en", flag: "../../../../assets/png/en.png" },
-                { name: "العربية", code: "ar", flag: "../../../../assets/png/ma.png" },
-            ];
-
-            let buttons = "";
-            const currentLang = localStorage.getItem("lang") || "fr";
-
-            languages.forEach(lang => {
-                const isActive = lang.code === currentLang;
-                buttons += `
-                    <button onclick="changeLang('${lang.code}')"
-                        class="flex items-center justify-between w-full px-4 py-3
-                               ${isActive ? 'bg-blue-50 border-l-4 border-blue-500' : 'bg-white hover:bg-gray-50'} 
-                               transition-all duration-200">
-                        <div class="flex items-center">
-                            <img src="${lang.flag}" width="24" class="rounded-sm" alt="${lang.name}">
-                            <span class="ml-3 font-medium ${isActive ? 'text-blue-600' : 'text-gray-700'}">
-                                ${lang.name}
-                            </span>
-                        </div>
-                        ${isActive ? '<i data-feather="check" class="w-4 h-4 text-blue-500"></i>' : ''}
-                    </button>
-                `;
-            });
-
-            LangSelect.innerHTML = `
-                <div class="py-2">
-                    <div class="px-4 py-2 border-b border-gray-100">
-                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider" data-i18n="Sélectionner la langue"></p>
+    <!-- Modal Détails Patient -->
+    <div id="patientDetailsModal"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+        <div
+            class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+            <div class="p-6">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="Détails du Patient"></h2>
+                        <p class="text-sm text-gray-600 mt-1" data-i18n="Informations complètes du patient"></p>
                     </div>
-                    ${buttons}
+                    <button id="closePatientDetailsModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                    </button>
                 </div>
-            `;
 
-            // Afficher le menu avec animation
-            LangSelect.classList.remove("opacity-0", "invisible", "-translate-y-2");
-            LangSelect.classList.add("opacity-100", "visible", "translate-y-0");
+                <!-- Patient Info -->
+                <div class="space-y-6">
+                    <!-- Basic Info -->
+                    <div class="flex items-center space-x-4">
+                        <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center">
+                            <i data-feather="user" class="w-10 h-10 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 id="patient-details-name" class="text-xl font-bold text-gray-900">-</h3>
+                            <p id="patient-details-age-gender" class="text-gray-600">-</p>
+                        </div>
+                    </div>
 
-            isLangOpen = true;
+                    <!-- Contact Info -->
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-sm font-medium text-gray-500" data-i18n="Téléphone"></label>
+                            <p id="patient-details-phone" class="text-gray-900 font-medium">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-500" data-i18n="Dernière Visite"></label>
+                            <p id="patient-details-last-visit" class="text-gray-900 font-medium">-</p>
+                        </div>
+                    </div>
 
-            // Mettre à jour les icônes Feather
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
+                    <div>
+                        <label class="text-sm font-medium text-gray-500" data-i18n="Prochain Rendez-vous"></label>
+                        <p id="patient-details-next-appointment" class="text-gray-900 font-medium">-</p>
+                    </div>
 
-        // Fermer le menu langue
-        function closeLangMenu() {
-            const LangSelect = document.getElementById('LangSelect');
-            LangSelect.innerHTML = "";
-            LangSelect.classList.remove("opacity-100", "visible", "translate-y-0");
-            LangSelect.classList.add("opacity-0", "invisible", "-translate-y-2");
-            isLangOpen = false;
-        }
+                    <!-- Medical History -->
+                    <div class="pt-4 border-t border-gray-200">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                            <i data-feather="activity" class="w-5 h-5 mr-2 text-blue-600"></i>
+                            <span data-i18n="Historique Médical"></span>
+                        </h4>
+                        <div id="patient-details-medical-history" class="space-y-3">
+                            <!-- Les consultations seront chargées ici dynamiquement -->
+                            <p class="text-gray-500 text-center py-4" data-i18n="Aucune consultation enregistrée"></p>
+                        </div>
+                    </div>
 
-        // Changer la langue
-        function changeLang(lang) {
-            localStorage.setItem('lang', lang);
-            updateCurrentLangDisplay();
-            closeLangMenu();
-            location.reload();
-        }
+                    <!-- Recent Prescriptions -->
+                    <div class="pt-4 border-t border-gray-200">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-lg font-semibold text-gray-900 flex items-center">
+                                <i data-feather="file-text" class="w-5 h-5 mr-2 text-green-600"></i>
+                                <span data-i18n="Prescriptions Récentes"></span>
+                            </h4>
+                            <button id="create-prescription-from-modal"
+                                class="text-green-600 hover:text-green-800 text-sm flex items-center">
+                                <i data-feather="plus" class="w-4 h-4 mr-1"></i>
+                                <span data-i18n="Nouvelle"></span>
+                            </button>
+                        </div>
+                        <div id="patient-details-prescriptions" class="space-y-3">
+                            <!-- Les prescriptions seront chargées ici dynamiquement -->
+                            <p class="text-gray-500 text-center py-4" data-i18n="patient.no_prescriptions">Aucune
+                                prescription enregistrée</p>
+                        </div>
+                    </div>
 
-        // ============================================
-        // GESTION DU PROFIL MÉDECIN
-        // ============================================
+                    <!-- Medical Notes -->
+                    <div class="pt-4 border-t border-gray-200">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-lg font-semibold text-gray-900 flex items-center">
+                                <i data-feather="clipboard" class="w-5 h-5 mr-2 text-purple-600"></i>
+                                <span data-i18n="Notes Médicales"></span>
+                            </h4>
+                            <button id="view-medical-notes"
+                                class="text-purple-600 hover:text-purple-800 text-sm flex items-center">
+                                <i data-feather="eye" class="w-4 h-4 mr-1"></i>
+                                <span data-i18n="Voir Toutes"></span>
+                            </button>
+                        </div>
+                        <div id="patient-details-notes-preview" class="space-y-3">
+                            <!-- Les notes seront chargées ici dynamiquement -->
+                        </div>
+                    </div>
+                </div>
 
-        function initDoctorProfileForm() {
-            const form = document.getElementById('doctor-profile-form');
-            if (!form) return;
+                <!-- Hidden Patient ID -->
+                <input type="hidden" id="patient-details-id" value="">
 
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
+                <!-- Footer -->
+                <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end space-x-3">
+                    <button id="closePatientDetailsModal2"
+                        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                        <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                        <span data-i18n="Fermer"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                const formData = {
-                    nom: document.getElementById('doctor-nom').value,
-                    prenom: document.getElementById('doctor-prenom').value,
-                    specialite: document.getElementById('specialite').value,
-                    email: document.getElementById('doctor-email').value,
-                    telephone: document.getElementById('doctor-telephone').value,
-                    licence: document.getElementById('licence').value,
-                    adresse: document.getElementById('doctor-adresse').value,
-                    bio: document.getElementById('bio').value
-                };
+    <!-- Modal Prescription Médicale -->
+    <div id="prescriptionModal"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+        <div
+            class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="Prescription Médicale"></h2>
+                        <p class="text-sm text-gray-600 mt-1"
+                            data-i18n="Créez une nouvelle prescription pour votre patient"></p>
+                    </div>
+                    <button id="closePrescriptionModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                    </button>
+                </div>
 
-                // Sauvegarder dans localStorage
-                localStorage.setItem('doctorProfile', JSON.stringify(formData));
+                <form id="prescription-form" class="space-y-6">
+                    <input type="hidden" id="prescription-patient-id">
+                    <input type="hidden" id="prescription-consultation-id">
 
-                // Mettre à jour l'affichage
-                updateDoctorDisplay(formData);
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Médicaments"></label>
+                        <div id="medicines-container" class="space-y-4">
+                            <!-- Les médicaments seront ajoutés ici -->
+                        </div>
+                        <button type="button" onclick="addMedicineRow()"
+                            class="mt-4 px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors flex items-center">
+                            <i data-feather="plus" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Ajouter un médicament"></span>
+                        </button>
+                    </div>
 
-                alert('Profil enregistré avec succès !');
-            });
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Instructions"></label>
+                        <div class="relative">
+                            <i data-feather="file-text" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                            <textarea id="prescription-instructions" rows="4"
+                                class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                data-i18n-placeholder="Instructions pour le patient..."></textarea>
+                        </div>
+                    </div>
 
-            // Bouton Annuler
-            const cancelBtn = document.getElementById('cancel-profile-btn');
-            if (cancelBtn) {
-                cancelBtn.addEventListener('click', function () {
-                    if (confirm('Voulez-vous vraiment annuler les modifications ?')) {
-                        loadDoctorProfile();
-                    }
-                });
-            }
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2"
+                            data-i18n="Date de validité"></label>
+                        <div class="relative">
+                            <i data-feather="calendar"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <input type="date" id="prescription-validity"
+                                class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        </div>
+                    </div>
 
-            // Charger le profil au démarrage
-            loadDoctorProfile();
-        }
+                    <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+                        <button type="button" id="cancelPrescriptionBtn"
+                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                            <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Annuler"></span>
+                        </button>
+                        <button type="submit"
+                            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center">
+                            <i data-feather="file-text" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Générer la prescription"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        function loadDoctorProfile() {
-            const savedProfile = localStorage.getItem('doctorProfile');
-            if (savedProfile) {
-                const profile = JSON.parse(savedProfile);
+    <!-- Modal pour Nouvelle Consultation -->
+    <div id="consultationModal"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+        <div
+            class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="Nouvelle Consultation"></h2>
+                        <p class="text-sm text-gray-600 mt-1"
+                            data-i18n="Enregistrez une nouvelle consultation médicale"></p>
+                    </div>
+                    <button id="closeConsultationModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                    </button>
+                </div>
 
-                // Remplir le formulaire
-                document.getElementById('doctor-nom').value = profile.nom || '';
-                document.getElementById('doctor-prenom').value = profile.prenom || '';
-                document.getElementById('specialite').value = profile.specialite || '';
-                document.getElementById('doctor-email').value = profile.email || '';
-                document.getElementById('doctor-telephone').value = profile.telephone || '';
-                document.getElementById('licence').value = profile.licence || '';
-                document.getElementById('doctor-adresse').value = profile.adresse || '';
-                document.getElementById('bio').value = profile.bio || '';
+                <form id="consultation-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Patient"></label>
+                        <div class="relative">
+                            <i data-feather="user"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <select id="consultation-patient"
+                                class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                <option value="" data-i18n="Sélectionner un patient"></option>
+                            </select>
+                        </div>
+                    </div>
 
-                // Mettre à jour l'affichage
-                updateDoctorDisplay(profile);
-            }
-        }
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Date"></label>
+                            <div class="relative">
+                                <i data-feather="calendar"
+                                    class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="date" id="consultation-date"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            </div>
+                        </div>
 
-        function updateDoctorDisplay(profile) {
-            // Mettre à jour la navbar
-            const doctorName = document.getElementById('doctor-name');
-            const doctorSpecialty = document.getElementById('doctor-specialty');
-            const dropdownDoctorName = document.getElementById('dropdown-doctor-name');
-            const dropdownDoctorEmail = document.getElementById('dropdown-doctor-email');
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2"
+                                data-i18n="Type de consultation"></label>
+                            <div class="relative">
+                                <i data-feather="clipboard"
+                                    class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <select id="consultation-type"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                    <option value="Consultation générale" data-i18n="Consultation générale"></option>
+                                    <option value="Suivi de traitement" data-i18n="Suivi de traitement"></option>
+                                    <option value="Contrôle annuel" data-i18n="Contrôle annuel"></option>
+                                    <option value="Consultation spécialisée" data-i18n="Consultation spécialisée">
+                                    </option>
+                                    <option value="Première consultation" data-i18n="Première consultation"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-            if (doctorName && profile.nom) {
-                doctorName.textContent = `Dr. ${profile.nom} ${profile.prenom}`;
-            }
-            if (doctorSpecialty && profile.specialite) {
-                doctorSpecialty.textContent = profile.specialite;
-            }
-            if (dropdownDoctorName && profile.nom) {
-                dropdownDoctorName.textContent = `Dr. ${profile.nom} ${profile.prenom}`;
-            }
-            if (dropdownDoctorEmail && profile.email) {
-                dropdownDoctorEmail.textContent = profile.email;
-            }
-        }
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Diagnostic"></label>
+                        <div class="relative">
+                            <i data-feather="alert-circle" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                            <textarea id="consultation-diagnostic" rows="3"
+                                class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                data-i18n-placeholder="Entrez le diagnostic..."></textarea>
+                        </div>
+                    </div>
 
-        // ============================================
-        // ÉVÉNEMENTS
-        // ============================================
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2"
+                            data-i18n="Traitement prescrit"></label>
+                        <div class="relative">
+                            <i data-feather="activity" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                            <textarea id="consultation-treatment" rows="3"
+                                class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                data-i18n-placeholder="Décrivez le traitement prescrit..."></textarea>
+                        </div>
+                    </div>
 
-        function setupEventListeners() {
-            // Toggle sidebar
-            const toggleButton = document.getElementById('toggleSidebar');
-            if (toggleButton) {
-                toggleButton.addEventListener('click', toggleSidebar);
-            }
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Notes médicales"></label>
+                        <div class="relative">
+                            <i data-feather="edit" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                            <textarea id="consultation-notes" rows="3"
+                                class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                data-i18n-placeholder="Ajoutez des notes supplémentaires..."></textarea>
+                        </div>
+                    </div>
 
-            // Navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const pageId = this.getAttribute('data-page');
-                    navigateToPage(pageId);
-                });
-            });
+                    <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+                        <button type="button" id="cancelConsultationBtn"
+                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                            <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Annuler"></span>
+                        </button>
+                        <button type="submit"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                            <i data-feather="save" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Enregistrer la consultation"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-            // Hash change
-            window.addEventListener('hashchange', handleHashChange);
+    <!-- Modal pour Nouveau RDV (mobile) -->
+    <div id="addAppointmentModal"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+        <div
+            class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="Nouveau Rendez-vous"></h2>
+                        <p class="text-sm text-gray-600 mt-1"
+                            data-i18n="Programmez un nouveau rendez-vous pour votre patient"></p>
+                    </div>
+                    <button id="closeAddAppointmentModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                    </button>
+                </div>
 
-            // Resize
-            window.addEventListener('resize', function () {
-                const sidebar = document.getElementById('sidebar');
-                const direction = getDirectionClasses();
+                <form id="mobile-add-appointment-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Patient"></label>
+                        <div class="relative">
+                            <i data-feather="user"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <select id="mobile-appointment-patient"
+                                class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                <option value="" data-i18n="Sélectionner un patient"></option>
+                            </select>
+                        </div>
+                    </div>
 
-                if (isMobile()) {
-                    sidebar.classList.remove(direction.visible, 'sm:translate-x-0');
-                    sidebar.classList.add(direction.hidden);
-                } else {
-                    sidebar.classList.remove(direction.hidden, direction.visible);
-                    sidebar.classList.add('sm:translate-x-0');
-                }
-            });
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Date"></label>
+                            <div class="relative">
+                                <i data-feather="calendar"
+                                    class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="date" id="mobile-appointment-date"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            </div>
+                        </div>
 
-            // Click outside to close sidebar (mobile)
-            document.addEventListener('click', function (event) {
-                const sidebar = document.getElementById('sidebar');
-                const toggleBtn = document.getElementById('toggleSidebar');
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Heure"></label>
+                            <div class="relative">
+                                <i data-feather="clock"
+                                    class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="time" id="mobile-appointment-time"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            </div>
+                        </div>
+                    </div>
 
-                if (isMobile() && sidebar && toggleBtn) {
-                    const isClickInside = sidebar.contains(event.target);
-                    const isClickOnToggle = toggleBtn.contains(event.target);
-                    const direction = getDirectionClasses();
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Motif"></label>
+                        <div class="relative">
+                            <i data-feather="message-square" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                            <textarea id="mobile-appointment-reason" rows="3"
+                                class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                data-i18n-placeholder="Motif de la consultation..."></textarea>
+                        </div>
+                    </div>
 
-                    if (!isClickInside && !isClickOnToggle &&
-                        !sidebar.classList.contains(direction.hidden)) {
-                        sidebar.classList.remove(direction.visible);
-                        sidebar.classList.add(direction.hidden);
-                    }
-                }
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Durée (minutes)"></label>
+                        <div class="relative">
+                            <i data-feather="watch"
+                                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <select id="mobile-appointment-duration"
+                                class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                <option value="15">15 minutes</option>
+                                <option value="30">30 minutes</option>
+                                <option value="45">45 minutes</option>
+                                <option value="60">60 minutes</option>
+                            </select>
+                        </div>
+                    </div>
 
-                // Close language menu
-                const LangToogle = document.getElementById('LangToogle');
-                const LangSelect = document.getElementById('LangSelect');
+                    <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+                        <button type="button" id="cancelAddAppointmentBtn"
+                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                            <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Annuler"></span>
+                        </button>
+                        <button type="submit"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                            <i data-feather="calendar" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Programmer"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                if (LangSelect && LangToogle && isLangOpen) {
-                    const isClickOnLang = LangToogle.contains(event.target) ||
-                        LangSelect.contains(event.target);
+    <!-- Modal Détails Consultation -->
+    <div id="consultationDetailsModal"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+        <div
+            class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="Détails de la Consultation"></h2>
+                        <p class="text-sm text-gray-600 mt-1" data-i18n="Informations complètes de la consultation"></p>
+                    </div>
+                    <button id="closeConsultationDetailsModal"
+                        class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                    </button>
+                </div>
 
-                    if (!isClickOnLang) {
-                        closeLangMenu();
-                    }
-                }
-            });
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-sm font-medium text-gray-500" data-i18n="Patient"></label>
+                            <p id="consultation-details-patient" class="text-gray-900 font-medium">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-500" data-i18n="Date"></label>
+                            <p id="consultation-details-date" class="text-gray-900 font-medium">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-500" data-i18n="Type"></label>
+                            <p id="consultation-details-type" class="text-gray-900 font-medium">-</p>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-gray-500" data-i18n="Médecin"></label>
+                            <p id="consultation-details-doctor" class="text-gray-900 font-medium">-</p>
+                        </div>
+                    </div>
 
-            // Language toggle
-            const LangToogle = document.getElementById('LangToogle');
-            if (LangToogle) {
-                LangToogle.addEventListener('click', toggleLangMenu);
-            }
+                    <div class="pt-4 border-t border-gray-200">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                            <i data-feather="alert-circle" class="w-5 h-5 mr-2 text-blue-600"></i>
+                            <span data-i18n="Diagnostic"></span>
+                        </h4>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <p id="consultation-details-diagnostic" class="text-gray-700">-</p>
+                        </div>
+                    </div>
 
-            // Storage change (for language)
-            window.addEventListener('storage', function (e) {
-                if (e.key === 'lang') {
-                    initSidebar();
-                    updateCurrentLangDisplay();
-                    updateLangPosition();
-                }
-            });
+                    <div class="pt-4 border-t border-gray-200">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                            <i data-feather="activity" class="w-5 h-5 mr-2 text-green-600"></i>
+                            <span data-i18n="Traitement Prescrit"></span>
+                        </h4>
+                        <div class="bg-green-50 rounded-lg p-4">
+                            <p id="consultation-details-treatment" class="text-gray-700">-</p>
+                        </div>
+                    </div>
 
-            // Boutons d'action
-            const addPatientBtn = document.getElementById('add-patient-btn');
-            if (addPatientBtn) {
-                addPatientBtn.addEventListener('click', function () {
-                    // Votre amie pourra implémenter cette fonction
-                    console.log('Ajouter un patient');
-                });
-            }
+                    <div class="pt-4 border-t border-gray-200">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                            <i data-feather="edit" class="w-5 h-5 mr-2 text-purple-600"></i>
+                            <span data-i18n="Notes Médicales"></span>
+                        </h4>
+                        <div class="bg-purple-50 rounded-lg p-4">
+                            <p id="consultation-details-notes" class="text-gray-700">-</p>
+                        </div>
+                    </div>
+                </div>
 
-            const addAppointmentForm = document.getElementById('add-appointment-form');
-            if (addAppointmentForm) {
-                addAppointmentForm.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    // Votre amie pourra implémenter cette fonction
-                    console.log('Ajouter un rendez-vous');
-                });
-            }
+                <!-- Hidden Consultation ID -->
+                <input type="hidden" id="consultation-details-id" value="">
 
-            const addConsultationBtn = document.getElementById('add-consultation-btn');
-            if (addConsultationBtn) {
-                addConsultationBtn.addEventListener('click', function () {
-                    // Votre amie pourra implémenter cette fonction
-                    console.log('Ajouter une consultation');
-                });
-            }
-        }
+                <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end space-x-3">
+                    <button id="closeConsultationDetailsModal2"
+                        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                        <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                        <span data-i18n="Fermer"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        // ============================================
-        // INITIALISATION
-        // ============================================
+    <!-- Modal Notes Médicales -->
+    <div id="medicalNotesModal"
+        class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+        <div
+            class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="Notes Médicales"></h2>
+                        <p class="text-sm text-gray-600 mt-1" data-i18n="Historique des notes médicales du patient"></p>
+                    </div>
+                    <button id="closeMedicalNotesModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                    </button>
+                </div>
 
-        function init() {
-            // Initialiser Feather Icons
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
+                <div id="medical-notes-container" class="space-y-4">
+                    <!-- Les notes seront chargées ici dynamiquement -->
+                    <p class="text-gray-500 text-center py-8" data-i18n="Aucune note médicale enregistrée">Aucune note
+                        médicale enregistrée</p>
+                </div>
 
-            // Initialiser le sidebar
-            initSidebar();
+                <!-- Hidden Patient ID -->
+                <input type="hidden" id="medical-notes-patient-id" value="">
 
-            // Initialiser l'affichage de la langue
-            updateCurrentLangDisplay();
-            updateLangPosition();
-
-            // Initialiser le formulaire du profil
-            initDoctorProfileForm();
-
-            // Configurer les événements
-            setupEventListeners();
-
-            // Initialiser les chartes (vides)
-            initCharts();
-
-            // Gérer la page initiale
-            handleHashChange();
-
-            // Mettre à jour les icônes périodiquement
-            setInterval(() => {
-                if (typeof feather !== 'undefined') {
-                    feather.replace();
-                }
-            }, 1000);
-        }
-
-        // ============================================
-        // DÉMARRAGE
-        // ============================================
-
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
+                <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end">
+                    <button id="closeMedicalNotesModal2"
+                        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                        <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                        <span data-i18n="Fermer"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../../main.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>

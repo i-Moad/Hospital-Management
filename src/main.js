@@ -8,6 +8,15 @@ import Storage from "../models/Storage.js";
 const page = document.body.dataset.page;
 const session = Storage.load("Session");
 
+// Storage.addItem("Users", {
+//     CIN: "BK158964",
+//     firstName: "Mustapha",
+//     lastName: "Ezzit",
+//     email: "test@test.com",
+//     password: "123456",
+//     role: "admin"
+// })
+
 // Protect all pages except login
 if (!Auth.isAuthenticated() && page !== "Auth") {
     window.location.href = "/src/auth/login.html";
