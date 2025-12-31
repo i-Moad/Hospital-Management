@@ -1,5 +1,6 @@
 import Auth from "../models/Auth.js";
 import AuthView from "../views/AuthView.js";
+import Storage from "../models/Storage.js";
 
 export default class AuthController {
   constructor() {
@@ -26,7 +27,22 @@ export default class AuthController {
       const success = Auth.login(email, password);
       setTimeout(() => {
         this.view.hideSpinner();
-        if (success) window.location.href = "../index.html";
+        if (success) {
+          const session = Storage.load("Session");
+          console.log(session)
+          if (session.role === "admin") {
+            window.location.href = "../Dashboards/Admin/index.html"
+            return;
+          }
+          if (session.role === "doctor") {
+            window.location.href = "../Dashboards/Doctor/index.html"
+            return;
+          }
+          if (session.role === "staff") {
+            window.location.href = "../Dashboards/Staff/index.html"
+            return;
+          }
+        };
       }, 500);
     } catch {
       setTimeout(() => {

@@ -9,7 +9,7 @@ export default class AdminStats {
 
     const services = 156;
 
-    return { users, doctors, staff, services };
+    return { users, doctors, staff, patients, services };
   }
 
   static getOccupationRate() {

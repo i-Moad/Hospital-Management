@@ -9,10 +9,10 @@ export default class UserView {
 
   renderCurrUserInfo(session) {
     if (!session) return;
-    
-    this.menuUsername.textContent = `${session.lastName} ${session.firstName}`;
-    this.avatarUsername.textContent = `${session.lastName} ${session.firstName}`;
-    this.menuEmail.textContent = session.email;
-    this.avatarRole.textContent = session.role;
+
+    if (!this.menuUsername === "") this.menuUsername.textContent = `${session.lastName} ${session.firstName}`;
+    if (!this.avatarUsername === "") this.avatarUsername.textContent = `${session.lastName} ${session.firstName}`;
+    if (!this.menuEmail === "") this.menuEmail.textContent = session.email;
+    if (!this.avatarRole === "") this.avatarRole.textContent = session.role;
   }
 }

@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+     <link rel="stylesheet" href="../../output.css">
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../../translation/i18n.js"></script>
@@ -13,91 +14,138 @@
             await initI18n();
         });
     </script>
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard - EMSI Health</title>
+    <style>
+        /* Animations pour les modales */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-animation {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .modal-content-animation {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        /* Scrollbar personnalisée */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+    </style>
 </head>
 
 <body data-page="Dashboard-Admin" class="bg-gray-50">
 
     <!-- Navbar -->
-<nav class="fixed top-0 z-50 w-full h-16 bg-white border-b border-gray-200">
-    <div class="h-full px-3 lg:px-5">
-        <div class="flex items-center justify-between h-full">
-            <div class="flex items-center">
-                <!-- Toggle mobile -->
-                <button id="toggleSidebar"
-                    class="inline-flex items-center p-2 text-gray-500 rounded-lg sm:hidden hover:bg-gray-100">
-                    <i data-feather="menu"></i>
-                </button>
-
-                <!-- Logo -->
-                <a href="#" class="flex items-center ml-2">
-                    <img src="../../../../assets/png/logoEmsiHealth4.png" alt="EMSI Health" width="150px" />
-                </a>
-                
-                <!-- Sélecteur de langue - Version professionnelle -->
-                <div class="ml-6 relative">
-                    <button id="LangToogle"
-                        class="flex items-center px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 group">
-                        <i data-feather="globe" class="w-5 h-5 text-blue-600"></i>
-                        <span class="ml-2 text-sm font-semibold text-gray-700" id="currentLang">FR</span>
-                        <i data-feather="chevron-down" class="w-4 h-4 ml-2 text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
+    <nav class="fixed top-0 z-50 w-full h-16 bg-white border-b border-gray-200">
+        <div class="h-full px-3 lg:px-5">
+            <div class="flex items-center justify-between h-full">
+                <div class="flex items-center">
+                    <!-- Toggle mobile -->
+                    <button id="toggleSidebar"
+                        class="inline-flex items-center p-2 text-gray-500 rounded-lg sm:hidden hover:bg-gray-100">
+                        <i data-feather="menu"></i>
                     </button>
-                    <div id="LangSelect" class="absolute top-10 right-0 w-48 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden opacity-0 invisible transition-all duration-200 z-50 transform -translate-y-2">
-                        <!-- Les boutons s'afficheront ici -->
+
+                    <!-- Logo -->
+                    <a href="#" class="flex items-center ml-2">
+                        <img id="logoImage" src="../../../../assets/png/logoEmsiHealth4.png" alt="EMSI Health" width="150px" />
+                    </a>
+
+                    <!-- Sélecteur de langue -->
+                    <div class="ml-6 relative">
+                        <button id="LangToogle"
+                            class="flex items-center px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 group">
+                            <i data-feather="globe" class="w-5 h-5 text-blue-600"></i>
+                            <span class="ml-2 text-sm font-semibold text-gray-700" id="currentLang">FR</span>
+                            <i data-feather="chevron-down"
+                                class="w-4 h-4 ml-2 text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
+                        </button>
+                        <div id="LangSelect"
+                            class="absolute top-10 right-0 w-48 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden opacity-0 invisible transition-all duration-200 z-50 transform -translate-y-2">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Avatar utilisateur - Version professionnelle -->
-            <div class="relative group">
-                <button class="flex items-center space-x-3 p-1 pr-3 bg-white border border-gray-200 rounded-2xl hover:shadow-md transition-all duration-200">
-                    <div class="relative">
-                        <div class="w-9 h-9 rounded-full overflow-hidden border-2 border-white shadow-md">
-                            <img class="w-full h-full object-cover"
-                                src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff&bold=true&size=128"
-                                alt="Admin User">
+                <!-- Avatar utilisateur -->
+                <div class="relative group">
+                    <button id="userDropdownButton"
+                        class="flex items-center space-x-3 p-1 pr-3 bg-white border border-gray-200 rounded-2xl hover:shadow-md transition-all duration-200">
+                        <div class="relative">
+                            <div class="w-9 h-9 rounded-full overflow-hidden border-2 border-white shadow-md">
+                                <img id="userAvatar" class="w-full h-full object-cover"
+                                    src="https://ui-avatars.com/api/?name=Admin+User&background=0D8ABC&color=fff&bold=true&size=128"
+                                    alt="Admin User">
+                            </div>
+                            <div id="userStatus"
+                                class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full">
+                            </div>
                         </div>
-                        <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
-                    </div>
-                    <div class="text-left">
-                        <p id="avatarUsername" class="text-sm font-semibold text-gray-800"></p>
-                        <p id="avatarRole" class="text-xs text-gray-500"></p>
-                    </div>
-                    <i data-feather="chevron-down" class="w-4 h-4 text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
-                </button>
-                
-                <!-- Menu dropdown utilisateur -->
-                <div class="absolute right-0 top-12 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform -translate-y-2">
-                    <div class="py-2">
-                        <div class="px-4 py-3 border-b border-gray-100">
-                            <p id="username" class="text-sm font-semibold text-gray-800"></p>
-                            <p id="email" class="text-xs text-gray-500 mt-1">   </p>
+                        <div class="text-left">
+                            <p id="avatarUsername" id="userFullName" class="text-sm font-semibold text-gray-800"></p>
+                            <p id="avatarRole" id="userRole" class="text-xs text-gray-500"></p>
                         </div>
-                        <a href="#" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
-                            <i data-feather="user" class="w-4 h-4 mr-3"></i>
-                            <span>Mon Profil</span>
-                        </a>
-                        <a href="#" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
-                            <i data-feather="settings" class="w-4 h-4 mr-3"></i>
-                            <span>Paramètres</span>
-                        </a>
-                        <div class="border-t border-gray-100 my-1"></div>
-                        <a id="logout" href="" class="flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors">
-                            <i data-feather="log-out" class="w-4 h-4 mr-3"></i>
-                            <span>Déconnexion</span>
-                        </a>
+                        <i data-feather="chevron-down"
+                            class="w-4 h-4 text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
+                    </button>
+
+                    <!-- Menu dropdown utilisateur -->
+                    <div id="userDropdownMenu"
+                        class="absolute right-0 top-12 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform -translate-y-2">
+                        <div class="py-2">
+                            <div class="px-4 py-3 border-b border-gray-100">
+                                <p id="username" id="dropdownUserName" class="text-sm font-semibold text-gray-800"></p>
+                                <p id="email" id="dropdownUserEmail" class="text-xs text-gray-500 mt-1">   </p>
+                            </div>
+                            <a href="#" id="profileLink"
+                                class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                                <i data-feather="user" class="w-4 h-4 mr-3"></i>
+                                <span data-i18n="Mon Profil"></span>
+                            </a>
+                            <a href="#" id="settingsLink"
+                                class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                                <i data-feather="settings" class="w-4 h-4 mr-3"></i>
+                                <span data-i18n="Paramètres"></span>
+                            </a>
+                            <div class="border-t border-gray-100 my-1"></div>
+                            <a id="logout" href="" id="logoutLink"
+                                class="flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                <i data-feather="log-out" class="w-4 h-4 mr-3"></i>
+                                <span data-i18n="Déconnexion"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
 
     <!-- Sidebar -->
     <aside id="sidebar"
         class="fixed top-0 z-40 w-64 h-screen pt-20 transition-transform bg-white border-r border-gray-200">
-        <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
+        <div class="h-full px-3 pb-4 overflow-y-auto bg-white custom-scrollbar">
             <ul class="space-y-2 font-medium">
                 <li>
                     <a href="#dashboard"
@@ -114,7 +162,8 @@
                         data-page="users">
                         <i data-feather="users"
                             class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
-                        <span class="flex-1 ml-3 rtl:mr-3 whitespace-nowrap" data-i18n="Gestion des utilisateurs"></span>
+                        <span class="flex-1 ml-3 rtl:mr-3 whitespace-nowrap"
+                            data-i18n="Gestion des utilisateurs"></span>
                     </a>
                 </li>
                 <li>
@@ -140,17 +189,17 @@
     </aside>
 
     <!-- Main Content Area -->
-    <div class="p-4  mt-14" id="main">
+    <div class="p-4 mt-14" id="main">
         <!-- Dashboard Content -->
         <div id="page-dashboard" class="page-content hidden">
             <div class="page-header mb-6">
-                <h1 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Tableau de Bord"></h1>
-                <p class="text-gray-600" data-i18n="Vue d'ensemble de votre système"></p>
+                <h1 id="dashboardTitle" class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Tableau de Bord"></h1>
+                <p id="dashboardSubtitle" class="text-gray-600" data-i18n="Vue d'ensemble de votre système"></p>
             </div>
 
             <!-- Dashboard Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                <div id="totalUsersCard" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Utilisateurs Totaux"></div>
                     <div id="nbrUsers" class="text-2xl font-bold text-gray-900 mb-2"></div>
                     <!-- <div class="flex items-center text-sm text-green-600">
@@ -171,7 +220,7 @@
                         <i data-feather="trending-down" class="w-4 h-4 mr-1"></i>
                     </div> -->
                 </div>
-                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                <div id="medicalServicesCard" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Services Médicaux"></div>
                     <div id="nbrServices" class="text-2xl font-bold text-gray-900 mb-2"></div>
                     <!-- <div class="flex items-center text-sm text-green-600">
@@ -179,6 +228,8 @@
                     </div> -->
                 </div>
             </div>
+            
+            <!-- Charts Section -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
                     <h2 class="text-lg font-semibold mb-4" data-i18n="Utilisateurs et Hôpitaux"></h2>
@@ -212,28 +263,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400 italic">Aucune donnée disponible
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400 italic">Aucune donnée disponible
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400 italic">Aucune donnée disponible
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400 italic">Aucune donnée disponible
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
-                                        <i data-feather="edit" class="w-5 h-5 inline"></i>
-                                    </button>
-                                    <button class="text-red-600 hover:text-red-800 transition-colors mx-1">
-                                        <i data-feather="trash" class="w-5 h-5 inline"></i>
-                                    </button>
-                                    <button class="text-green-600 hover:text-green-800 transition-colors mx-1">
-                                        <i data-feather="eye" class="w-5 h-5 inline"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                        <tbody class="bg-white divide-y divide-gray-200" id="dashboardMetricsBody">
                         </tbody>
                     </table>
                 </div>
@@ -243,10 +273,57 @@
         <!-- Users Content -->
         <div id="page-users" class="page-content hidden">
             <div class="page-header mb-6">
-                <h1 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Gestion des Utilisateurs"></h1>
-                <p class="text-gray-600" data-i18n="Gérez tous les utilisateurs du système"></p>
+                <h1 id="usersTitle" class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Gestion des Utilisateurs"></h1>
+                <p id="usersSubtitle" class="text-gray-600" data-i18n="Gérez tous les utilisateurs du système"></p>
             </div>
 
+            <!-- Filters and Actions -->
+            <div class="mb-6 bg-white p-4 rounded-lg shadow">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <!-- Role Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Filtrer par rôle"></label>
+                            <select id="filterRole" class="px-3 py-2 border border-gray-300 rounded-lg text-sm w-48">
+                                <option value="">Tous les rôles</option>
+                                <option value="admin">Administrateur</option>
+                                <option value="doctor">Médecin</option>
+                                <option value="staff">Personnel</option>
+                                <option value="patient">Patient</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Status Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Filtrer par statut"></label>
+                            <select id="filterStatus" class="px-3 py-2 border border-gray-300 rounded-lg text-sm w-48">
+                                <option value="">Tous les statuts</option>
+                                <option value="active">Actif</option>
+                                <option value="inactive">Inactif</option>
+                                <option value="pending">En attente</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Search -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Rechercher"></label>
+                            <div class="relative">
+                                <i data-feather="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <input type="text" id="searchUsers" data-i18n-placeholder="Nom, email, CIN..." 
+                                    class="pl-10 px-3 py-2 border border-gray-300 rounded-lg text-sm w-64">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add Button -->
+                    <button id="addUserBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center self-start">
+                        <i data-feather="user-plus" class="w-4 h-4 mr-2"></i>
+                        <span data-i18n="Ajouter un utilisateur"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Users Table -->
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
@@ -256,73 +333,60 @@
                                     data-i18n="ID">
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="CIN">
+                                    data-i18n="Utilisateur">
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Nom">
+                                    data-i18n="Contact">
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Prénom">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Email">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Téléphone">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Adresse">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Role">
+                                    data-i18n="Rôle">
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     data-i18n="Statut">
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Date d'inscription">
                                 </th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     data-i18n="Actions">
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
-                                        <i data-feather="edit" class="w-5 h-5 inline"></i>
-                                    </button>
-                                    <button class="text-red-600 hover:text-red-800 transition-colors mx-1">
-                                        <i data-feather="trash" class="w-5 h-5 inline"></i>
-                                    </button>
-                                    <button class="text-green-600 hover:text-green-800 transition-colors mx-1">
-                                        <i data-feather="eye" class="w-5 h-5 inline"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="10" class="px-6 py-12 text-center">
-                                    <div class="flex flex-col items-center justify-center">
-                                        <i data-feather="users" class="w-12 h-12 text-gray-400 mb-4"></i>
-                                        <span class="text-gray-500 mb-4" data-i18n="Aucun utilisateur trouvé"></span>
-                                        <button
-                                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                                            data-i18n="Ajouter un utilisateur">
-                                            <i data-feather="plus" class="w-4 h-4 inline mr-2"></i>
-
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tbody class="bg-white divide-y divide-gray-200" id="usersTableBody">
                         </tbody>
                     </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between">
+                    <div class="text-sm text-gray-700 mb-4 md:mb-0">
+                        <span data-i18n="Affichage de"></span> 
+                        <span id="usersStartItem">0</span> 
+                        <span data-i18n="à"></span> 
+                        <span id="usersEndItem">0</span> 
+                        <span data-i18n="sur"></span> 
+                        <span id="usersTotalItems">0</span> 
+                        <span data-i18n="utilisateurs"></span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button id="prevUsersPage" class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <i data-feather="chevron-left" class="w-4 h-4"></i>
+                        </button>
+                        <div id="usersPaginationNumbers" class="flex space-x-1">
+                        </div>
+                        <button id="nextUsersPage" class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <i data-feather="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <div class="ml-4 flex items-center">
+                            <span class="text-sm text-gray-700 mr-2" data-i18n="Lignes par page"></span>
+                            <select id="usersPerPage" class="px-2 py-1 border border-gray-300 rounded text-sm">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -334,73 +398,97 @@
                 <p class="text-gray-600" data-i18n="Gérez tous les services médicaux"></p>
             </div>
 
+            <!-- Filters and Actions -->
+            <div class="mb-6 bg-white p-4 rounded-lg shadow">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <!-- Status Filter -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Filtrer par statut"></label>
+                            <select id="filterServiceStatus" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                                <option value="">Tous les statuts</option>
+                                <option value="active">Actif</option>
+                                <option value="inactive">Inactif</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Search -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Rechercher"></label>
+                            <div class="relative">
+                                <i data-feather="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <input type="text" id="searchServicesTable" data-i18n-placeholder="Nom du service..." 
+                                    class="pl-10 px-3 py-2 border border-gray-300 rounded-lg text-sm w-64">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add Button -->
+                    <button id="addServiceBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                        <i data-feather="plus" class="w-4 h-4 mr-2"></i>
+                        <span data-i18n="Ajouter un service"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Services Table -->
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="ID Service">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Nom du Service">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Description">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Hôpital">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Chef de Service">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Nombre de Lits">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Taux d'Occupation">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Statut">
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                    data-i18n="Actions">
-                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="ID"></th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Nom du Service"></th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Description"></th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Nombre de Médecins"></th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Statut"></th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Actions"></th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-gray-400">-</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
-                                        <i data-feather="edit" class="w-5 h-5 inline"></i>
-                                    </button>
-                                    <button class="text-red-600 hover:text-red-800 transition-colors mx-1">
-                                        <i data-feather="trash" class="w-5 h-5 inline"></i>
-                                    </button>
-                                    <button class="text-green-600 hover:text-green-800 transition-colors mx-1">
-                                        <i data-feather="eye" class="w-5 h-5 inline"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                        <tbody class="bg-white divide-y divide-gray-200" id="servicesTableBody">
                         </tbody>
                     </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between">
+                    <div class="text-sm text-gray-700 mb-4 md:mb-0">
+                        <span data-i18n="Affichage de"></span> 
+                        <span id="servicesStartItem">0</span> 
+                        <span data-i18n="à"></span> 
+                        <span id="servicesEndItem">0</span> 
+                        <span data-i18n="sur"></span> 
+                        <span id="servicesTotalItems">0</span> 
+                        <span data-i18n="services"></span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button id="prevServicesPage" class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <i data-feather="chevron-left" class="w-4 h-4"></i>
+                        </button>
+                        <div id="servicesPaginationNumbers" class="flex space-x-1">
+                        </div>
+                        <button id="nextServicesPage" class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            <i data-feather="chevron-right" class="w-4 h-4"></i>
+                        </button>
+                        <div class="ml-4 flex items-center">
+                            <span class="text-sm text-gray-700 mr-2" data-i18n="Lignes par page"></span>
+                            <select id="servicesPerPage" class="px-2 py-1 border border-gray-300 rounded text-sm">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Hopital Content -->
+        <!-- Hospital Content -->
         <div id="page-hopital" class="page-content hidden">
             <div class="page-header mb-6">
-                <h1 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Gestion de l'Hôpital"></h1>
-                <p class="text-gray-600" data-i18n="Gérez les informations de l'hôpital"></p>
+                <h1 id="hospitalTitle" class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Gestion de l'Hôpital"></h1>
+                <p id="hospitalSubtitle" class="text-gray-600" data-i18n="Gérez les informations de l'hôpital"></p>
             </div>
             <div class="bg-white rounded-lg shadow p-6">
                 <form id="hopital-form" class="space-y-6">
@@ -420,7 +508,7 @@
                             </div>
                             <input type="text" name="NomHopital" id="NomHopital"
                                 class="pl-10 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="Entrez le nom de l'hôpital">
+                                data-i18n-placeholder="Entrez le nom de l'hôpital">
                         </div>
                     </div>
 
@@ -436,7 +524,7 @@
                             </div>
                             <input type="text" name="adresse" id="adresse"
                                 class="pl-10 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="Entrez l'adresse complète">
+                                data-i18n-placeholder="Entrez l'adresse complète">
                         </div>
                     </div>
 
@@ -452,7 +540,7 @@
                             </div>
                             <input type="text" name="Téléphone" id="Téléphone"
                                 class="pl-10 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="Ex: +212 600-000000">
+                                data-i18n-placeholder="Ex: +212 600-000000">
                         </div>
                     </div>
 
@@ -468,29 +556,1176 @@
                             </div>
                             <input type="email" name="email" id="email"
                                 class="pl-10 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                placeholder="exemple@hopital.com">
+                                data-i18n-placeholder="exemple@hopital.com">
                         </div>
                     </div>
+                    
                     <!-- Boutons d'action -->
                     <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
-                        <button type="button"
-                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
-                            data-i18n="Annuler">
+                        <button type="button" id="cancelHospitalBtn"
+                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
                             <i data-feather="x" class="w-4 h-4 inline mr-2"></i>
+                            <span data-i18n="Annuler"></span>
                         </button>
-                        <button type="submit"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                            data-i18n="Enregistrer">
+                        <button type="submit" id="saveHospitalBtn"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
                             <i data-feather="save" class="w-4 h-4 inline mr-2"></i>
+                            <span data-i18n="Enregistrer"></span>
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
 
     <script type="module" src="../../main.js"></script>
     <script src="admin.js"></script>
-</body>
+        <!-- ============================================ -->
+        <!-- TOUTES LES MODALES -->
+        <!-- ============================================ -->
 
+        <!-- Add User Modal -->
+        <div id="addUserModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900" data-i18n="Ajouter un utilisateur"></h2>
+                            <p class="text-sm text-gray-600 mt-1" data-i18n="Remplissez les informations du nouvel utilisateur"></p>
+                        </div>
+                        <button id="closeAddUserModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                        </button>
+                    </div>
+
+                    <form id="addUserForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- First Name -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Prénom"></label>
+                                <div class="relative">
+                                    <i data-feather="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="text" id="addUserFirstName"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="Entrez le prénom" required>
+                                </div>
+                            </div>
+
+                            <!-- Last Name -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Nom"></label>
+                                <div class="relative">
+                                    <i data-feather="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="text" id="addUserLastName"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="Entrez le nom" required>
+                                </div>
+                            </div>
+
+                            <!-- CIN -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="CIN"></label>
+                                <div class="relative">
+                                    <i data-feather="credit-card" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="text" id="addUserCIN"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="Entrez le CIN" required>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Email"></label>
+                                <div class="relative">
+                                    <i data-feather="mail" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="email" id="addUserEmail"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="email@exemple.com" required>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Téléphone"></label>
+                                <div class="relative">
+                                    <i data-feather="phone" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="text" id="addUserPhone"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="+212 600-000000">
+                                </div>
+                            </div>
+
+                            <!-- Role -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Rôle"></label>
+                                <div class="relative">
+                                    <i data-feather="shield" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <select id="addUserRole"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="admin">Administrateur</option>
+                                        <option value="doctor">Médecin</option>
+                                        <option value="staff" selected>Personnel</option>
+                                        <option value="patient">Patient</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Password -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Mot de passe"></label>
+                                <div class="relative">
+                                    <i data-feather="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="password" id="addUserPassword"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="Mot de passe" required>
+                                </div>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Confirmer le mot de passe"></label>
+                                <div class="relative">
+                                    <i data-feather="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="password" id="addUserConfirmPassword"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="Confirmer le mot de passe" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Adresse"></label>
+                            <div class="relative">
+                                <i data-feather="map-pin" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                                <textarea id="addUserAddress"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    rows="2" data-i18n-placeholder="Entrez l'adresse complète"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+                            <button type="button" id="cancelAddUserBtn"
+                                class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                                <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Annuler"></span>
+                            </button>
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                                <i data-feather="user-plus" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Ajouter l'utilisateur"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- View User Modal -->
+        <div id="viewUserModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900" data-i18n="Détails de l'utilisateur"></h2>
+                            <p class="text-sm text-gray-600 mt-1" data-i18n="Informations complètes de l'utilisateur">
+                            </p>
+                        </div>
+                        <button id="closeViewUserModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                        </button>
+                    </div>
+
+                    <!-- User Info Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Personal Info -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                                <i data-feather="user" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <span data-i18n="Informations Personnelles"></span>
+                            </h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Nom Complet"></label>
+                                    <p id="viewUserFullName" class="text-gray-900 font-medium">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="CIN"></label>
+                                    <p id="viewUserCIN" class="text-gray-900">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500"
+                                        data-i18n="Date de Naissance"></label>
+                                    <p id="viewUserBirthDate" class="text-gray-900">-</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                                <i data-feather="mail" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <span data-i18n="Contact"></span>
+                            </h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Email"></label>
+                                    <p id="viewUserEmail" class="text-gray-900">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Téléphone"></label>
+                                    <p id="viewUserPhone" class="text-gray-900">1</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Adresse"></label>
+                                    <p id="viewUserAddress" class="text-gray-900">-</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Info -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                                <i data-feather="shield" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <span data-i18n="Compte"></span>
+                            </h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Rôle"></label>
+                                    <span id="viewUserRole" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                        -
+                                    </span>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Statut"></label>
+                                    <span id="viewUserStatus" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                        <i data-feather="check-circle" class="w-4 h-4 mr-1"></i>
+                                        -
+                                    </span>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500"
+                                        data-i18n="Date d'inscription"></label>
+                                    <p id="viewUserCreatedAt" class="text-gray-900">-</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hospital Info -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                                <i data-feather="home" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <span data-i18n="Hôpital"></span>
+                            </h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500"
+                                        data-i18n="Hôpital Assigné"></label>
+                                    <p id="viewUserHospital" class="text-gray-900">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Département"></label>
+                                    <p id="viewUserDepartment" class="text-gray-900">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end space-x-3">
+                        <button id="closeViewUserModal2"
+                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                            <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Fermer"></span>
+                        </button>
+                        <button id="editFromViewUserBtn"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                            <i data-feather="edit" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Modifier"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit User Modal -->
+        <div id="editUserModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900" data-i18n="Modifier l'utilisateur"></h2>
+                            <p class="text-sm text-gray-600 mt-1"
+                                data-i18n="Mettre à jour les informations de l'utilisateur"></p>
+                        </div>
+                        <button id="closeEditUserModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                        </button>
+                    </div>
+
+                    <!-- Edit Form -->
+                    <form id="editUserForm" class="space-y-6">
+                        <!-- Two Columns Layout -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Left Column -->
+                            <div class="space-y-4">
+                                <!-- First Name -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-gray-700" data-i18n="Prénom"></label>
+                                    <div class="relative">
+                                        <i data-feather="user"
+                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                        <input type="text" id="editUserFirstName"
+                                            class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                            data-i18n-placeholder="Entrez le prénom">
+                                    </div>
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-gray-700" data-i18n="Nom"></label>
+                                    <div class="relative">
+                                        <i data-feather="user"
+                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                        <input type="text" id="editUserLastName"
+                                            class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                            data-i18n-placeholder="Entrez le nom">
+                                    </div>
+                                </div>
+
+                                <!-- CIN -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-gray-700" data-i18n="CIN"></label>
+                                    <div class="relative">
+                                        <i data-feather="credit-card"
+                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                        <input type="text" id="editUserCIN"
+                                            class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                            data-i18n-placeholder="Entrez le CIN">
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-gray-700" data-i18n="Email"></label>
+                                    <div class="relative">
+                                        <i data-feather="mail"
+                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                        <input type="email" id="editUserEmail"
+                                            class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                            data-i18n-placeholder="email@exemple.com">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="space-y-4">
+                                <!-- Phone -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-gray-700" data-i18n="Téléphone"></label>
+                                    <div class="relative">
+                                        <i data-feather="phone"
+                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                        <input type="text" id="editUserPhone"
+                                            class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                            data-i18n-placeholder="+212 600-000000">
+                                    </div>
+                                </div>
+
+                                <!-- Role -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-gray-700" data-i18n="Rôle"></label>
+                                    <div class="relative">
+                                        <i data-feather="shield"
+                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                        <select id="editUserRole"
+                                            class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                            <option value="admin">Administrateur</option>
+                                            <option value="doctor">Médecin</option>
+                                            <option value="staff">Personnel</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-gray-700" data-i18n="Statut"></label>
+                                    <div class="relative">
+                                        <i data-feather="activity"
+                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                        <select id="editUserStatus"
+                                            class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                            <option value="active">Actif</option>
+                                            <option value="inactive">Inactif</option>
+                                            <option value="suspended">Suspendu</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Hospital -->
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium text-gray-700" data-i18n="Hôpital"></label>
+                                    <div class="relative">
+                                        <i data-feather="home"
+                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                        <select id="editUserHospital"
+                                            class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                            <option value="1">Hôpital Central EMSI</option>
+                                            <option value="2">Hôpital Ibn Sina</option>
+                                            <option value="3">Clinique Al Farabi</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Adresse"></label>
+                            <div class="relative">
+                                <i data-feather="map-pin" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                                <textarea id="editUserAddress"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    rows="2" data-i18n-placeholder="Entrez l'adresse complète"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Hidden User ID -->
+                        <input type="hidden" id="editUserId" value="">
+
+                        <!-- Footer -->
+                        <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+                            <button type="button" id="cancelEditUserBtn"
+                                class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                                <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Annuler"></span>
+                            </button>
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                                <i data-feather="save" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Enregistrer"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete User Modal -->
+        <div id="deleteUserModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md modal-content-animation">
+                <div class="p-6">
+                    <!-- Warning Icon -->
+                    <div class="flex justify-center mb-4">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                            <i data-feather="alert-triangle" class="w-8 h-8 text-red-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="Supprimer l'utilisateur"></h2>
+                        <p class="text-gray-600 mt-2"
+                            data-i18n="Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.">
+                        </p>
+                    </div>
+
+                    <!-- User Details -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                <i data-feather="user" class="w-5 h-5 text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p id="deleteUserName" class="font-semibold text-gray-900">-</p>
+                                <p id="deleteUserInfo" class="text-sm text-gray-600">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Warning Message -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                        <div class="flex">
+                            <i data-feather="alert-circle" class="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0"></i>
+                            <p class="text-sm text-yellow-800"
+                                data-i18n="Cette action supprimera toutes les données associées à cet utilisateur, y compris son historique et ses permissions.">
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Hidden User ID -->
+                    <input type="hidden" id="deleteUserId" value="">
+
+                    <!-- Footer -->
+                    <div class="flex justify-center space-x-4">
+                        <button id="cancelDeleteUserBtn"
+                            class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                            <i data-feather="x" class="w-4 h-4 mr-2 rtl:ml-2"></i>
+                            <span data-i18n="Annuler"></span>
+                        </button>
+                        <button id="confirmDeleteUserBtn"
+                            class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center">
+                            <i data-feather="trash-2" class="w-4 h-4 mr-2 rtl:ml-2"></i>
+                            <span data-i18n="Supprimer définitivement"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Service Modal -->
+        <div id="viewServiceModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900" data-i18n="Détails du service"></h2>
+                            <p class="text-sm text-gray-600 mt-1" data-i18n="Informations complètes du service médical">
+                            </p>
+                        </div>
+                        <button id="closeViewServiceModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                        </button>
+                    </div>
+
+                    <!-- Service Info -->
+                    <div class="space-y-6">
+                        <!-- Basic Info -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Nom du Service"></label>
+                                    <p id="viewServiceName" class="text-gray-900 font-semibold text-lg">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Code Service"></label>
+                                    <p id="viewServiceCode" class="text-gray-900">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Hôpital"></label>
+                                    <p id="viewServiceHospital" class="text-gray-900">-</p>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500"
+                                        data-i18n="Chef de Service"></label>
+                                    <p id="viewServiceChief" class="text-gray-900">-</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Statut"></label>
+                                    <span id="viewServiceStatus" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                        <i data-feather="check-circle" class="w-4 h-4 mr-1"></i>
+                                        -
+                                    </span>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-500"
+                                        data-i18n="Date de création"></label>
+                                    <p id="viewServiceCreatedAt" class="text-gray-900">-</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Capacity -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+                                <i data-feather="database" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <span data-i18n="Capacité"></span>
+                            </h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <p id="viewServiceTotalBeds" class="text-2xl font-bold text-blue-600">0</p>
+                                    <p class="text-sm text-gray-600" data-i18n="Lits Totaux"></p>
+                                </div>
+                                <div class="text-center">
+                                    <p id="viewServiceOccupiedBeds" class="text-2xl font-bold text-green-600">0</p>
+                                    <p class="text-sm text-gray-600" data-i18n="Lits Occupés"></p>
+                                </div>
+                                <div class="text-center">
+                                    <p id="viewServiceOccupationRate" class="text-2xl font-bold text-purple-600">0%</p>
+                                    <p class="text-sm text-gray-600" data-i18n="Taux d'Occupation"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Description"></label>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <p id="viewServiceDescription" class="text-gray-700">-</p>
+                            </div>
+                        </div>
+
+                        <!-- Equipment List -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700 flex items-center">
+                                <i data-feather="tool" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Équipements Principaux"></span>
+                            </label>
+                            <div id="viewServiceEquipment" class="grid grid-cols-2 gap-2">
+                                <!-- Equipment will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Assigned Doctors -->
+                        <div class="space-y-2" id="viewServiceDoctorsContainer">
+                            <label class="text-sm font-medium text-gray-700 flex items-center">
+                                <i data-feather="users" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Médecins Affectés"></span>
+                            </label>
+                            <div id="viewServiceDoctors" class="space-y-3">
+                                <!-- Doctors will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden Service ID -->
+                    <input type="hidden" id="viewServiceId" value="">
+
+                    <!-- Footer -->
+                    <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end space-x-3">
+                        <button id="closeViewServiceModal2"
+                            class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                            <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Fermer"></span>
+                        </button>
+                        <button id="editFromViewServiceBtn"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                            <i data-feather="edit" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Modifier"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Service Modal -->
+        <div id="editServiceModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900" data-i18n="Modifier le service"></h2>
+                            <p class="text-sm text-gray-600 mt-1" data-i18n="Mettre à jour les informations du service">
+                            </p>
+                        </div>
+                        <button id="closeEditServiceModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                        </button>
+                    </div>
+
+                    <!-- Edit Form -->
+                    <form id="editServiceForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Service Name -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Nom du Service"></label>
+                                <div class="relative">
+                                    <i data-feather="inbox"
+                                        class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="text" id="editServiceName"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="Entrez le nom du service">
+                                </div>
+                            </div>
+
+                            <!-- Service Code -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Code Service"></label>
+                                <div class="relative">
+                                    <i data-feather="hash"
+                                        class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="text" id="editServiceCode"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="SERV-XXX-001">
+                                </div>
+                            </div>
+
+                            <!-- Hospital -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Hôpital"></label>
+                                <div class="relative">
+                                    <i data-feather="home"
+                                        class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <select id="editServiceHospital"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="1">Hôpital Central EMSI</option>
+                                        <option value="2">Hôpital Ibn Sina</option>
+                                        <option value="3">Clinique Al Farabi</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Service Head -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Chef de Service"></label>
+                                <div class="relative">
+                                    <i data-feather="user"
+                                        class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <select id="editServiceChief"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="1">Dr. Ahmed Benani</option>
+                                        <option value="2">Dr. Fatima Zahra</option>
+                                        <option value="3">Dr. Karim Alami</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Total Beds -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Nombre de Lits"></label>
+                                <div class="relative">
+                                    <i data-feather="bed"
+                                        class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="number" id="editServiceTotalBeds"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        value="24" min="1" max="100">
+                                </div>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Statut"></label>
+                                <div class="relative">
+                                    <i data-feather="activity"
+                                        class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <select id="editServiceStatus"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="active">Actif</option>
+                                        <option value="maintenance">En maintenance</option>
+                                        <option value="closed">Fermé</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Description"></label>
+                            <div class="relative">
+                                <i data-feather="file-text" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                                <textarea id="editServiceDescription"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    rows="4" data-i18n-placeholder="Décrivez le service..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Equipment -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Équipements (séparés par des virgules)"></label>
+                            <div class="relative">
+                                <i data-feather="tool" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                                <textarea id="editServiceEquipment"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    rows="2" data-i18n-placeholder="Scanner, IRM, Échographie..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Hidden Service ID -->
+                        <input type="hidden" id="editServiceId" value="">
+
+                        <!-- Footer -->
+                        <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+                            <button type="button" id="cancelEditServiceBtn"
+                                class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                                <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Annuler"></span>
+                            </button>
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                                <i data-feather="save" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Enregistrer"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Service Modal -->
+        <div id="deleteServiceModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md modal-content-animation">
+                <div class="p-6">
+                    <!-- Warning Icon -->
+                    <div class="flex justify-center mb-4">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                            <i data-feather="alert-octagon" class="w-8 h-8 text-red-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="Supprimer le service"></h2>
+                        <p class="text-gray-600 mt-2"
+                            data-i18n="Êtes-vous sûr de vouloir supprimer ce service médical ?"></p>
+                    </div>
+
+                    <!-- Service Details -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                                    <i data-feather="inbox" class="w-5 h-5 text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <p id="deleteServiceName" class="font-semibold text-gray-900">-</p>
+                                    <p id="deleteServiceInfo" class="text-sm text-gray-600">-</p>
+                                </div>
+                            </div>
+                            <div class="text-sm text-gray-600">
+                                <p><span data-i18n="Chef de service"></span>: <span id="deleteServiceChief">-</span></p>
+                                <p><span data-i18n="Occupation"></span>: <span id="deleteServiceOccupation">-</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Warning Message -->
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                        <div class="flex">
+                            <i data-feather="alert-circle" class="w-5 h-5 text-red-600 mr-3 flex-shrink-0"></i>
+                            <div class="text-sm text-red-800">
+                                <p class="font-semibold mb-1" data-i18n="Attention !"></p>
+                                <p id="deleteServiceWarning"
+                                    data-i18n="Cette action est critique. Toutes les données du service seront définitivement supprimées.">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alternative Option -->
+                    <div class="mb-6">
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" id="transferPatients" class="rounded text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-gray-700"
+                                data-i18n="Transférer les patients vers un autre service avant suppression"></span>
+                        </label>
+                        <div class="mt-2 ml-6">
+                            <select id="transferService" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                                <option value="">Sélectionner un service</option>
+                                <option value="1">Cardiologie</option>
+                                <option value="2">Urgences</option>
+                                <option value="3">Médecine interne</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Hidden Service ID -->
+                    <input type="hidden" id="deleteServiceId" value="">
+
+                    <!-- Footer -->
+                    <div class="flex justify-center space-x-4">
+                        <button id="cancelDeleteServiceBtn"
+                            class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                            <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Annuler"></span>
+                        </button>
+                        <button id="confirmDeleteServiceBtn"
+                            class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center">
+                            <i data-feather="trash-2" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Supprimer le service"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Service Modal -->
+        <div id="addServiceModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900" data-i18n="Ajouter un service"></h2>
+                            <p class="text-sm text-gray-600 mt-1" data-i18n="Remplissez les informations du nouveau service"></p>
+                        </div>
+                        <button id="closeAddServiceModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                        </button>
+                    </div>
+
+                    <!-- Add Form -->
+                    <form id="addServiceForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Service Name -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Nom du Service"></label>
+                                <div class="relative">
+                                    <i data-feather="inbox" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="text" id="addServiceName"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="Entrez le nom du service" required>
+                                </div>
+                            </div>
+
+                            <!-- Service Code -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Code Service"></label>
+                                <div class="relative">
+                                    <i data-feather="hash" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="text" id="addServiceCode"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        data-i18n-placeholder="SERV-XXX-001" required>
+                                </div>
+                            </div>
+
+                            <!-- Hospital -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Hôpital"></label>
+                                <div class="relative">
+                                    <i data-feather="home" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <select id="addServiceHospital"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="">Sélectionner un hôpital</option>
+                                        <option value="1">Hôpital Central EMSI</option>
+                                        <option value="2">Hôpital Ibn Sina</option>
+                                        <option value="3">Clinique Al Farabi</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Service Head -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Chef de Service"></label>
+                                <div class="relative">
+                                    <i data-feather="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <select id="addServiceChief"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="">Sélectionner un chef de service</option>
+                                        <option value="1">Dr. Ahmed Benani</option>
+                                        <option value="2">Dr. Fatima Zahra</option>
+                                        <option value="3">Dr. Karim Alami</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Total Beds -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Nombre de Lits"></label>
+                                <div class="relative">
+                                    <i data-feather="bed" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <input type="number" id="addServiceTotalBeds"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                        value="10" min="1" max="100" required>
+                                </div>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium text-gray-700" data-i18n="Statut"></label>
+                                <div class="relative">
+                                    <i data-feather="activity" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <select id="addServiceStatus"
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="active" selected>Actif</option>
+                                        <option value="maintenance">En maintenance</option>
+                                        <option value="closed">Fermé</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Description"></label>
+                            <div class="relative">
+                                <i data-feather="file-text" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                                <textarea id="addServiceDescription"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    rows="4" data-i18n-placeholder="Décrivez le service..." required></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Equipment -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Équipements (séparés par des virgules)"></label>
+                            <div class="relative">
+                                <i data-feather="tool" class="absolute left-3 top-3 w-5 h-5 text-gray-400"></i>
+                                <textarea id="addServiceEquipment"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    rows="2" data-i18n-placeholder="Scanner, IRM, Échographie..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+                            <button type="button" id="cancelAddServiceBtn"
+                                class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                                <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Annuler"></span>
+                            </button>
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                                <i data-feather="plus" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Ajouter le service"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assign Doctor Modal -->
+        <div id="assignDoctorModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md modal-content-animation">
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900" data-i18n="Affecter un médecin"></h2>
+                            <p class="text-sm text-gray-600 mt-1" data-i18n="Sélectionnez un médecin pour ce service"></p>
+                        </div>
+                        <button id="closeAssignDoctorModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                            <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
+                        </button>
+                    </div>
+
+                    <!-- Form -->
+                    <form id="assignDoctorForm" class="space-y-6">
+                        <!-- Service Info -->
+                        <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <i data-feather="inbox" class="w-5 h-5 text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <p id="assignServiceName" class="font-semibold text-gray-900">-</p>
+                                    <p id="assignServiceInfo" class="text-sm text-gray-600">-</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Selection -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Sélectionner un médecin"></label>
+                            <div class="relative">
+                                <i data-feather="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <select id="assignDoctorSelect"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                    <option value="">Choisir un médecin</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Role in Service -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Rôle dans le service"></label>
+                            <div class="relative">
+                                <i data-feather="briefcase" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <select id="assignDoctorRole"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                    <option value="regular" selected>Médecin régulier</option>
+                                    <option value="chief">Chef de service</option>
+                                    <option value="assistant">Assistant</option>
+                                    <option value="specialist">Spécialiste</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Schedule (Optionnel) -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Horaires de travail"></label>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs text-gray-600" data-i18n="Jours"></label>
+                                    <select id="assignDoctorDays"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                                        <option value="weekdays" selected>Lundi - Vendredi</option>
+                                        <option value="all_week">Toute la semaine</option>
+                                        <option value="weekends">Weekends uniquement</option>
+                                        <option value="custom">Personnalisé</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-xs text-gray-600" data-i18n="Shift"></label>
+                                    <select id="assignDoctorShift"
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                                        <option value="morning" selected>Matin (8h - 14h)</option>
+                                        <option value="afternoon">Après-midi (14h - 20h)</option>
+                                        <option value="night">Nuit (20h - 8h)</option>
+                                        <option value="full">Plein temps</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hidden Inputs -->
+                        <input type="hidden" id="assignServiceId" value="">
+                        
+                        <!-- Actions -->
+                        <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+                            <button type="button" id="cancelAssignDoctorBtn"
+                                class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                                <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Annuler"></span>
+                            </button>
+                            <button type="submit"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                                <i data-feather="user-check" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Affecter"></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirm Save Hospital Modal -->
+        <div id="confirmSaveHopitalModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md modal-content-animation">
+                <div class="p-6">
+                    <!-- Success Icon -->
+                    <div class="flex justify-center mb-4">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                            <i data-feather="check-circle" class="w-8 h-8 text-green-600"></i>
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900" data-i18n="Confirmer l'enregistrement"></h2>
+                        <p class="text-gray-600 mt-2"
+                            data-i18n="Voulez-vous enregistrer les modifications apportées aux paramètres de l'hôpital ?">
+                        </p>
+                    </div>
+
+                    <!-- Changes Summary -->
+                    <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                        <h3 class="text-sm font-semibold text-blue-900 mb-2" data-i18n="Modifications détectées"></h3>
+                        <ul id="changesList" class="text-sm text-blue-800 space-y-1">
+                            <li class="flex items-center">
+                                <i data-feather="check" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Nom de l'hôpital modifié"></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="flex justify-center space-x-4">
+                        <button id="cancelSaveHopitalBtn"
+                            class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
+                            <i data-feather="x" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Annuler"></span>
+                        </button>
+                        <button id="confirmSaveHopitalBtn"
+                            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                            <i data-feather="save" class="w-4 h-4 mr-2"></i>
+                            <span data-i18n="Confirmer"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="module" src="../../main.js"></script>
+    <script src="./script.js"></script>
+</body>
 </html>

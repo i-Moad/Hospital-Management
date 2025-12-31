@@ -31,5 +31,9 @@ if (page === "Auth" && !Auth.isAuthenticated()) {
 
 if (page === "Dashboard-Admin") {
     new UserController();
-    new AdminDashboardController(); 
+    new AdminDashboardController();
+}
+
+if (page === "Dashboard-Doctor") {
+    new UserController();
 }
