@@ -29,7 +29,7 @@ export default class User {
   }
 
   createUser() {
-    const users = Storage.load(User.USERS_KEY);
+    const users = Storage.load(User.USERS_KEY) || [];
 
     const exists = users.some(
       u => u.CIN === this.CIN || u.email === this.email
@@ -42,17 +42,17 @@ export default class User {
   }
 
   static getUserById(userId) {
-    const users = Storage.load(this.USERS_KEY);
+    const users = Storage.load(User.USERS_KEY) || [];
     return users.find(u => u.userId === userId) || null;
   }
 
   static getUserByCIN(CIN) {
-    const users = Storage.load(this.USERS_KEY);
+    const users = Storage.load(User.USERS_KEY) || [];
     return users.find(u => u.CIN === CIN) || null;
   }
 
   static getAllUsers(filterByRole = null) {
-    const users = Storage.load(this.USERS_KEY);
+    const users = Storage.load(User.USERS_KEY) || [];
     if (!filterByRole) return users;
     return users.filter(u => u.role === filterByRole);
   }
@@ -95,7 +95,7 @@ export default class User {
   }
 
   static changePassword(userId, oldPassword, newPassword) {
-    const users = Storage.load(this.USERS_KEY);
+    const users = Storage.load(User.USERS_KEY) || [];
     const user = users.find(u => u.userId === userId);
 
     if (!user) {
