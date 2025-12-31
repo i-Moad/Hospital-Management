@@ -36,7 +36,8 @@ export default class Auth {
       CIN: user.CIN,
       role: user.role,
       firstName: user.firstName,
-      lastName: user.lastName
+      lastName: user.lastName,
+      email: user.email
     };
 
     localStorage.setItem(this.SESSION_KEY, JSON.stringify(sessionUser));

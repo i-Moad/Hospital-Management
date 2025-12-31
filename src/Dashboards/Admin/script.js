@@ -103,154 +103,154 @@
         // GESTION DU DASHBOARD
         // ============================================
 
-        async function loadDashboardData() {
-            try {
-                const dashboardData = {
-                    totalUsers: 1234,
-                    activeHospitals: 48,
-                    medicalServices: 156,
-                    occupationRate: 78,
-                    usersEvolution: "+12%",
-                    hospitalsEvolution: "+5%",
-                    servicesEvolution: "+8%",
-                    occupationEvolution: "-3%",
-                    recentActivity: [
-                        { id: 1, metric: "Nouveaux utilisateurs", value: "45", evolution: "+12%", trend: "up" },
-                        { id: 2, metric: "Rendez-vous aujourd'hui", value: "156", evolution: "+5%", trend: "up" },
-                        { id: 3, metric: "Taux d'occupation", value: "78%", evolution: "-3%", trend: "down" },
-                        { id: 4, metric: "Temps d'attente moyen", value: "15 min", evolution: "-8%", trend: "down" }
-                    ]
-                };
+        // async function loadDashboardData() {
+        //     try {
+        //         const dashboardData = {
+        //             totalUsers: 1234,
+        //             activeHospitals: 48,
+        //             medicalServices: 156,
+        //             occupationRate: 78,
+        //             usersEvolution: "+12%",
+        //             hospitalsEvolution: "+5%",
+        //             servicesEvolution: "+8%",
+        //             occupationEvolution: "-3%",
+        //             recentActivity: [
+        //                 { id: 1, metric: "Nouveaux utilisateurs", value: "45", evolution: "+12%", trend: "up" },
+        //                 { id: 2, metric: "Rendez-vous aujourd'hui", value: "156", evolution: "+5%", trend: "up" },
+        //                 { id: 3, metric: "Taux d'occupation", value: "78%", evolution: "-3%", trend: "down" },
+        //                 { id: 4, metric: "Temps d'attente moyen", value: "15 min", evolution: "-8%", trend: "down" }
+        //             ]
+        //         };
 
-                // Mettre à jour les cartes
-                document.getElementById('totalUsersCount').textContent = dashboardData.totalUsers.toLocaleString();
-                document.getElementById('activeHospitalsCount').textContent = dashboardData.activeHospitals;
-                document.getElementById('medicalServicesCount').textContent = dashboardData.medicalServices;
-                document.getElementById('occupationRateValue').textContent = dashboardData.occupationRate + '%';
-                document.getElementById('usersEvolution').textContent = dashboardData.usersEvolution;
-                document.getElementById('hospitalsEvolution').textContent = dashboardData.hospitalsEvolution;
-                document.getElementById('servicesEvolution').textContent = dashboardData.servicesEvolution;
-                document.getElementById('occupationEvolution').textContent = dashboardData.occupationEvolution;
+        //         // Mettre à jour les cartes
+        //         document.getElementById('totalUsersCount').textContent = dashboardData.totalUsers.toLocaleString();
+        //         document.getElementById('activeHospitalsCount').textContent = dashboardData.activeHospitals;
+        //         document.getElementById('medicalServicesCount').textContent = dashboardData.medicalServices;
+        //         document.getElementById('occupationRateValue').textContent = dashboardData.occupationRate + '%';
+        //         document.getElementById('usersEvolution').textContent = dashboardData.usersEvolution;
+        //         document.getElementById('hospitalsEvolution').textContent = dashboardData.hospitalsEvolution;
+        //         document.getElementById('servicesEvolution').textContent = dashboardData.servicesEvolution;
+        //         document.getElementById('occupationEvolution').textContent = dashboardData.occupationEvolution;
 
-                // Mettre à jour le tableau
-                const tbody = document.getElementById('dashboardMetricsBody');
-                let html = '';
-                dashboardData.recentActivity.forEach(item => {
-                    html += `
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-900">${item.metric}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-semibold">${item.value}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="text-${item.trend === 'up' ? 'green' : 'red'}-600 font-medium">
-                                    ${item.evolution}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <i data-feather="trending-${item.trend}" 
-                                   class="w-5 h-5 text-${item.trend === 'up' ? 'green' : 'red'}-600"></i>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
-                                    <i data-feather="eye" class="w-5 h-5 inline"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-                });
-                tbody.innerHTML = html;
+        //         // Mettre à jour le tableau
+        //         const tbody = document.getElementById('dashboardMetricsBody');
+        //         let html = '';
+        //         dashboardData.recentActivity.forEach(item => {
+        //             html += `
+        //                 <tr>
+        //                     <td class="px-6 py-4 whitespace-nowrap text-gray-900">${item.metric}</td>
+        //                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-semibold">${item.value}</td>
+        //                     <td class="px-6 py-4 whitespace-nowrap">
+        //                         <span class="text-${item.trend === 'up' ? 'green' : 'red'}-600 font-medium">
+        //                             ${item.evolution}
+        //                         </span>
+        //                     </td>
+        //                     <td class="px-6 py-4 whitespace-nowrap">
+        //                         <i data-feather="trending-${item.trend}" 
+        //                            class="w-5 h-5 text-${item.trend === 'up' ? 'green' : 'red'}-600"></i>
+        //                     </td>
+        //                     <td class="px-6 py-4 whitespace-nowrap">
+        //                         <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
+        //                             <i data-feather="eye" class="w-5 h-5 inline"></i>
+        //                         </button>
+        //                     </td>
+        //                 </tr>
+        //             `;
+        //         });
+        //         tbody.innerHTML = html;
 
-                feather.replace();
+        //         feather.replace();
 
-            } catch (error) {
-                console.error('Erreur lors du chargement des données du dashboard:', error);
-                showToast('Erreur lors du chargement des données du dashboard', 'error');
-            }
-        }
+        //     } catch (error) {
+        //         console.error('Erreur lors du chargement des données du dashboard:', error);
+        //         showToast('Erreur lors du chargement des données du dashboard', 'error');
+        //     }
+        // }
 
-        function initCharts() {
-            // Chart 1: Users & Hospitals
-            const ctx1 = document.getElementById('usersHospitalsChart');
-            if (ctx1) {
-                new Chart(ctx1.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-                        datasets: [
-                            {
-                                label: 'Utilisateurs',
-                                data: [1000, 1100, 1150, 1200, 1230, 1234],
-                                backgroundColor: '#3B82F6',
-                                borderRadius: 5,
-                            },
-                            {
-                                label: 'Hôpitaux',
-                                data: [40, 42, 44, 46, 47, 48],
-                                backgroundColor: '#10B981',
-                                borderRadius: 5,
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value) {
-                                        return value.toLocaleString();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
+        // function initCharts() {
+        //     // Chart 1: Users & Hospitals
+        //     const ctx1 = document.getElementById('usersHospitalsChart');
+        //     if (ctx1) {
+        //         new Chart(ctx1.getContext('2d'), {
+        //             type: 'bar',
+        //             data: {
+        //                 labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+        //                 datasets: [
+        //                     {
+        //                         label: 'Utilisateurs',
+        //                         data: [1000, 1100, 1150, 1200, 1230, 1234],
+        //                         backgroundColor: '#3B82F6',
+        //                         borderRadius: 5,
+        //                     },
+        //                     {
+        //                         label: 'Hôpitaux',
+        //                         data: [40, 42, 44, 46, 47, 48],
+        //                         backgroundColor: '#10B981',
+        //                         borderRadius: 5,
+        //                     }
+        //                 ]
+        //             },
+        //             options: {
+        //                 responsive: true,
+        //                 plugins: {
+        //                     legend: {
+        //                         position: 'top',
+        //                     }
+        //                 },
+        //                 scales: {
+        //                     y: {
+        //                         beginAtZero: true,
+        //                         ticks: {
+        //                             callback: function(value) {
+        //                                 return value.toLocaleString();
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //     }
 
-            // Chart 2: Occupation Rate
-            const ctx2 = document.getElementById('occupationChart');
-            if (ctx2) {
-                new Chart(ctx2.getContext('2d'), {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-                        datasets: [{
-                            label: 'Taux d\'Occupation (%)',
-                            data: [70, 72, 75, 78, 76, 78],
-                            borderColor: '#EF4444',
-                            backgroundColor: 'rgba(239, 68, 68, 0.2)',
-                            tension: 0.3,
-                            fill: true,
-                            pointRadius: 4,
-                            pointBackgroundColor: '#EF4444'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 100,
-                                ticks: {
-                                    callback: function(value) {
-                                        return value + '%';
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
+        //     // Chart 2: Occupation Rate
+        //     const ctx2 = document.getElementById('occupationChart');
+        //     if (ctx2) {
+        //         new Chart(ctx2.getContext('2d'), {
+        //             type: 'line',
+        //             data: {
+        //                 labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+        //                 datasets: [{
+        //                     label: 'Taux d\'Occupation (%)',
+        //                     data: [70, 72, 75, 78, 76, 78],
+        //                     borderColor: '#EF4444',
+        //                     backgroundColor: 'rgba(239, 68, 68, 0.2)',
+        //                     tension: 0.3,
+        //                     fill: true,
+        //                     pointRadius: 4,
+        //                     pointBackgroundColor: '#EF4444'
+        //                 }]
+        //             },
+        //             options: {
+        //                 responsive: true,
+        //                 plugins: {
+        //                     legend: {
+        //                         position: 'top',
+        //                     }
+        //                 },
+        //                 scales: {
+        //                     y: {
+        //                         beginAtZero: true,
+        //                         max: 100,
+        //                         ticks: {
+        //                             callback: function(value) {
+        //                                 return value + '%';
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //     }
+        // }
 
         // ============================================
         // GESTION DES UTILISATEURS

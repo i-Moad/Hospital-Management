@@ -104,8 +104,8 @@
                             </div>
                         </div>
                         <div class="text-left">
-                            <p id="userFullName" class="text-sm font-semibold text-gray-800">Admin User</p>
-                            <p id="userRole" class="text-xs text-gray-500">Administrateur</p>
+                            <p id="avatarUsername" id="userFullName" class="text-sm font-semibold text-gray-800"></p>
+                            <p id="avatarRole" id="userRole" class="text-xs text-gray-500"></p>
                         </div>
                         <i data-feather="chevron-down"
                             class="w-4 h-4 text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
@@ -116,8 +116,8 @@
                         class="absolute right-0 top-12 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform -translate-y-2">
                         <div class="py-2">
                             <div class="px-4 py-3 border-b border-gray-100">
-                                <p id="dropdownUserName" class="text-sm font-semibold text-gray-800">Admin User</p>
-                                <p id="dropdownUserEmail" class="text-xs text-gray-500 mt-1">admin@emsihealth.com</p>
+                                <p id="username" id="dropdownUserName" class="text-sm font-semibold text-gray-800"></p>
+                                <p id="email" id="dropdownUserEmail" class="text-xs text-gray-500 mt-1">   </p>
                             </div>
                             <a href="#" id="profileLink"
                                 class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
@@ -130,7 +130,7 @@
                                 <span data-i18n="Paramètres"></span>
                             </a>
                             <div class="border-t border-gray-100 my-1"></div>
-                            <a href="#" id="logoutLink"
+                            <a id="logout" href="" id="logoutLink"
                                 class="flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors">
                                 <i data-feather="log-out" class="w-4 h-4 mr-3"></i>
                                 <span data-i18n="Déconnexion"></span>
@@ -201,35 +201,31 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <div id="totalUsersCard" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Utilisateurs Totaux"></div>
-                    <div id="totalUsersCount" class="text-2xl font-bold text-gray-900 mb-2">0</div>
-                    <div class="flex items-center text-sm text-green-600">
+                    <div id="nbrUsers" class="text-2xl font-bold text-gray-900 mb-2"></div>
+                    <!-- <div class="flex items-center text-sm text-green-600">
                         <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                        <span id="usersEvolution">0%</span>
-                    </div>
+                    </div> -->
                 </div>
-                <div id="activeHospitalsCard" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-                    <div class="text-sm text-gray-500 mb-2" data-i18n="Hôpitaux Actifs"></div>
-                    <div id="activeHospitalsCount" class="text-2xl font-bold text-gray-900 mb-2">0</div>
-                    <div class="flex items-center text-sm text-green-600">
+                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                    <div class="text-sm text-gray-500 mb-2" data-i18n="Doctors Totaux"></div>
+                    <div id="nbrDoctors" class="text-2xl font-bold text-gray-900 mb-2"></div>
+                    <!-- <div class="flex items-center text-sm text-green-600">
                         <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                        <span id="hospitalsEvolution">0%</span>
-                    </div>
+                    </div> -->
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                    <div class="text-sm text-gray-500 mb-2" data-i18n="Staff Totaux"></div>
+                    <div id="nbrStaff" class="text-2xl font-bold text-gray-900 mb-2"></div>
+                    <!-- <div class="flex items-center text-sm text-red-600">
+                        <i data-feather="trending-down" class="w-4 h-4 mr-1"></i>
+                    </div> -->
                 </div>
                 <div id="medicalServicesCard" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Services Médicaux"></div>
-                    <div id="medicalServicesCount" class="text-2xl font-bold text-gray-900 mb-2">0</div>
-                    <div class="flex items-center text-sm text-green-600">
+                    <div id="nbrServices" class="text-2xl font-bold text-gray-900 mb-2"></div>
+                    <!-- <div class="flex items-center text-sm text-green-600">
                         <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                        <span id="servicesEvolution">0%</span>
-                    </div>
-                </div>
-                <div id="occupationRateCard" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-                    <div class="text-sm text-gray-500 mb-2" data-i18n="Taux d'Occupation"></div>
-                    <div id="occupationRateValue" class="text-2xl font-bold text-gray-900 mb-2">0%</div>
-                    <div class="flex items-center text-sm text-red-600">
-                        <i data-feather="trending-down" class="w-4 h-4 mr-1"></i>
-                        <span id="occupationEvolution">0%</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             
@@ -245,11 +241,7 @@
                 </div>
             </div>
 
-            <!-- Recent Activity -->
-            <div class="bg-white rounded-lg shadow overflow-hidden mb-8">
-                <div class="px-6 py-4 border-b border-gray-200">
-                    <h2 class="text-lg font-semibold text-gray-900" data-i18n="Activité Récente"></h2>
-                </div>
+            <!-- <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -275,7 +267,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <!-- Users Content -->
@@ -585,6 +577,8 @@
             </div>
         </div>
 
+    <script type="module" src="../../main.js"></script>
+    <script src="admin.js"></script>
         <!-- ============================================ -->
         <!-- TOUTES LES MODALES -->
         <!-- ============================================ -->
@@ -1731,7 +1725,7 @@
         </div>
 
     </div>
-    <script src="./script.js"></script>
     <script type="module" src="../../main.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>
