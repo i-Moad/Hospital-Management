@@ -1,0 +1,11 @@
+[
+  {
+    "requestId": 1,
+    "appointmentId": 2,
+    "patientId": 6,
+    "requestType": "reschedule",
+    "requestedDateTime": "2025-02-05T14:00:00",
+    "status": "pending",
+    "createdAt": "2025-01-22"
+  }
+]

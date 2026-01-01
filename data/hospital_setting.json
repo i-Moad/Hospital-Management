@@ -1,0 +1,13 @@
+{
+  "hospitalName": "EMSI Health",
+  "address": "Casablanca, Morocco",
+  "phone": 522334455,
+  "email": "contact@emsihealth.ma",
+  "maxAppointmentsPerDoctorPerDay": 20,
+  "appointmentDuration": 30,
+  "workingDays": ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"],
+  "workingHours": {
+    "start": "08:00",
+    "end": "18:00"
+  }
+}

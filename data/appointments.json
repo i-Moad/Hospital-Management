@@ -1,0 +1,22 @@
+[
+  {
+    "appointmentId": 1,
+    "patientId": 5,
+    "doctorId": 2,
+    "serviceId": 1,
+    "appointmentDateTime": "2025-02-01T10:00:00",
+    "status": "confirmed",
+    "createdBy": "staff",
+    "createdAt": "2025-01-20"
+  },
+  {
+    "appointmentId": 2,
+    "patientId": 6,
+    "doctorId": 3,
+    "serviceId": 2,
+    "appointmentDateTime": "2025-02-02T11:00:00",
+    "status": "pending",
+    "createdBy": "patient",
+    "createdAt": "2025-01-21"
+  }
+]

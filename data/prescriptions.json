@@ -1,0 +1,18 @@
+[
+  {
+    "prescriptionId": 1,
+    "appointmentId": 1,
+    "doctorId": 2,
+    "patientId": 5,
+    "medicineList": [
+      {
+        "medicineName": "Paracetamol",
+        "dosage": "500mg",
+        "frequency": "2 times/day",
+        "duration": "5 days"
+      }
+    ],
+    "note": "After meals",
+    "createdAt": "2025-02-01"
+  }
+]

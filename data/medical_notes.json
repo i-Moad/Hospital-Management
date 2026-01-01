@@ -1,0 +1,10 @@
+[
+  {
+    "noteId": 1,
+    "appointmentId": 1,
+    "doctorId": 2,
+    "patientId": 5,
+    "notesText": "Patient shows good recovery.",
+    "createdAt": "2025-02-01"
+  }
+]

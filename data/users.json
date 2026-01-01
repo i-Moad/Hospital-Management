@@ -1,23 +1,110 @@
 [
   {
-    "id": 1,
-    "email": "admin@medicool.com",
-    "password": "123456",
+    "userId": 1,
+    "CIN": "AA123456",
+    "firstName": "Admin",
+    "lastName": "System",
+    "email": "admin@hospital.com",
+    "password": "hashed_password",
+    "phoneNumber": 612345678,
+    "address": "Casablanca",
+    "emergencyContact": {
+      "firstName": "Ali",
+      "lastName": "System",
+      "phoneNumber": 699999999,
+      "relationShip": "Brother"
+    },
     "role": "admin",
-    "name": "Admin"
+    "createdAt": "2025-01-01"
   },
   {
-    "id": 2,
-    "email": "doctor@medicool.com",
-    "password": "123456",
-    "role": "medecin",
-    "name": "Dr Salma"
+    "userId": 2,
+    "CIN": "BB234567",
+    "firstName": "Sara",
+    "lastName": "Bennani",
+    "email": "sara.doctor@hospital.com",
+    "password": "hashed_password",
+    "phoneNumber": 611223344,
+    "address": "Rabat",
+    "emergencyContact": {
+      "firstName": "Khalid",
+      "lastName": "Bennani",
+      "phoneNumber": 677889900,
+      "relationShip": "Husband"
+    },
+    "role": "doctor",
+    "createdAt": "2025-01-02"
   },
   {
-    "id": 3,
-    "email": "patient@medicool.com",
-    "password": "123456",
+    "userId": 3,
+    "CIN": "CC345678",
+    "firstName": "Youssef",
+    "lastName": "El Amrani",
+    "email": "youssef.doctor@hospital.com",
+    "password": "hashed_password",
+    "phoneNumber": 622334455,
+    "address": "Fes",
+    "emergencyContact": {
+      "firstName": "Amina",
+      "lastName": "El Amrani",
+      "phoneNumber": 688776655,
+      "relationShip": "Sister"
+    },
+    "role": "doctor",
+    "createdAt": "2025-01-03"
+  },
+  {
+    "userId": 4,
+    "CIN": "DD456789",
+    "firstName": "Nadia",
+    "lastName": "Staff",
+    "email": "nadia.staff@hospital.com",
+    "password": "hashed_password",
+    "phoneNumber": 633221100,
+    "address": "Kenitra",
+    "emergencyContact": {
+      "firstName": "Mohamed",
+      "lastName": "Staff",
+      "phoneNumber": 655443322,
+      "relationShip": "Father"
+    },
+    "role": "staff",
+    "createdAt": "2025-01-04"
+  },
+  {
+    "userId": 5,
+    "CIN": "EE567890",
+    "firstName": "Ahmed",
+    "lastName": "Patient",
+    "email": "ahmed@gmail.com",
+    "password": "hashed_password",
+    "phoneNumber": 644556677,
+    "address": "Agadir",
+    "emergencyContact": {
+      "firstName": "Fatima",
+      "lastName": "Patient",
+      "phoneNumber": 677112233,
+      "relationShip": "Mother"
+    },
     "role": "patient",
-    "name": "Ahmed"
+    "createdAt": "2025-01-05"
+  },
+  {
+    "userId": 6,
+    "CIN": "FF678901",
+    "firstName": "Khadija",
+    "lastName": "Patient",
+    "email": "khadija@gmail.com",
+    "password": "hashed_password",
+    "phoneNumber": 655667788,
+    "address": "Marrakech",
+    "emergencyContact": {
+      "firstName": "Omar",
+      "lastName": "Patient",
+      "phoneNumber": 688990011,
+      "relationShip": "Husband"
+    },
+    "role": "patient",
+    "createdAt": "2025-01-06"
   }
 ]
