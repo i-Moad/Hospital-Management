@@ -113,536 +113,13 @@ function generateServiceCode(id) {
 // GESTION DU DASHBOARD
 // ============================================
 
-async function loadDashboardData() {
-  try {
-    const dashboardData = {
-      totalUsers: 1234,
-      activeHospitals: 48,
-      medicalServices: 156,
-      occupationRate: 78,
-      usersEvolution: "+12%",
-      hospitalsEvolution: "+5%",
-      servicesEvolution: "+8%",
-      occupationEvolution: "-3%",
-      recentActivity: [
-        {
-          id: 1,
-          metric: "Nouveaux utilisateurs",
-          value: "45",
-          evolution: "+12%",
-          trend: "up",
-        },
-        {
-          id: 2,
-          metric: "Rendez-vous aujourd'hui",
-          value: "156",
-          evolution: "+5%",
-          trend: "up",
-        },
-        {
-          id: 3,
-          metric: "Taux d'occupation",
-          value: "78%",
-          evolution: "-3%",
-          trend: "down",
-        },
-        {
-          id: 4,
-          metric: "Temps d'attente moyen",
-          value: "15 min",
-          evolution: "-8%",
-          trend: "down",
-        },
-      ],
-    };
-
-    // Mettre à jour les cartes
-    document.getElementById("totalUsersCount").textContent =
-      dashboardData.totalUsers.toLocaleString();
-    document.getElementById("activeHospitalsCount").textContent =
-      dashboardData.activeHospitals;
-    document.getElementById("medicalServicesCount").textContent =
-      dashboardData.medicalServices;
-    document.getElementById("occupationRateValue").textContent =
-      dashboardData.occupationRate + "%";
-    document.getElementById("usersEvolution").textContent =
-      dashboardData.usersEvolution;
-    document.getElementById("hospitalsEvolution").textContent =
-      dashboardData.hospitalsEvolution;
-    document.getElementById("servicesEvolution").textContent =
-      dashboardData.servicesEvolution;
-    document.getElementById("occupationEvolution").textContent =
-      dashboardData.occupationEvolution;
-
-    // Mettre à jour le tableau
-    const tbody = document.getElementById("dashboardMetricsBody");
-    let html = "";
-    dashboardData.recentActivity.forEach((item) => {
-      html += `
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-900">${
-                              item.metric
-                            }</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-900 font-semibold">${
-                              item.value
-                            }</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="text-${
-                                  item.trend === "up" ? "green" : "red"
-                                }-600 font-medium">
-                                    ${item.evolution}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <i data-feather="trending-${item.trend}" 
-                                   class="w-5 h-5 text-${
-                                     item.trend === "up" ? "green" : "red"
-                                   }-600"></i>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <button class="text-blue-600 hover:text-blue-800 transition-colors mx-1">
-                                    <i data-feather="eye" class="w-5 h-5 inline"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `;
-    });
-    tbody.innerHTML = html;
-
-    feather.replace();
-  } catch (error) {
-    console.error("Erreur lors du chargement des données du dashboard:", error);
-    // showToast("Erreur lors du chargement des données du dashboard", "error");
-  }
-}
-
 
 
 // ============================================
 // GESTION DES UTILISATEURS
 // ============================================
 
-async function loadUsersData() {
-  try {
-    usersData = [
-      {
-        id: 1,
-        cin: "AB123456",
-        firstName: "Ahmed",
-        lastName: "Benani",
-        email: "ahmed.benani@example.com",
-        phone: "+212 600-111111",
-        address: "123 Rue Principale, Casablanca",
-        role: "admin",
-        status: "active",
-        createdAt: "2024-01-15",
-        hospital: "Hôpital Central EMSI",
-        birthDate: "1985-03-15",
-        department: "Direction",
-      },
-      {
-        id: 1,
-        cin: "AB123456",
-        firstName: "Ahmed",
-        lastName: "Benani",
-        email: "ahmed.benani@example.com",
-        phone: "+212 600-111111",
-        address: "123 Rue Principale, Casablanca",
-        role: "admin",
-        status: "active",
-        createdAt: "2024-01-15",
-        hospital: "Hôpital Central EMSI",
-        birthDate: "1985-03-15",
-        department: "Direction",
-      },
-      {
-        id: 1,
-        cin: "AB123456",
-        firstName: "Ahmed",
-        lastName: "Benani",
-        email: "ahmed.benani@example.com",
-        phone: "+212 600-111111",
-        address: "123 Rue Principale, Casablanca",
-        role: "admin",
-        status: "active",
-        createdAt: "2024-01-15",
-        hospital: "Hôpital Central EMSI",
-        birthDate: "1985-03-15",
-        department: "Direction",
-      },
-      {
-        id: 1,
-        cin: "AB123456",
-        firstName: "Ahmed",
-        lastName: "Benani",
-        email: "ahmed.benani@example.com",
-        phone: "+212 600-111111",
-        address: "123 Rue Principale, Casablanca",
-        role: "admin",
-        status: "active",
-        createdAt: "2024-01-15",
-        hospital: "Hôpital Central EMSI",
-        birthDate: "1985-03-15",
-        department: "Direction",
-      },
-      {
-        id: 1,
-        cin: "AB123456",
-        firstName: "Ahmed",
-        lastName: "Benani",
-        email: "ahmed.benani@example.com",
-        phone: "+212 600-111111",
-        address: "123 Rue Principale, Casablanca",
-        role: "admin",
-        status: "active",
-        createdAt: "2024-01-15",
-        hospital: "Hôpital Central EMSI",
-        birthDate: "1985-03-15",
-        department: "Direction",
-      },
-      {
-        id: 2,
-        cin: "CD789012",
-        firstName: "Fatima",
-        lastName: "Zahra",
-        email: "fatima.zahra@example.com",
-        phone: "+212 600-222222",
-        address: "456 Avenue Mohammed V, Rabat",
-        role: "doctor",
-        specialty: "Cardiologie",
-        status: "active",
-        createdAt: "2024-02-10",
-        hospital: "Hôpital Ibn Sina",
-        birthDate: "1980-07-22",
-        department: "Cardiologie",
-      },
-      {
-        id: 3,
-        cin: "EF345678",
-        firstName: "Karim",
-        lastName: "Alami",
-        email: "karim.alami@example.com",
-        phone: "+212 600-333333",
-        address: "789 Boulevard Hassan II, Marrakech",
-        role: "doctor",
-        specialty: "Radiologie",
-        status: "active",
-        createdAt: "2024-02-20",
-        hospital: "Clinique Al Farabi",
-        birthDate: "1990-11-30",
-        department: "Radiologie",
-      },
-      {
-        id: 4,
-        cin: "GH901234",
-        firstName: "Samira",
-        lastName: "El Moussa",
-        email: "samira.elmoussa@example.com",
-        phone: "+212 600-444444",
-        address: "321 Rue des Lilas, Fès",
-        role: "doctor",
-        specialty: "Urgences",
-        status: "active",
-        createdAt: "2024-03-01",
-        hospital: "Hôpital Central EMSI",
-        birthDate: "1988-05-15",
-        department: "Urgences",
-      },
-      {
-        id: 5,
-        cin: "IJ567890",
-        firstName: "Mohamed",
-        lastName: "Khalil",
-        email: "mohamed.khalil@example.com",
-        phone: "+212 600-555555",
-        address: "654 Avenue Al Amir, Tanger",
-        role: "staff",
-        status: "active",
-        createdAt: "2024-03-05",
-        hospital: "Hôpital Ibn Sina",
-        birthDate: "1992-09-20",
-        department: "Administration",
-      },
-    ];
 
-    filterAndPaginateUsers();
-    // showToast("Utilisateurs chargés avec succès", "success");
-  } catch (error) {
-    console.error("Erreur lors du chargement des utilisateurs:", error);
-    // showToast("Erreur lors du chargement des utilisateurs", "error");
-  }
-}
-
-function filterAndPaginateUsers() {
-  const roleFilter = document.getElementById("filterRole").value;
-  const statusFilter = document.getElementById("filterStatus").value;
-  const searchTerm = document.getElementById("searchUsers").value.toLowerCase();
-
-  filteredUsersData = usersData.filter((user) => {
-    const matchesRole = !roleFilter || user.role === roleFilter;
-    const matchesStatus = !statusFilter || user.status === statusFilter;
-    const matchesSearch =
-      !searchTerm ||
-      user.firstName.toLowerCase().includes(searchTerm) ||
-      user.lastName.toLowerCase().includes(searchTerm) ||
-      user.email.toLowerCase().includes(searchTerm) ||
-      user.cin.toLowerCase().includes(searchTerm);
-
-    return matchesRole && matchesStatus && matchesSearch;
-  });
-
-  currentUsersPage = 1;
-  renderUsersTable();
-  updateUsersPagination();
-}
-
-function renderUsersTable() {
-  const tbody = document.getElementById("usersTableBody");
-
-  const startIndex = (currentUsersPage - 1) * usersPerPage;
-  const endIndex = Math.min(
-    startIndex + usersPerPage,
-    filteredUsersData.length
-  );
-  const paginatedUsers = filteredUsersData.slice(startIndex, endIndex);
-
-  if (paginatedUsers.length === 0) {
-    tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="px-6 py-12 text-center">
-                            <div class="flex flex-col items-center justify-center">
-                                <i data-feather="users" class="w-12 h-12 text-gray-400 mb-4"></i>
-                                <span class="text-gray-500 mb-4" data-i18n="Aucun utilisateur trouvé"></span>
-                                <button id="addFirstUserBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                                    <i data-feather="user-plus" class="w-4 h-4 inline mr-2"></i>
-                                    <span data-i18n="Ajouter votre premier utilisateur"></span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-
-    document
-      .getElementById("addFirstUserBtn")
-      ?.addEventListener("click", () => {
-        openModal("addUserModal");
-      });
-
-    updateUsersPagination();
-    feather.replace();
-    return;
-  }
-
-  let html = "";
-  paginatedUsers.forEach((user) => {
-    const fullName = `${user.firstName} ${user.lastName}`;
-    const roleInfo = getRoleInfo(user.role);
-    const statusInfo = getStatusInfo(user.status);
-
-    html += `
-                    <tr class="user-row" data-user-id="${user.id}">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                ${generateUserCode(user.id)}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="font-medium text-gray-900">${fullName}</div>
-                            <div class="text-sm text-gray-500">${user.cin}</div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="text-sm text-gray-900">${
-                              user.email
-                            }</div>
-                            <div class="text-sm text-gray-500">${
-                              user.phone
-                            }</div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                              roleInfo.color
-                            }">
-                                <i data-feather="${
-                                  roleInfo.icon
-                                }" class="w-3 h-3 mr-1"></i>
-                                ${roleInfo.text}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                              statusInfo.color
-                            }">
-                                <i data-feather="${
-                                  statusInfo.icon
-                                }" class="w-3 h-3 mr-1"></i>
-                                ${statusInfo.text}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            ${formatDate(user.createdAt)}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex space-x-2">
-                                <button class="edit-user-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" 
-                                        title="Modifier" data-user-id="${
-                                          user.id
-                                        }">
-                                    <i data-feather="edit" class="w-4 h-4"></i>
-                                </button>
-                                <button class="delete-user-btn p-1 text-red-600 hover:text-red-800 transition-colors"
-                                        title="Supprimer" data-user-id="${
-                                          user.id
-                                        }">
-                                    <i data-feather="trash" class="w-4 h-4"></i>
-                                </button>
-                                <button class="view-user-btn p-1 text-green-600 hover:text-green-800 transition-colors"
-                                        title="Voir détails" data-user-id="${
-                                          user.id
-                                        }">
-                                    <i data-feather="eye" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-  });
-
-  tbody.innerHTML = html;
-
-  document.getElementById("usersStartItem").textContent = startIndex + 1;
-  document.getElementById("usersEndItem").textContent = endIndex;
-  document.getElementById("usersTotalItems").textContent =
-    filteredUsersData.length;
-
-  feather.replace();
-}
-
-function updateUsersPagination() {
-  const totalPages = Math.ceil(filteredUsersData.length / usersPerPage);
-  const prevBtn = document.getElementById("prevUsersPage");
-  const nextBtn = document.getElementById("nextUsersPage");
-  const paginationNumbers = document.getElementById("usersPaginationNumbers");
-
-  prevBtn.disabled = currentUsersPage === 1;
-  nextBtn.disabled = currentUsersPage === totalPages || totalPages === 0;
-
-  let paginationHTML = "";
-  const maxVisiblePages = 5;
-  let startPage = Math.max(
-    1,
-    currentUsersPage - Math.floor(maxVisiblePages / 2)
-  );
-  let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-  if (endPage - startPage + 1 < maxVisiblePages) {
-    startPage = Math.max(1, endPage - maxVisiblePages + 1);
-  }
-
-  if (startPage > 1) {
-    paginationHTML += `
-                    <button class="users-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="1">
-                        1
-                    </button>
-                    ${
-                      startPage > 2
-                        ? '<span class="px-2 text-gray-500">...</span>'
-                        : ""
-                    }
-                `;
-  }
-
-  for (let i = startPage; i <= endPage; i++) {
-    paginationHTML += `
-                    <button class="users-page-btn px-3 py-1 border ${
-                      i === currentUsersPage
-                        ? "bg-blue-600 text-white border-blue-600"
-                        : "border-gray-300"
-                    } rounded text-sm" 
-                            data-page="${i}">
-                        ${i}
-                    </button>
-                `;
-  }
-
-  if (endPage < totalPages) {
-    paginationHTML += `
-                    ${
-                      endPage < totalPages - 1
-                        ? '<span class="px-2 text-gray-500">...</span>'
-                        : ""
-                    }
-                    <button class="users-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="${totalPages}">
-                        ${totalPages}
-                    </button>
-                `;
-  }
-
-  paginationNumbers.innerHTML = paginationHTML;
-}
-
-function getRoleInfo(role) {
-  const roles = {
-    admin: {
-      text: "Administrateur",
-      color: "bg-purple-100 text-purple-800",
-      icon: "shield",
-    },
-    doctor: {
-      text: "Médecin",
-      color: "bg-blue-100 text-blue-800",
-      icon: "user",
-    },
-    staff: {
-      text: "Personnel",
-      color: "bg-green-100 text-green-800",
-      icon: "users",
-    },
-    patient: {
-      text: "Patient",
-      color: "bg-gray-100 text-gray-800",
-      icon: "user",
-    },
-  };
-  return (
-    roles[role] || {
-      text: role,
-      color: "bg-gray-100 text-gray-800",
-      icon: "user",
-    }
-  );
-}
-
-function getStatusInfo(status) {
-  const statuses = {
-    active: {
-      text: "Actif",
-      color: "bg-green-100 text-green-800",
-      icon: "check-circle",
-    },
-    inactive: {
-      text: "Inactif",
-      color: "bg-red-100 text-red-800",
-      icon: "x-circle",
-    },
-    pending: {
-      text: "En attente",
-      color: "bg-yellow-100 text-yellow-800",
-      icon: "clock",
-    },
-    suspended: {
-      text: "Suspendu",
-      color: "bg-orange-100 text-orange-800",
-      icon: "pause-circle",
-    },
-  };
-  return (
-    statuses[status] || {
-      text: status,
-      color: "bg-gray-100 text-gray-800",
-      icon: "help-circle",
-    }
-  );
-}
 
 // ============================================
 // GESTION DES SERVICES
@@ -972,94 +449,7 @@ function updateServicesPagination() {
 // GESTION DES MODALES UTILISATEURS
 // ============================================
 
-function openViewUserModal(userId) {
-  const user = usersData.find((u) => u.id == userId);
-  if (!user) {
-    // showToast("Utilisateur non trouvé", "error");
-    return;
-  }
 
-  document.getElementById(
-    "viewUserFullName"
-  ).textContent = `${user.firstName} ${user.lastName}`;
-  document.getElementById("viewUserCIN").textContent = user.cin;
-  document.getElementById("viewUserBirthDate").textContent = user.birthDate
-    ? formatDate(user.birthDate)
-    : "-";
-  document.getElementById("viewUserEmail").textContent = user.email;
-  document.getElementById("viewUserPhone").textContent = user.phone;
-  document.getElementById("viewUserAddress").textContent = user.address || "-";
-
-  const roleInfo = getRoleInfo(user.role);
-  document.getElementById("viewUserRole").textContent = roleInfo.text;
-  document.getElementById(
-    "viewUserRole"
-  ).className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${roleInfo.color}`;
-
-  const statusInfo = getStatusInfo(user.status);
-  document.getElementById("viewUserStatus").innerHTML = `
-                <i data-feather="${statusInfo.icon}" class="w-4 h-4 mr-1"></i>
-                ${statusInfo.text}
-            `;
-  document.getElementById(
-    "viewUserStatus"
-  ).className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${statusInfo.color}`;
-
-  document.getElementById("viewUserCreatedAt").textContent = formatDate(
-    user.createdAt
-  );
-  document.getElementById("viewUserHospital").textContent =
-    user.hospital || "-";
-  document.getElementById("viewUserDepartment").textContent =
-    user.department || "-";
-
-  currentEditingUserId = userId;
-
-  openModal("viewUserModal");
-  feather.replace();
-}
-
-function openEditUserModal(userId) {
-  const user = usersData.find((u) => u.id == userId);
-  if (!user) {
-    // showToast("Utilisateur non trouvé", "error");
-    return;
-  }
-
-  document.getElementById("editUserFirstName").value = user.firstName;
-  document.getElementById("editUserLastName").value = user.lastName;
-  document.getElementById("editUserCIN").value = user.cin;
-  document.getElementById("editUserEmail").value = user.email;
-  document.getElementById("editUserPhone").value = user.phone;
-  document.getElementById("editUserAddress").value = user.address || "";
-  document.getElementById("editUserRole").value = user.role;
-  document.getElementById("editUserStatus").value = user.status;
-  document.getElementById("editUserHospital").value = user.hospital || "1";
-  document.getElementById("editUserId").value = userId;
-
-  currentEditingUserId = userId;
-
-  openModal("editUserModal");
-}
-
-function openDeleteUserModal(userId) {
-  const user = usersData.find((u) => u.id == userId);
-  if (!user) {
-    // showToast("Utilisateur non trouvé", "error");
-    return;
-  }
-
-  document.getElementById(
-    "deleteUserName"
-  ).textContent = `${user.firstName} ${user.lastName}`;
-  const roleInfo = getRoleInfo(user.role);
-  document.getElementById(
-    "deleteUserInfo"
-  ).textContent = `${roleInfo.text} • ${user.email}`;
-  document.getElementById("deleteUserId").value = userId;
-
-  openModal("deleteUserModal");
-}
 
 // ============================================
 // GESTION DES MODALES SERVICES
@@ -1364,247 +754,6 @@ function handleDoctorAssignment(e) {
 // GESTION DES ÉVÉNEMENTS UTILISATEURS
 // ============================================
 
-function setupUsersEvents() {
-  // Filtres
-  document
-    .getElementById("filterRole")
-    ?.addEventListener("change", filterAndPaginateUsers);
-  document
-    .getElementById("filterStatus")
-    ?.addEventListener("change", filterAndPaginateUsers);
-  document
-    .getElementById("searchUsers")
-    ?.addEventListener("input", filterAndPaginateUsers);
-
-  // Pagination
-  document.getElementById("prevUsersPage")?.addEventListener("click", () => {
-    if (currentUsersPage > 1) {
-      currentUsersPage--;
-      renderUsersTable();
-      updateUsersPagination();
-    }
-  });
-
-  document.getElementById("nextUsersPage")?.addEventListener("click", () => {
-    const totalPages = Math.ceil(filteredUsersData.length / usersPerPage);
-    if (currentUsersPage < totalPages) {
-      currentUsersPage++;
-      renderUsersTable();
-      updateUsersPagination();
-    }
-  });
-
-  // Items per page
-  document.getElementById("usersPerPage")?.addEventListener("change", (e) => {
-    usersPerPage = parseInt(e.target.value);
-    currentUsersPage = 1;
-    filterAndPaginateUsers();
-  });
-
-  // Page numbers
-  document.addEventListener("click", (e) => {
-    if (e.target.closest(".users-page-btn")) {
-      const page = parseInt(
-        e.target.closest(".users-page-btn").getAttribute("data-page")
-      );
-      if (page && page !== currentUsersPage) {
-        currentUsersPage = page;
-        renderUsersTable();
-        updateUsersPagination();
-      }
-    }
-
-    if (e.target.closest(".services-page-btn")) {
-      const page = parseInt(
-        e.target.closest(".services-page-btn").getAttribute("data-page")
-      );
-      if (page && page !== currentServicesPage) {
-        currentServicesPage = page;
-        renderServicesTable();
-        updateServicesPagination();
-      }
-    }
-  });
-
-  // Add user button
-  document.getElementById("addUserBtn")?.addEventListener("click", () => {
-    openModal("addUserModal");
-  });
-
-  // Add user form
-  document
-    .getElementById("addUserForm")
-    ?.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const password = document.getElementById("addUserPassword").value;
-      const confirmPassword = document.getElementById(
-        "addUserConfirmPassword"
-      ).value;
-
-      if (password !== confirmPassword) {
-        // showToast("Les mots de passe ne correspondent pas", "error");
-        return;
-      }
-
-      if (password.length < 6) {
-        // showToast(
-        //   "Le mot de passe doit contenir au moins 6 caractères",
-        //   "error"
-        // );
-        return;
-      }
-
-      const newUser = {
-        id:
-          usersData.length > 0
-            ? Math.max(...usersData.map((u) => u.id)) + 1
-            : 1,
-        cin: document.getElementById("addUserCIN").value,
-        firstName: document.getElementById("addUserFirstName").value,
-        lastName: document.getElementById("addUserLastName").value,
-        email: document.getElementById("addUserEmail").value,
-        phone: document.getElementById("addUserPhone").value,
-        address: document.getElementById("addUserAddress").value,
-        role: document.getElementById("addUserRole").value,
-        status: "active",
-        createdAt: new Date().toISOString().split("T")[0],
-        hospital: "Hôpital Central EMSI",
-        birthDate: null,
-        department: null,
-      };
-
-      usersData.unshift(newUser);
-      document.getElementById("addUserForm").reset();
-      closeModal("addUserModal");
-      filterAndPaginateUsers();
-
-      // showToast("Utilisateur ajouté avec succès", "success");
-    });
-
-  // Edit user form
-  document
-    .getElementById("editUserForm")
-    ?.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const userId = document.getElementById("editUserId").value;
-      const userIndex = usersData.findIndex((u) => u.id == userId);
-
-      if (userIndex === -1) {
-        // showToast("Utilisateur non trouvé", "error");
-        return;
-      }
-
-      usersData[userIndex] = {
-        ...usersData[userIndex],
-        firstName: document.getElementById("editUserFirstName").value,
-        lastName: document.getElementById("editUserLastName").value,
-        cin: document.getElementById("editUserCIN").value,
-        email: document.getElementById("editUserEmail").value,
-        phone: document.getElementById("editUserPhone").value,
-        address: document.getElementById("editUserAddress").value,
-        role: document.getElementById("editUserRole").value,
-        status: document.getElementById("editUserStatus").value,
-        hospital:
-          document.getElementById("editUserHospital").value === "1"
-            ? "Hôpital Central EMSI"
-            : document.getElementById("editUserHospital").value === "2"
-            ? "Hôpital Ibn Sina"
-            : "Clinique Al Farabi",
-      };
-
-      closeModal("editUserModal");
-      filterAndPaginateUsers();
-
-      // showToast("Utilisateur modifié avec succès", "success");
-    });
-
-  // Delete user confirmation
-  document
-    .getElementById("confirmDeleteUserBtn")
-    ?.addEventListener("click", () => {
-      const userId = document.getElementById("deleteUserId").value;
-      usersData = usersData.filter((u) => u.id != userId);
-
-      closeModal("deleteUserModal");
-      filterAndPaginateUsers();
-
-      // showToast("Utilisateur supprimé avec succès", "success");
-    });
-
-  // Modal controls
-  document
-    .getElementById("closeAddUserModal")
-    ?.addEventListener("click", () => {
-      closeModal("addUserModal");
-    });
-
-  document.getElementById("cancelAddUserBtn")?.addEventListener("click", () => {
-    closeModal("addUserModal");
-  });
-
-  document
-    .getElementById("closeEditUserModal")
-    ?.addEventListener("click", () => {
-      closeModal("editUserModal");
-    });
-
-  document
-    .getElementById("cancelEditUserBtn")
-    ?.addEventListener("click", () => {
-      closeModal("editUserModal");
-    });
-
-  document
-    .getElementById("closeViewUserModal")
-    ?.addEventListener("click", () => {
-      closeModal("viewUserModal");
-    });
-
-  document
-    .getElementById("closeViewUserModal2")
-    ?.addEventListener("click", () => {
-      closeModal("viewUserModal");
-    });
-
-  document
-    .getElementById("cancelDeleteUserBtn")
-    ?.addEventListener("click", () => {
-      closeModal("deleteUserModal");
-    });
-
-  document
-    .getElementById("editFromViewUserBtn")
-    ?.addEventListener("click", () => {
-      closeModal("viewUserModal");
-      openEditUserModal(currentEditingUserId);
-    });
-
-  // Action buttons
-  document.addEventListener("click", async (e) => {
-    if (e.target.closest(".edit-user-btn")) {
-      const userId = e.target
-        .closest(".edit-user-btn")
-        .getAttribute("data-user-id");
-      openEditUserModal(userId);
-    }
-
-    if (e.target.closest(".delete-user-btn")) {
-      const userId = e.target
-        .closest(".delete-user-btn")
-        .getAttribute("data-user-id");
-      openDeleteUserModal(userId);
-    }
-
-    if (e.target.closest(".view-user-btn")) {
-      const userId = e.target
-        .closest(".view-user-btn")
-        .getAttribute("data-user-id");
-      openViewUserModal(userId);
-    }
-  });
-}
 
 // ============================================
 // GESTION DES ÉVÉNEMENTS SERVICES
@@ -2109,38 +1258,103 @@ function changeLang(lang) {
 // GESTION DES MODALES
 // ============================================
 
-function openModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-    setTimeout(() => feather.replace(), 100);
-  }
+const addEmergencyContactBtn = document.getElementById("addEmergencyContactBtn");
+const emergencyContactsContainer = document.getElementById("emergencyContactsContainer");
+
+addEmergencyContactBtn.addEventListener("click", () => {
+    // Count current contacts
+    const currentCount = emergencyContactsContainer.children.length + 1;
+
+    const contactHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 border border-gray-200 rounded-lg relative">
+            <h3 class="absolute -top-3 left-3 bg-white px-2 text-sm font-semibold text-gray-700">
+                Contact d'urgence ${currentCount}
+            </h3>
+
+            <!-- First Name -->
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Prénom</label>
+                <div class="relative">
+                    <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <input type="text" name="emergencyFirstName${currentCount}"
+                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Entrez le prénom" required>
+                    <p class="error-firstName text-red-600 text-sm mt-1"></p>
+                </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Nom</label>
+                <div class="relative">
+                    <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <input type="text" name="emergencyLastName${currentCount}"
+                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Entrez le nom" required>
+                    <p class="error-lastName text-red-600 text-sm mt-1"></p>
+                </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Téléphone</label>
+                <div class="relative">
+                    <i data-feather="phone" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <input type="text" name="emergencyPhone${currentCount}"
+                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="+212 600-000000" required>
+                    <p class="error-phone text-red-600 text-sm mt-1"></p>
+                </div>
+            </div>
+
+            <!-- Relationship -->
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Relation</label>
+                <div class="relative">
+                    <i data-feather="users" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <input type="text" name="emergencyRelationship${currentCount}"
+                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Ex: Parent, Ami" required>
+                    <p class="error-relationship text-red-600 text-sm mt-1"></p>
+                </div>
+            </div>
+
+            <!-- Remove button -->
+            <button type="button" class="absolute top-2 right-2 text-red-500 hover:text-red-700 removeContactBtn">
+                <i data-feather="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+    `;
+
+    emergencyContactsContainer.insertAdjacentHTML('beforeend', contactHTML);
+    feather.replace(); // refresh icons
+
+    // Update remove buttons
+    const removeBtns = emergencyContactsContainer.querySelectorAll(".removeContactBtn");
+    removeBtns.forEach(btn => {
+        btn.onclick = () => {
+            btn.parentElement.remove();
+            updateEmergencyContactNumbers();
+        };
+    });
+});
+
+// Function to renumber emergency contacts after removing
+function updateEmergencyContactNumbers() {
+    const contacts = emergencyContactsContainer.children;
+    for (let i = 0; i < contacts.length; i++) {
+        const h3 = contacts[i].querySelector("h3");
+        h3.textContent = `Contact d'urgence ${i + 1}`;
+
+        // Update input names
+        const inputs = contacts[i].querySelectorAll("input");
+        inputs[0].name = `emergencyFirstName${i + 1}`;
+        inputs[1].name = `emergencyLastName${i + 1}`;
+        inputs[2].name = `emergencyPhone${i + 1}`;
+        inputs[3].name = `emergencyRelationship${i + 1}`;
+    }
 }
 
-function closeModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.classList.add("hidden");
-    document.body.style.overflow = "auto";
-  }
-}
-
-// AVATAR
-function Avatar(user) {
-  const div = document.getElementById("avatar");
-
-  // éviter les doublons
-  div.innerHTML = "";
-
-  const img = document.createElement("img");
-  img.id = "userAvatar";
-  img.className = "w-full h-full object-cover";
-  img.src = `https://ui-avatars.com/api/?name=${user.nom}+${user.prénom}&background=0D8ABC&color=fff&bold=true&size=128`;
-  img.alt = "Admin User";
-
-  div.appendChild(img);
-}
 
 
 // ============================================
@@ -2155,12 +1369,12 @@ function init() {
   setupEventListeners();
   
   handleHashChange();
-  loadDashboardData();
-  loadUsersData();
+  // loadDashboardData();
+  // loadUsersData();
   loadServicesData();
-  setupUsersEvents();
+  // setupUsersEvents();
   setupServicesEvents();
-  Avatar()
+  // Avatar()
 }
 
 function setupEventListeners() {

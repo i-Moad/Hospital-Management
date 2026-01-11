@@ -34,29 +34,36 @@ export default class AdminDashboardView {
     });
   }
 
-  renderOccupationChart(data) {
-    const ctx = document.getElementById('occupationChart');
-    if (!ctx) return;
+  renderUserRolesChart(counts) {
+    const canvas = document.getElementById("userRolesChart");
+    if (!canvas) return;
 
-    new Chart(ctx.getContext('2d'), {
-      type: 'line',
+    new Chart(canvas.getContext("2d"), {
+      type: "polarArea",
       data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-        datasets: [{
-          label: 'Taux d\'Occupation (%)',
-          data,
-          borderColor: '#EF4444',
-          backgroundColor: 'rgba(239, 68, 68, 0.2)',
-          tension: 0.3,
-          fill: true,
-          pointRadius: 4,
-          pointBackgroundColor: '#EF4444'
-        }]
+        labels: ["Patients", "Doctors", "Staff"],
+        datasets: [
+          {
+            label: "User Roles",
+            data: [
+              counts.patients,
+              counts.doctors,
+              counts.staff
+            ]
+          }
+        ]
       },
       options: {
         responsive: true,
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true, max: 100 } }
+        plugins: {
+          legend: {
+            position: "top"
+          },
+          title: {
+            display: true,
+            text: "Users by Role"
+          }
+        }
       }
     });
   }

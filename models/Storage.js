@@ -54,4 +54,76 @@ export default class Storage {
     localStorage.removeItem(key);
     return localStorage.getItem(key) === null; // true if removed, false if it still exists
   }
+
+  static seed() {
+    fetch("../../../data/users.json")
+        .then((res) => res.json())
+        .then((users) => {
+            users.forEach((user) => {
+                Storage.addItem("Users", user);
+            });
+        })
+        .catch((err) => console.error(err));
+    
+    fetch("../../../data/appointment_requests.json")
+        .then((res) => res.json())
+        .then((apptreqs) => {
+            apptreqs.forEach((apptreq) => {
+                Storage.addItem("AppointmentRequests", apptreq);
+            });
+        })
+        .catch((err) => console.error(err));
+    
+    fetch("../../../data/appointments.json")
+        .then((res) => res.json())
+        .then((appts) => {
+            appts.forEach((appt) => {
+                Storage.addItem("Appointments", appt);
+            });
+        })
+        .catch((err) => console.error(err));
+    
+    fetch("../../../data/doctor_services.json")
+        .then((res) => res.json())
+        .then((docsers) => {
+            docsers.forEach((docser) => {
+                Storage.addItem("DoctorServices", docser);
+            });
+        })
+        .catch((err) => console.error(err));
+    
+    fetch("../../../data/hospital_setting.json")
+        .then((res) => res.json())
+        .then((hos) => {
+            Storage.addItem("HospitalSetting", hos);
+        })
+        .catch((err) => console.error(err));
+    
+    fetch("../../../data/medical_notes.json")
+        .then((res) => res.json())
+        .then((mednotes) => {
+            mednotes.forEach((mednote) => {
+                Storage.addItem("MedicalNotes", mednote);
+            });
+        })
+        .catch((err) => console.error(err));
+    
+    fetch("../../../data/prescriptions.json")
+        .then((res) => res.json())
+        .then((prescs) => {
+            prescs.forEach((presc) => {
+                Storage.addItem("Prescriptions", presc);
+            });
+        })
+        .catch((err) => console.error(err));
+    
+    fetch("../../../data/services.json")
+        .then((res) => res.json())
+        .then((servs) => {
+            servs.forEach((serv) => {
+                Storage.addItem("Services", serv);
+            });
+        })
+        .catch((err) => console.error(err));
+  }
 }

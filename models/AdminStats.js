@@ -12,7 +12,7 @@ export default class AdminStats {
     return { users, doctors, staff, patients, services };
   }
 
-  static getOccupationRate() {
-    return [70, 72, 75, 78, 76, 78];
-  }
+  // static getOccupationRate() {
+  //   return [70, 72, 75, 78, 76, 78];
+  // }
 }

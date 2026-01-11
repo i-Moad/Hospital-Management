@@ -101,8 +101,8 @@
                             </div>
                         </div>
                         <div class="text-left">
-                            <p id="userFullName" class="text-sm font-semibold text-gray-800">Admin User</p>
-                            <p id="userRole" class="text-xs text-gray-500">Administrateur</p>
+                            <p id="userFullName" class="text-sm font-semibold text-gray-800"></p>
+                            <p id="userRole" class="text-xs text-gray-500"></p>
                         </div>
                         <i data-feather="chevron-down"
                             class="w-4 h-4 text-gray-400 group-hover:rotate-180 transition-transform duration-200"></i>
@@ -113,8 +113,8 @@
                         class="absolute right-0 top-12 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform -translate-y-2">
                         <div class="py-2">
                             <div class="px-4 py-3 border-b border-gray-100">
-                                <p id="dropdownUserName" class="text-sm font-semibold text-gray-800">Admin User</p>
-                                <p id="dropdownUserEmail" class="text-xs text-gray-500 mt-1">admin@emsihealth.com</p>
+                                <p id="dropdownUserName" class="text-sm font-semibold text-gray-800"></p>
+                                <p id="dropdownUserEmail" class="text-xs text-gray-500 mt-1"></p>
                             </div>
                             <a href="#" id="profileLink"
                                 class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
@@ -127,7 +127,7 @@
                                 <span data-i18n="Paramètres"></span>
                             </a>
                             <div class="border-t border-gray-100 my-1"></div>
-                            <a href="#" id="logoutLink"
+                            <a id="logout"
                                 class="flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors">
                                 <i data-feather="log-out" class="w-4 h-4 mr-3"></i>
                                 <span data-i18n="Déconnexion"></span>
@@ -234,7 +234,7 @@
                 </div>
                 <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
                     <h2 class="text-lg font-semibold mb-4" data-i18n="Taux d'Occupation"></h2>
-                    <canvas id="occupationChart" class="w-full h-64"></canvas>
+                    <canvas id="userRolesChart" class="w-full h-64"></canvas>
                 </div>
             </div>
 
@@ -598,10 +598,11 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Prénom"></label>
                                 <div class="relative">
-                                    <i data-feather="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="text" id="addUserFirstName"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="Entrez le prénom" required>
+                                    <p id="errorAddFirstName" class="text-red-600 ml-2 text-sm mt-2"></p>
                                 </div>
                             </div>
 
@@ -609,10 +610,11 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Nom"></label>
                                 <div class="relative">
-                                    <i data-feather="user" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="text" id="addUserLastName"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="Entrez le nom" required>
+                                    <p id="errorAddLastName" class="text-red-600 ml-2 text-sm mt-2"></p>
                                 </div>
                             </div>
 
@@ -620,10 +622,11 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="CIN"></label>
                                 <div class="relative">
-                                    <i data-feather="credit-card" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="credit-card" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="text" id="addUserCIN"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="Entrez le CIN" required>
+                                    <p id="errorAddCIN" class="text-red-600 ml-2 text-sm mt-2"></p>
                                 </div>
                             </div>
 
@@ -631,10 +634,11 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Email"></label>
                                 <div class="relative">
-                                    <i data-feather="mail" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="mail" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="email" id="addUserEmail"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="email@exemple.com" required>
+                                    <p id="errorAddEmail" class="text-red-600 ml-2 text-sm mt-2"></p>
                                 </div>
                             </div>
 
@@ -642,10 +646,11 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Téléphone"></label>
                                 <div class="relative">
-                                    <i data-feather="phone" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="phone" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="text" id="addUserPhone"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="+212 600-000000">
+                                    <p id="errorAddPhone" class="text-red-600 ml-2 text-sm mt-2"></p>
                                 </div>
                             </div>
 
@@ -653,7 +658,7 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Rôle"></label>
                                 <div class="relative">
-                                    <i data-feather="shield" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="shield" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <select id="addUserRole"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                         <option value="admin">Administrateur</option>
@@ -670,10 +675,11 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Mot de passe"></label>
                                 <div class="relative">
-                                    <i data-feather="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="lock" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="password" id="addUserPassword"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="Mot de passe" required>
+                                    <p id="errorAddPassword" class="text-red-600 ml-2 text-sm mt-2"></p>
                                 </div>
                             </div>
 
@@ -681,10 +687,11 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Confirmer le mot de passe"></label>
                                 <div class="relative">
-                                    <i data-feather="lock" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="lock" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="password" id="addUserConfirmPassword"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="Confirmer le mot de passe" required>
+                                    <p id="errorAddConfirmPassword" class="text-red-600 ml-2 text-sm mt-2"></p>
                                 </div>
                             </div>
                         </div>
@@ -697,8 +704,21 @@
                                 <textarea id="addUserAddress"
                                     class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                     rows="2" data-i18n-placeholder="Entrez l'adresse complète"></textarea>
+                                <p id="errorAddAddress" class="text-red-600 ml-2 text-sm mt-2"></p>
                             </div>
                         </div>
+
+                        <!-- Add Emergency Contact Button -->
+                        <div class="pt-4">
+                            <button type="button" id="addEmergencyContactBtn"
+                                class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center mb-4">
+                                <i data-feather="plus" class="w-4 h-4 mr-2"></i>
+                                <span data-i18n="Ajouter un contact d'urgence"></span>
+                            </button>
+                        </div>
+
+                        <!-- Emergency Contact Container -->
+                        <div id="emergencyContactsContainer" class="space-y-6"></div>
 
                         <!-- Actions -->
                         <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
@@ -707,7 +727,7 @@
                                 <i data-feather="x" class="w-4 h-4 mr-2"></i>
                                 <span data-i18n="Annuler"></span>
                             </button>
-                            <button type="submit"
+                            <button type="submit" id="addUser"
                                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
                                 <i data-feather="user-plus" class="w-4 h-4 mr-2"></i>
                                 <span data-i18n="Ajouter l'utilisateur"></span>
@@ -744,17 +764,17 @@
                             </h3>
                             <div class="space-y-3">
                                 <div>
+                                    <label class="text-sm font-medium text-gray-500"
+                                        data-i18n="User Id">User Id</label>
+                                    <p id="viewUserId" class="text-gray-900 font-bold text-[.85rem]">-</p>
+                                </div>
+                                <div>
                                     <label class="text-sm font-medium text-gray-500" data-i18n="Nom Complet"></label>
                                     <p id="viewUserFullName" class="text-gray-900 font-medium">-</p>
                                 </div>
                                 <div>
                                     <label class="text-sm font-medium text-gray-500" data-i18n="CIN"></label>
                                     <p id="viewUserCIN" class="text-gray-900">-</p>
-                                </div>
-                                <div>
-                                    <label class="text-sm font-medium text-gray-500"
-                                        data-i18n="Date de Naissance"></label>
-                                    <p id="viewUserBirthDate" class="text-gray-900">-</p>
                                 </div>
                             </div>
                         </div>
@@ -809,24 +829,18 @@
                             </div>
                         </div>
 
-                        <!-- Hospital Info -->
+                        <!-- Emergency Contacts Info -->
                         <div class="space-y-4">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center">
-                                <i data-feather="home" class="w-5 h-5 mr-2 text-blue-600"></i>
-                                <span data-i18n="Hôpital"></span>
+                                <i data-feather="phone" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <span data-i18n="Emergency Contacts">Emergency Contacts</span>
                             </h3>
-                            <div class="space-y-3">
-                                <div>
-                                    <label class="text-sm font-medium text-gray-500"
-                                        data-i18n="Hôpital Assigné"></label>
-                                    <p id="viewUserHospital" class="text-gray-900">-</p>
-                                </div>
-                                <div>
-                                    <label class="text-sm font-medium text-gray-500" data-i18n="Département"></label>
-                                    <p id="viewUserDepartment" class="text-gray-900">-</p>
-                                </div>
+
+                            <div id="viewUserEmergencyContacts" class="space-y-3 text-gray-900">
+                                <p>-</p>
                             </div>
                         </div>
+
                     </div>
 
                     <!-- Footer -->
@@ -873,10 +887,11 @@
                                     <label class="text-sm font-medium text-gray-700" data-i18n="Prénom"></label>
                                     <div class="relative">
                                         <i data-feather="user"
-                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                            class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                         <input type="text" id="editUserFirstName"
                                             class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                             data-i18n-placeholder="Entrez le prénom">
+                                        <p id="errorEditFirstName" class="text-red-600 ml-2 text-sm mt-2"></p>
                                     </div>
                                 </div>
 
@@ -885,10 +900,11 @@
                                     <label class="text-sm font-medium text-gray-700" data-i18n="Nom"></label>
                                     <div class="relative">
                                         <i data-feather="user"
-                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                            class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                         <input type="text" id="editUserLastName"
                                             class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                             data-i18n-placeholder="Entrez le nom">
+                                        <p id="errorEditLastName" class="text-red-600 ml-2 text-sm mt-2"></p>
                                     </div>
                                 </div>
 
@@ -897,22 +913,11 @@
                                     <label class="text-sm font-medium text-gray-700" data-i18n="CIN"></label>
                                     <div class="relative">
                                         <i data-feather="credit-card"
-                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                            class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                         <input type="text" id="editUserCIN"
                                             class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                             data-i18n-placeholder="Entrez le CIN">
-                                    </div>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="space-y-2">
-                                    <label class="text-sm font-medium text-gray-700" data-i18n="Email"></label>
-                                    <div class="relative">
-                                        <i data-feather="mail"
-                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
-                                        <input type="email" id="editUserEmail"
-                                            class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                            data-i18n-placeholder="email@exemple.com">
+                                        <p id="errorEditCIN" class="text-red-600 ml-2 text-sm mt-2"></p>
                                     </div>
                                 </div>
                             </div>
@@ -924,10 +929,11 @@
                                     <label class="text-sm font-medium text-gray-700" data-i18n="Téléphone"></label>
                                     <div class="relative">
                                         <i data-feather="phone"
-                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                            class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                         <input type="text" id="editUserPhone"
                                             class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                             data-i18n-placeholder="+212 600-000000">
+                                        <p id="errorEditPhone" class="text-red-600 ml-2 text-sm mt-2"></p>
                                     </div>
                                 </div>
 
@@ -936,12 +942,13 @@
                                     <label class="text-sm font-medium text-gray-700" data-i18n="Rôle"></label>
                                     <div class="relative">
                                         <i data-feather="shield"
-                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                            class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                         <select id="editUserRole"
                                             class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                             <option value="admin">Administrateur</option>
                                             <option value="doctor">Médecin</option>
                                             <option value="staff">Personnel</option>
+                                            <option value="patient">Patient</option>
                                         </select>
                                     </div>
                                 </div>
@@ -951,7 +958,7 @@
                                     <label class="text-sm font-medium text-gray-700" data-i18n="Statut"></label>
                                     <div class="relative">
                                         <i data-feather="activity"
-                                            class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                            class="absolute left-3 top-8 patient transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                         <select id="editUserStatus"
                                             class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                             <option value="active">Actif</option>
@@ -962,7 +969,7 @@
                                 </div>
 
                                 <!-- Hospital -->
-                                <div class="space-y-2">
+                                <!-- <div class="space-y-2">
                                     <label class="text-sm font-medium text-gray-700" data-i18n="Hôpital"></label>
                                     <div class="relative">
                                         <i data-feather="home"
@@ -974,7 +981,20 @@
                                             <option value="3">Clinique Al Farabi</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700" data-i18n="Email"></label>
+                            <div class="relative">
+                                <i data-feather="mail"
+                                    class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <input type="email" id="editUserEmail"
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                    data-i18n-placeholder="email@exemple.com">
+                                <p id="errorEditEmail" class="text-red-600 ml-2 text-sm mt-2"></p>
                             </div>
                         </div>
 
@@ -986,7 +1006,25 @@
                                 <textarea id="editUserAddress"
                                     class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                     rows="2" data-i18n-placeholder="Entrez l'adresse complète"></textarea>
+                                <p id="errorEditAddress" class="text-red-600 ml-2 text-sm mt-2"></p>
                             </div>
+                        </div>
+
+                        <!-- Emergency Contacts -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-900 flex items-center justify-between">
+                                <span class="flex items-center">
+                                    <i data-feather="users" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                    Emergency Contacts
+                                </span>
+
+                                <button id="addEditEmergencyContactBtn"
+                                    class="text-sm text-blue-600 hover:underline">
+                                    + Add
+                                </button>
+                            </h3>
+
+                            <div id="editEmergencyContactsContainer" class="space-y-3"></div>
                         </div>
 
                         <!-- Hidden User ID -->
@@ -999,7 +1037,7 @@
                                 <i data-feather="x" class="w-4 h-4 mr-2"></i>
                                 <span data-i18n="Annuler"></span>
                             </button>
-                            <button type="submit"
+                            <button type="submit" id="editUser"
                                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
                                 <i data-feather="save" class="w-4 h-4 mr-2"></i>
                                 <span data-i18n="Enregistrer"></span>

@@ -9,9 +9,8 @@ export default class AdminDashboardController {
 
   init() {
     const counts = AdminStats.getCounts();
-    const occupation = AdminStats.getOccupationRate();
 
     this.view.renderUsersChart(counts);
-    this.view.renderOccupationChart(occupation);
+    this.view.renderUserRolesChart(counts);
   }
 }
