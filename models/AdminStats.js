@@ -1,3 +1,4 @@
+import Service from "./Service.js";
 import User from "./User.js";
 
 export default class AdminStats {
@@ -7,12 +8,12 @@ export default class AdminStats {
     const doctors = User.getAllUsers("doctor").length;
     const staff = User.getAllUsers("staff").length;
 
-    const services = 156;
+    const services = Service.getAllServices().length;
 
     return { users, doctors, staff, patients, services };
   }
 
-  static getOccupationRate() {
-    return [70, 72, 75, 78, 76, 78];
-  }
+  // static getOccupationRate() {
+  //   return [70, 72, 75, 78, 76, 78];
+  // }
 }

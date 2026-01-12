@@ -5,16 +5,17 @@
     "firstName": "Admin",
     "lastName": "System",
     "email": "admin@hospital.com",
-    "password": "hashed_password",
+    "password": "123456",
     "phoneNumber": 612345678,
     "address": "Casablanca",
-    "emergencyContact": {
+    "emergencyContacts": [{
       "firstName": "Ali",
       "lastName": "System",
       "phoneNumber": 699999999,
-      "relationShip": "Brother"
-    },
+      "relationship": "Brother"
+    }],
     "role": "admin",
+    "status": "active",
     "createdAt": "2025-01-01"
   },
   {
@@ -23,16 +24,17 @@
     "firstName": "Sara",
     "lastName": "Bennani",
     "email": "sara.doctor@hospital.com",
-    "password": "hashed_password",
+    "password": "123456",
     "phoneNumber": 611223344,
     "address": "Rabat",
-    "emergencyContact": {
+    "emergencyContacts": [{
       "firstName": "Khalid",
       "lastName": "Bennani",
       "phoneNumber": 677889900,
-      "relationShip": "Husband"
-    },
+      "relationship": "Husband"
+    }],
     "role": "doctor",
+    "status": "active",
     "createdAt": "2025-01-02"
   },
   {
@@ -41,16 +43,17 @@
     "firstName": "Youssef",
     "lastName": "El Amrani",
     "email": "youssef.doctor@hospital.com",
-    "password": "hashed_password",
+    "password": "123456",
     "phoneNumber": 622334455,
     "address": "Fes",
-    "emergencyContact": {
+    "emergencyContacts": [{
       "firstName": "Amina",
       "lastName": "El Amrani",
       "phoneNumber": 688776655,
-      "relationShip": "Sister"
-    },
+      "relationship": "Sister"
+    }],
     "role": "doctor",
+    "status": "active",
     "createdAt": "2025-01-03"
   },
   {
@@ -59,16 +62,17 @@
     "firstName": "Nadia",
     "lastName": "Staff",
     "email": "nadia.staff@hospital.com",
-    "password": "hashed_password",
+    "password": "123456",
     "phoneNumber": 633221100,
     "address": "Kenitra",
-    "emergencyContact": {
+    "emergencyContacts": [{
       "firstName": "Mohamed",
       "lastName": "Staff",
       "phoneNumber": 655443322,
-      "relationShip": "Father"
-    },
+      "relationship": "Father"
+    }],
     "role": "staff",
+    "status": "active",
     "createdAt": "2025-01-04"
   },
   {
@@ -77,16 +81,17 @@
     "firstName": "Ahmed",
     "lastName": "Patient",
     "email": "ahmed@gmail.com",
-    "password": "hashed_password",
+    "password": "123456",
     "phoneNumber": 644556677,
     "address": "Agadir",
-    "emergencyContact": {
+    "emergencyContacts": [{
       "firstName": "Fatima",
       "lastName": "Patient",
       "phoneNumber": 677112233,
-      "relationShip": "Mother"
-    },
+      "relationship": "Mother"
+    }],
     "role": "patient",
+    "status": "active",
     "createdAt": "2025-01-05"
   },
   {
@@ -95,16 +100,17 @@
     "firstName": "Khadija",
     "lastName": "Patient",
     "email": "khadija@gmail.com",
-    "password": "hashed_password",
+    "password": "123456",
     "phoneNumber": 655667788,
     "address": "Marrakech",
-    "emergencyContact": {
+    "emergencyContacts": [{
       "firstName": "Omar",
       "lastName": "Patient",
       "phoneNumber": 688990011,
-      "relationShip": "Husband"
-    },
+      "relationship": "Husband"
+    }],
     "role": "patient",
+    "status": "active",
     "createdAt": "2025-01-06"
   }
 ]

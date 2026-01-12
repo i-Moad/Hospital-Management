@@ -3,7 +3,7 @@ import Storage from "./Storage.js";
 export default class User {
   static USERS_KEY = "Users";
 
-  constructor({
+  static createUser({
     CIN,
     firstName,
     lastName,
@@ -11,34 +11,40 @@ export default class User {
     password,
     phoneNumber,
     address,
-    emergencyContact,
+    emergencyContacts,
+    status = "active",
     role = "patient",
     createdAt = new Date().toISOString(),
   }) {
-    this.userId = crypto.randomUUID();
-    this.CIN = CIN;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.password = password;
-    this.phoneNumber = phoneNumber;
-    this.address = address;
-    this.emergencyContact = emergencyContact;
-    this.role = role;
-    this.createdAt = createdAt;
-  }
-
-  createUser() {
+    // Load existing users
     const users = Storage.load(User.USERS_KEY) || [];
 
-    const exists = users.some(
-      u => u.CIN === this.CIN || u.email === this.email
-    );
+    // Check for duplicates
+    const exists = users.some(u => u.CIN === CIN || u.email === email || u.phoneNumber === phoneNumber);
     if (exists) {
-      throw new Error("User already exists");
+      alert("User already exists");
     }
-    Storage.addItem(User.USERS_KEY, this);
-    return this;
+
+    // Create a new user object
+    const user = {
+      userId: crypto.randomUUID(),
+      CIN,
+      firstName,
+      lastName,
+      email,
+      password,
+      phoneNumber,
+      address,
+      emergencyContacts,
+      status,
+      role,
+      createdAt
+    };
+
+    // Save the user
+    Storage.addItem(User.USERS_KEY, user);
+
+    return user;
   }
 
   static getUserById(userId) {
@@ -59,12 +65,18 @@ export default class User {
 
   static updateUserInfo(userId, updates) {
     const allowedUpdates = {};
+    userId = Number(userId);
 
     if ("phoneNumber" in updates) allowedUpdates.phoneNumber = updates.phoneNumber;
     if ("address" in updates) allowedUpdates.address = updates.address;
     if ("email" in updates) allowedUpdates.email = updates.email;
-    if ("emergencyContact" in updates)
-      allowedUpdates.emergencyContact = updates.emergencyContact;
+    if ("CIN" in updates) allowedUpdates.CIN = updates.CIN;
+    if ("role" in updates) allowedUpdates.role = updates.role;
+    if ("status" in updates) allowedUpdates.status = updates.status;
+    if ("firstName" in updates) allowedUpdates.firstName = updates.firstName;
+    if ("lastName" in updates) allowedUpdates.lastName = updates.lastName;
+    if ("emergencyContacts" in updates)
+      allowedUpdates.emergencyContacts = updates.emergencyContacts;
 
     const success = Storage.updateItem(
       this.USERS_KEY,
@@ -81,6 +93,8 @@ export default class User {
   }
 
   static deleteUser(userId) {
+    userId = Number(userId);
+    
     const success = Storage.removeItem(
       this.USERS_KEY,
       "userId",

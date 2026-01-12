@@ -1,5 +1,7 @@
 import AdminDashboardController from "../controllers/AdminDashboardController.js";
 import AuthController from "../controllers/AuthController.js";
+import ServiceController from "../controllers/ServiceController.js";
+import SettingController from "../controllers/SettingController.js";
 import UserController from "../controllers/UserController.js";
 
 import Auth from "../models/Auth.js";
@@ -8,22 +10,9 @@ import Storage from "../models/Storage.js";
 const page = document.body.dataset.page;
 const session = Storage.load("Session");
 
-// Storage.addItem("Users", {
-//     CIN: "BK158964",
-//     firstName: "Mustapha",
-//     lastName: "Ezzit",
-//     email: "test@test.com",
-//     password: "123456",
-//     role: "admin"
-// })
+// Storage.seed();
 
-// Protect all pages except login
-if (!Auth.isAuthenticated() && page !== "Auth") {
-    window.location.href = "/src/auth/login.html";
-}
-
-// Redirect logged in user from login page to role dashboard
-if (page === "Auth" && Auth.isAuthenticated() && session) {
+function redirect() {
     const dashboards = {
         doctor: "/src/Dashboards/Doctor/index.html",
         admin: "/src/Dashboards/Admin/index.html",
@@ -34,15 +23,33 @@ if (page === "Auth" && Auth.isAuthenticated() && session) {
     if (url) window.location.href = url;
 }
 
+// Protect all pages except login
+if (!Auth.isAuthenticated() && page !== "Auth") {
+    window.location.href = "/src/auth/login.html";
+}
+
+// Redirect logged in user from login page to role dashboard
+if (page === "Auth" && Auth.isAuthenticated() && session) {
+    redirect();
+}
+
 if (page === "Auth" && !Auth.isAuthenticated()) {
     new AuthController();
 }
 
 if (page === "Dashboard-Admin") {
+    if (session.role !== "admin") {
+        redirect();
+    }
     new UserController();
     new AdminDashboardController();
+    new ServiceController();
+    new SettingController();
 }
 
 if (page === "Dashboard-Doctor") {
+    if (session.role !== "doctor") {
+        redirect();
+    }
     new UserController();
 }
