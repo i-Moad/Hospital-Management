@@ -83,6 +83,7 @@ export default class UserView {
   getEmergencyContactErrors() {
       return document.querySelectorAll("#emergencyContactsContainer > div");
   }
+  
   getEditEmergencyContactErrors() {
       return document.querySelectorAll("#editEmergencyContactsContainer > div");
   }

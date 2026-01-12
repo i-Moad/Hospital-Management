@@ -1,5 +1,7 @@
 import AdminDashboardController from "../controllers/AdminDashboardController.js";
 import AuthController from "../controllers/AuthController.js";
+import ServiceController from "../controllers/ServiceController.js";
+import SettingController from "../controllers/SettingController.js";
 import UserController from "../controllers/UserController.js";
 
 import Auth from "../models/Auth.js";
@@ -41,6 +43,8 @@ if (page === "Dashboard-Admin") {
     }
     new UserController();
     new AdminDashboardController();
+    new ServiceController();
+    new SettingController();
 }
 
 if (page === "Dashboard-Doctor") {

@@ -39,7 +39,7 @@ export default class Storage {
   static removeItem(key, idField, idValue) {
     const data = this.load(key);
     const initialLength = data.length;
-    const filteredData = data.filter(item => item[idField] !== idValue);
+    const filteredData = data.filter(item => item[idField] != idValue);
 
     // check if the item is removed or not
     if (filteredData.length === initialLength) {
