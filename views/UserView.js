@@ -22,8 +22,12 @@ export default class UserView {
 
     // Edit User
     this.editUser = document.getElementById("editUser");
-    this.addEditEmergencyContactBtn = document.getElementById("addEditEmergencyContactBtn");
-    this.editEmergencyContactsContainer = document.getElementById("editEmergencyContactsContainer");
+    this.addEditEmergencyContactBtn = document.getElementById(
+      "addEditEmergencyContactBtn"
+    );
+    this.editEmergencyContactsContainer = document.getElementById(
+      "editEmergencyContactsContainer"
+    );
 
     // Filters
     this.filterRole = document.getElementById("filterRole");
@@ -58,46 +62,50 @@ export default class UserView {
 
   getUserErrorElements() {
     return {
-        firstName: document.getElementById("errorAddFirstName"),
-        lastName: document.getElementById("errorAddLastName"),
-        CIN: document.getElementById("errorAddCIN"),
-        email: document.getElementById("errorAddEmail"),
-        phone: document.getElementById("errorAddPhone"),
-        password: document.getElementById("errorAddPassword"),
-        confirmPassword: document.getElementById("errorAddConfirmPassword"),
-        address: document.getElementById("errorAddAddress")
+      firstName: document.getElementById("errorAddFirstName"),
+      lastName: document.getElementById("errorAddLastName"),
+      CIN: document.getElementById("errorAddCIN"),
+      email: document.getElementById("errorAddEmail"),
+      phone: document.getElementById("errorAddPhone"),
+      password: document.getElementById("errorAddPassword"),
+      confirmPassword: document.getElementById("errorAddConfirmPassword"),
+      address: document.getElementById("errorAddAddress"),
     };
   }
 
   getEditUserErrorElements() {
     return {
-        firstName: document.getElementById("errorEditFirstName"),
-        lastName: document.getElementById("errorEditLastName"),
-        CIN: document.getElementById("errorEditCIN"),
-        email: document.getElementById("errorEditEmail"),
-        phone: document.getElementById("errorEditPhone"),
-        address: document.getElementById("errorEditAddress")
+      firstName: document.getElementById("errorEditFirstName"),
+      lastName: document.getElementById("errorEditLastName"),
+      CIN: document.getElementById("errorEditCIN"),
+      email: document.getElementById("errorEditEmail"),
+      phone: document.getElementById("errorEditPhone"),
+      address: document.getElementById("errorEditAddress"),
     };
   }
 
   getEmergencyContactErrors() {
-      return document.querySelectorAll("#emergencyContactsContainer > div");
+    return document.querySelectorAll("#emergencyContactsContainer > div");
   }
-  
+
   getEditEmergencyContactErrors() {
-      return document.querySelectorAll("#editEmergencyContactsContainer > div");
+    return document.querySelectorAll("#editEmergencyContactsContainer > div");
   }
 
   clearAllErrors() {
-      document
-          .querySelectorAll("p[id^='error'], .error-firstName, .error-lastName, .error-phone, .error-relationship")
-          .forEach(p => p.innerHTML = "");
+    document
+      .querySelectorAll(
+        "p[id^='error'], .error-firstName, .error-lastName, .error-phone, .error-relationship"
+      )
+      .forEach((p) => (p.innerHTML = ""));
   }
 
   clearAllEditErrors() {
-      document
-          .querySelectorAll("p[id^='error'], .error-edit-firstName, .error-edit-lastName, .error-edit-phone, .error-edit-relationship")
-          .forEach(p => p.innerHTML = "");
+    document
+      .querySelectorAll(
+        "p[id^='error'], .error-edit-firstName, .error-edit-lastName, .error-edit-phone, .error-edit-relationship"
+      )
+      .forEach((p) => (p.innerHTML = ""));
   }
 
   // --- Render methods ---
@@ -125,7 +133,10 @@ export default class UserView {
     if (!this.tbody) return;
 
     const startIndex = (currentPage - 1) * usersPerPage;
-    const endIndex = Math.min(startIndex + usersPerPage, filteredUsersData.length);
+    const endIndex = Math.min(
+      startIndex + usersPerPage,
+      filteredUsersData.length
+    );
     const paginatedUsers = filteredUsersData.slice(startIndex, endIndex);
 
     if (paginatedUsers.length === 0) {
@@ -148,7 +159,7 @@ export default class UserView {
     }
 
     let html = "";
-    paginatedUsers.forEach(user => {
+    paginatedUsers.forEach((user) => {
       const fullName = `${user.firstName} ${user.lastName}`;
       const roleInfo = this.getRoleInfo(user.role);
       const statusInfo = this.getStatusInfo(user.status);
@@ -168,30 +179,93 @@ export default class UserView {
             <div class="text-sm text-gray-900">${user.email}</div>
             <div class="text-sm text-gray-500">${user.phoneNumber}</div>
           </td>
-          <td class="px-6 py-4">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${roleInfo.color}">
-              <i data-feather="${roleInfo.icon}" class="w-3 h-3 mr-1"></i>
-              ${roleInfo.text}
-            </span>
-          </td>
-          <td class="px-6 py-4">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusInfo.color}">
-              <i data-feather="${statusInfo.icon}" class="w-3 h-3 mr-1"></i>
-              ${statusInfo.text}
-            </span>
-          </td>
+<td class="px-6 py-4">
+  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+    roleInfo.color
+  }">
+    <i data-feather="${roleInfo.icon}" class="w-3 h-3 mr-1"></i>
+    ${
+      roleInfo.text === "Administrateur"
+        ? localStorage.getItem("lang") === "ar"
+          ? "مسؤول"
+          : localStorage.getItem("lang") === "en"
+          ? "Administrator"
+          : "Administrateur"
+        : roleInfo.text === "Médecin"
+        ? localStorage.getItem("lang") === "ar"
+          ? "طبيب"
+          : localStorage.getItem("lang") === "en"
+          ? "Doctor"
+          : "Médecin"
+        : roleInfo.text === "Personnel"
+        ? localStorage.getItem("lang") === "ar"
+          ? "موظف"
+          : localStorage.getItem("lang") === "en"
+          ? "Staff"
+          : "Personnel"
+        : roleInfo.text === "Patient"
+        ? localStorage.getItem("lang") === "ar"
+          ? "مريض"
+          : localStorage.getItem("lang") === "en"
+          ? "Patient"
+          : "Patient"
+        : roleInfo.text
+    }
+  </span>
+</td>
+<td class="px-6 py-4">
+  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+    statusInfo.color
+  }">
+    <i data-feather="${statusInfo.icon}" class="w-3 h-3 mr-1"></i>
+    ${
+      statusInfo.text.toLowerCase() === "actif"
+        ? localStorage.getItem("lang") === "ar"
+          ? "نشيط"
+          : localStorage.getItem("lang") === "en"
+          ? "Active"
+          : "Actif"
+        : statusInfo.text.toLowerCase() === "inactif"
+        ? localStorage.getItem("lang") === "ar"
+          ? "غير نشيط"
+          : localStorage.getItem("lang") === "en"
+          ? "Inactive"
+          : "Inactif"
+        : statusInfo.text.toLowerCase() === "en attente"
+        ? localStorage.getItem("lang") === "ar"
+          ? "قيد الانتظار"
+          : localStorage.getItem("lang") === "en"
+          ? "Pending"
+          : "En attente"
+        : statusInfo.text.toLowerCase() === "suspendu"
+        ? localStorage.getItem("lang") === "ar"
+          ? "معلق"
+          : localStorage.getItem("lang") === "en"
+          ? "Suspended"
+          : "Suspendu"
+        : statusInfo.text
+    }
+  </span>
+</td>
+
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
             ${formatDate(user.createdAt)}
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
             <div class="flex space-x-2">
-              <button class="edit-user-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" title="Modifier" data-user-id="${user.userId}">
+              <button class="edit-user-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" title="Modifier" data-user-id="${
+                user.userId
+              }">
                 <i data-feather="edit" class="w-4 h-4"></i>
               </button>
-              <button class="delete-user-btn p-1 text-red-600 hover:text-red-800 transition-colors" title="Supprimer" data-user-id="${user.userId}">
+              <button class="delete-user-btn p-1 text-red-600 hover:text-red-800 transition-colors" title="Supprimer" data-user-id="${
+                user.userId
+              }">
                 <i data-feather="trash" class="w-4 h-4"></i>
               </button>
-              <button class="view-user-btn p-1 text-green-600 hover:text-green-800 transition-colors" title="Voir détails" data-user-id="${user.userId}">
+              <button class="view-user-btn p-1 text-green-600 hover:text-green-800 transition-colors" title="Voir détails" data-user-id="${
+                user.userId
+              }">
                 <i data-feather="eye" class="w-4 h-4"></i>
               </button>
             </div>
@@ -215,53 +289,129 @@ export default class UserView {
     let html = "";
 
     for (let i = 1; i <= totalPages; i++) {
-      html += `<button class="users-page-btn" data-page="${i}" ${i === currentPage ? "disabled" : ""}>${i}</button>`;
+      html += `<button class="users-page-btn" data-page="${i}" ${
+        i === currentPage ? "disabled" : ""
+      }>${i}</button>`;
     }
     this.paginationNumbers.innerHTML = html;
 
     // Disable/enable Prev/Next buttons
     if (this.prevBtn) this.prevBtn.disabled = currentPage === 1;
-    if (this.nextBtn) this.nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+    if (this.nextBtn)
+      this.nextBtn.disabled = currentPage === totalPages || totalPages === 0;
   }
 
   getRoleInfo(role) {
     const roles = {
-      admin: { text: "Administrateur", color: "bg-purple-100 text-purple-800", icon: "user" },
-      doctor: { text: "Médecin", color: "bg-blue-100 text-blue-800", icon: "user" },
-      staff: { text: "Personnel", color: "bg-green-100 text-green-800", icon: "user" },
-      patient: { text: "Patient", color: "bg-gray-100 text-gray-800", icon: "user" },
+      admin: {
+        text: "Administrateur",
+        color: "bg-purple-100 text-purple-800",
+        icon: "user",
+      },
+      doctor: {
+        text: "Médecin",
+        color: "bg-blue-100 text-blue-800",
+        icon: "user",
+      },
+      staff: {
+        text: "Personnel",
+        color: "bg-green-100 text-green-800",
+        icon: "user",
+      },
+      patient: {
+        text: "Patient",
+        color: "bg-gray-100 text-gray-800",
+        icon: "user",
+      },
     };
-    return roles[role] || { text: role, color: "bg-gray-100 text-gray-800", icon: "user" };
+    return (
+      roles[role] || {
+        text: role,
+        color: "bg-gray-100 text-gray-800",
+        icon: "user",
+      }
+    );
   }
 
   getStatusInfo(status) {
     const statuses = {
-      active: { text: "Actif", color: "bg-green-100 text-green-800", icon: "check-circle" },
-      inactive: { text: "Inactif", color: "bg-red-100 text-red-800", icon: "x-circle" },
-      pending: { text: "En attente", color: "bg-yellow-100 text-yellow-800", icon: "clock" },
-      suspended: { text: "Suspendu", color: "bg-orange-100 text-orange-800", icon: "slash" },
+      active: {
+        text: "Actif",
+        color: "bg-green-100 text-green-800",
+        icon: "check-circle",
+      },
+      inactive: {
+        text: "Inactif",
+        color: "bg-red-100 text-red-800",
+        icon: "x-circle",
+      },
+      pending: {
+        text: "En attente",
+        color: "bg-yellow-100 text-yellow-800",
+        icon: "clock",
+      },
+      suspended: {
+        text: "Suspendu",
+        color: "bg-orange-100 text-orange-800",
+        icon: "slash",
+      },
     };
-    return statuses[status] || { text: status, color: "bg-gray-100 text-gray-800", icon: "alert-circle" };
+    return (
+      statuses[status] || {
+        text: status,
+        color: "bg-gray-100 text-gray-800",
+        icon: "alert-circle",
+      }
+    );
   }
 
   // --- Setup events with callbacks provided by Controller ---
   setupEvents(controller) {
-    if (this.menuLogout) this.menuLogout.addEventListener("click", (e) => controller.handleLogout(e));
-    if (this.filterRole) this.filterRole.addEventListener("change", () => controller.applyFilters());
-    if (this.filterStatus) this.filterStatus.addEventListener("change", () => controller.applyFilters());
-    if (this.searchUsers) this.searchUsers.addEventListener("input", () => controller.applyFilters());
+    if (this.menuLogout)
+      this.menuLogout.addEventListener("click", (e) =>
+        controller.handleLogout(e)
+      );
+    if (this.filterRole)
+      this.filterRole.addEventListener("change", () =>
+        controller.applyFilters()
+      );
+    if (this.filterStatus)
+      this.filterStatus.addEventListener("change", () =>
+        controller.applyFilters()
+      );
+    if (this.searchUsers)
+      this.searchUsers.addEventListener("input", () =>
+        controller.applyFilters()
+      );
 
-    if (this.prevBtn) this.prevBtn.addEventListener("click", () => controller.prevPage());
-    if (this.nextBtn) this.nextBtn.addEventListener("click", () => controller.nextPage());
-    if (this.usersPerPageSelect) this.usersPerPageSelect.addEventListener("change", (e) => controller.changeUsersPerPage(e));
+    if (this.prevBtn)
+      this.prevBtn.addEventListener("click", () => controller.prevPage());
+    if (this.nextBtn)
+      this.nextBtn.addEventListener("click", () => controller.nextPage());
+    if (this.usersPerPageSelect)
+      this.usersPerPageSelect.addEventListener("change", (e) =>
+        controller.changeUsersPerPage(e)
+      );
 
-    if (this.addUserBtn) this.addUserBtn.addEventListener("click", () => openModal("addUserModal"));
+    if (this.addUserBtn)
+      this.addUserBtn.addEventListener("click", () =>
+        openModal("addUserModal")
+      );
 
-    if (this.addUserData) this.addUserData.addEventListener("click", (e) => controller.addUserData(e, this.getUserInputData()));
+    if (this.addUserData)
+      this.addUserData.addEventListener("click", (e) =>
+        controller.addUserData(e, this.getUserInputData())
+      );
 
-    if (this.editUser) this.editUser.addEventListener("click", () => controller.updateUserData(this.getEditUserInputData()));
+    if (this.editUser)
+      this.editUser.addEventListener("click", () =>
+        controller.updateUserData(this.getEditUserInputData())
+      );
 
-    if (this.confirmDeleteBtn) this.confirmDeleteBtn.addEventListener("click", () => controller.deleteUser());
+    if (this.confirmDeleteBtn)
+      this.confirmDeleteBtn.addEventListener("click", () =>
+        controller.deleteUser()
+      );
 
     // if (this.addEditEmergencyContactBtn) this.addEditEmergencyContactBtn.addEventListener("click", () => this.createEmergencyContactBlock());
 
@@ -297,45 +447,92 @@ export default class UserView {
 
     // Table buttons delegated
     document.addEventListener("click", (e) => {
-      if (e.target.closest(".edit-user-btn")) controller.openEditModal(e.target.closest(".edit-user-btn").dataset.userId);
-      if (e.target.closest(".delete-user-btn")) controller.openDeleteModal(e.target.closest(".delete-user-btn").dataset.userId);
-      if (e.target.closest(".view-user-btn")) controller.openViewModal(e.target.closest(".view-user-btn").dataset.userId);
+      if (e.target.closest(".edit-user-btn"))
+        controller.openEditModal(
+          e.target.closest(".edit-user-btn").dataset.userId
+        );
+      if (e.target.closest(".delete-user-btn"))
+        controller.openDeleteModal(
+          e.target.closest(".delete-user-btn").dataset.userId
+        );
+      if (e.target.closest(".view-user-btn"))
+        controller.openViewModal(
+          e.target.closest(".view-user-btn").dataset.userId
+        );
       if (e.target.id === "addFirstUserBtn") openModal("addUserModal");
     });
 
     // Modals cancel/close
-    if (this.closeAddModal) this.closeAddModal.addEventListener("click", () => closeModal("addUserModal"));
-    if (this.cancelAddBtn) this.cancelAddBtn.addEventListener("click", () => closeModal("addUserModal"));
-    if (this.closeEditModal) this.closeEditModal.addEventListener("click", () => closeModal("editUserModal"));
-    if (this.cancelEditBtn) this.cancelEditBtn.addEventListener("click", () => closeModal("editUserModal"));
-    if (this.closeViewModal1) this.closeViewModal1.addEventListener("click", () => closeModal("viewUserModal"));
-    if (this.closeViewModal2) this.closeViewModal2.addEventListener("click", () => closeModal("viewUserModal"));
-    if (this.cancelDeleteBtn) this.cancelDeleteBtn.addEventListener("click", () => closeModal("deleteUserModal"));
-    if (this.editFromViewBtn) this.editFromViewBtn.addEventListener("click", () => controller.editFromView());
+    if (this.closeAddModal)
+      this.closeAddModal.addEventListener("click", () =>
+        closeModal("addUserModal")
+      );
+    if (this.cancelAddBtn)
+      this.cancelAddBtn.addEventListener("click", () =>
+        closeModal("addUserModal")
+      );
+    if (this.closeEditModal)
+      this.closeEditModal.addEventListener("click", () =>
+        closeModal("editUserModal")
+      );
+    if (this.cancelEditBtn)
+      this.cancelEditBtn.addEventListener("click", () =>
+        closeModal("editUserModal")
+      );
+    if (this.closeViewModal1)
+      this.closeViewModal1.addEventListener("click", () =>
+        closeModal("viewUserModal")
+      );
+    if (this.closeViewModal2)
+      this.closeViewModal2.addEventListener("click", () =>
+        closeModal("viewUserModal")
+      );
+    if (this.cancelDeleteBtn)
+      this.cancelDeleteBtn.addEventListener("click", () =>
+        closeModal("deleteUserModal")
+      );
+    if (this.editFromViewBtn)
+      this.editFromViewBtn.addEventListener("click", () =>
+        controller.editFromView()
+      );
   }
 
   renderViewUserModal(user) {
-    document.getElementById("viewUserFullName").textContent = `${user.firstName} ${user.lastName}`;
+    document.getElementById(
+      "viewUserFullName"
+    ).textContent = `${user.firstName} ${user.lastName}`;
     document.getElementById("viewUserCIN").textContent = user.CIN || "-";
     document.getElementById("viewUserId").textContent = user.userId || "-";
     document.getElementById("viewUserEmail").textContent = user.email || "-";
-    document.getElementById("viewUserPhone").textContent = user.phoneNumber || "-";
-    document.getElementById("viewUserAddress").textContent = user.address || "-";
-    document.getElementById("viewUserCreatedAt").textContent = user.createdAt.split("T")[0] || "-";
+    document.getElementById("viewUserPhone").textContent =
+      user.phoneNumber || "-";
+    document.getElementById("viewUserAddress").textContent =
+      user.address || "-";
+    document.getElementById("viewUserCreatedAt").textContent =
+      user.createdAt.split("T")[0] || "-";
 
     const roleInfo = this.getRoleInfo(user.role);
     const statusInfo = this.getStatusInfo(user.status);
 
     document.getElementById("viewUserRole").textContent = roleInfo.text;
-    document.getElementById("viewUserRole").className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${roleInfo.color}`;
-    document.getElementById("viewUserStatus").innerHTML = `<i data-feather="${statusInfo.icon}" class="w-4 h-4 mr-1"></i> ${statusInfo.text}`;
-    document.getElementById("viewUserStatus").className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${statusInfo.color}`;
+    document.getElementById(
+      "viewUserRole"
+    ).className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${roleInfo.color}`;
+    document.getElementById(
+      "viewUserStatus"
+    ).innerHTML = `<i data-feather="${statusInfo.icon}" class="w-4 h-4 mr-1"></i> ${statusInfo.text}`;
+    document.getElementById(
+      "viewUserStatus"
+    ).className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${statusInfo.color}`;
 
     // Emergency Contacts
     const container = document.getElementById("viewUserEmergencyContacts");
     container.innerHTML = "";
 
-    if (Array.isArray(user.emergencyContacts) && user.emergencyContacts.length > 0) {
+    if (
+      Array.isArray(user.emergencyContacts) &&
+      user.emergencyContacts.length > 0
+    ) {
       user.emergencyContacts.forEach((contact, index) => {
         const div = document.createElement("div");
         div.className = "border rounded-lg p-3 bg-gray-50";
@@ -363,61 +560,72 @@ export default class UserView {
   }
 
   createEmergencyContactBlock(contact = {}, index = 1) {
-    return `
-      <div class="relative border border-gray-200 rounded-xl p-4 bg-gray-50 emergency-contact">
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-sm font-semibold text-gray-700">
-            Contact d'urgence ${index}
-          </h3>
+return `
+  <div class="relative border border-gray-200 rounded-xl p-4 bg-gray-50 emergency-contact">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-sm font-semibold text-gray-700">
+        ${currentLang === "fr" ? `Contact d'urgence ${index}` :
+          currentLang === "en" ? `Emergency Contact ${index}` :
+          currentLang === "ar" ? `جهة اتصال طارئة ${index}` : `Contact ${index}`}
+      </h3>
 
-          <button type="button"
-            class="text-red-500 hover:text-red-700 transition-colors remove-emergency-contact"
-            title="Supprimer">
-            <i data-feather="x" class="w-4 h-4"></i>
-          </button>
-        </div>
+      <button type="button"
+        class="text-red-500 hover:text-red-700 transition-colors remove-emergency-contact"
+        title="${currentLang === 'fr' ? 'Supprimer' : currentLang === 'en' ? 'Remove' : 'حذف'}">
+        <i data-feather="x" class="w-4 h-4"></i>
+      </button>
+    </div>
 
-        <!-- Inputs -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Prénom</label>
-            <input type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-firstName"
-              placeholder="Prénom"
-              value="${contact.firstName || ""}">
-            <p class="error-edit-firstName"></p>
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Nom</label>
-            <input type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-lastName"
-              placeholder="Nom"
-              value="${contact.lastName || ""}">
-            <p class="error-edit-lastName"></p>
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Téléphone</label>
-            <input type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-phone"
-              placeholder="+212 6XX XXX XXX"
-              value="${contact.phoneNumber || ""}">
-            <p class="error-edit-phone"></p>
-          </div>
-
-          <div>
-            <label class="block text-xs font-medium text-gray-600 mb-1">Relation</label>
-            <input type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-relationship"
-              placeholder="Ex: Père, Mère, Frère..."
-              value="${contact.relationship || ""}">
-            <p class="error-edit-relationship"></p>
-          </div>
-        </div>
+    <!-- Inputs -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1">
+          ${currentLang === "fr" ? "Prénom" : currentLang === "en" ? "First Name" : "الاسم الأول"}
+        </label>
+        <input type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-firstName"
+          placeholder="${currentLang === "fr" ? "Prénom" : currentLang === "en" ? "First Name" : "الاسم الأول"}"
+          value="${contact.firstName || ""}">
+        <p class="error-edit-firstName"></p>
       </div>
-    `;
+
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1">
+          ${currentLang === "fr" ? "Nom" : currentLang === "en" ? "Last Name" : "اسم العائلة"}
+        </label>
+        <input type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-lastName"
+          placeholder="${currentLang === "fr" ? "Nom" : currentLang === "en" ? "Last Name" : "اسم العائلة"}"
+          value="${contact.lastName || ""}">
+        <p class="error-edit-lastName"></p>
+      </div>
+
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1">
+          ${currentLang === "fr" ? "Téléphone" : currentLang === "en" ? "Phone" : "الهاتف"}
+        </label>
+        <input type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-phone"
+          placeholder="${currentLang === "fr" ? "+212 6XX XXX XXX" : currentLang === "en" ? "+212 6XX XXX XXX" : "+212 6XX XXX XXX"}"
+          value="${contact.phoneNumber || ""}">
+        <p class="error-edit-phone"></p>
+      </div>
+
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1">
+          ${currentLang === "fr" ? "Relation" : currentLang === "en" ? "Relationship" : "العلاقة"}
+        </label>
+        <input type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-relationship"
+          placeholder="${currentLang === "fr" ? "Ex: Père, Mère, Frère..." : currentLang === "en" ? "Ex: Father, Mother, Brother..." : "مثال: أب، أم، أخ..."}"
+          value="${contact.relationship || ""}">
+        <p class="error-edit-relationship"></p>
+      </div>
+    </div>
+  </div>
+`;
+
   }
 
   renderEditUserModal(user) {
@@ -453,80 +661,90 @@ export default class UserView {
   }
 
   renderDeleteUserModal(user) {
-    document.getElementById("deleteUserName").textContent = `${user.firstName} ${user.lastName}`;
+    document.getElementById(
+      "deleteUserName"
+    ).textContent = `${user.firstName} ${user.lastName}`;
     const roleInfo = this.getRoleInfo(user.role);
-    document.getElementById("deleteUserInfo").textContent = `${roleInfo.text} • ${user.email}`;
+    document.getElementById(
+      "deleteUserInfo"
+    ).textContent = `${roleInfo.text} • ${user.email}`;
     document.getElementById("deleteUserId").value = user.userId;
 
     openModal("deleteUserModal");
   }
 
   getUserInputData() {
-      const CIN = document.getElementById("addUserCIN").value;
-      const firstName = document.getElementById("addUserFirstName").value;
-      const lastName = document.getElementById("addUserLastName").value;
-      const email = document.getElementById("addUserEmail").value;
-      const phoneNumber = document.getElementById("addUserPhone").value;
-      const role = document.getElementById("addUserRole").value;
-      const password = document.getElementById("addUserPassword").value;
-      const confirmPassword = document.getElementById("addUserConfirmPassword").value;
-      const address = document.getElementById("addUserAddress").value;
+    const CIN = document.getElementById("addUserCIN").value;
+    const firstName = document.getElementById("addUserFirstName").value;
+    const lastName = document.getElementById("addUserLastName").value;
+    const email = document.getElementById("addUserEmail").value;
+    const phoneNumber = document.getElementById("addUserPhone").value;
+    const role = document.getElementById("addUserRole").value;
+    const password = document.getElementById("addUserPassword").value;
+    const confirmPassword = document.getElementById(
+      "addUserConfirmPassword"
+    ).value;
+    const address = document.getElementById("addUserAddress").value;
 
-      // ===== Retrieve Emergency Contacts =====
-      const emergencyContacts = [];
-      const contactsContainer = document.getElementById("emergencyContactsContainer");
-      const contactDivs = contactsContainer.children;
+    // ===== Retrieve Emergency Contacts =====
+    const emergencyContacts = [];
+    const contactsContainer = document.getElementById(
+      "emergencyContactsContainer"
+    );
+    const contactDivs = contactsContainer.children;
 
-      for (let i = 0; i < contactDivs.length; i++) {
-          const inputs = contactDivs[i].querySelectorAll("input");
-          const contactData = {
-              firstName: inputs[0].value,
-              lastName: inputs[1].value,
-              phoneNumber: inputs[2].value,
-              relationship: inputs[3].value
-          };
-          emergencyContacts.push(contactData);
-      }
-
-      // ===== Return all data together =====
-      return {
-          CIN,
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          role,
-          password,
-          confirmPassword,
-          emergencyContacts,
-          address
+    for (let i = 0; i < contactDivs.length; i++) {
+      const inputs = contactDivs[i].querySelectorAll("input");
+      const contactData = {
+        firstName: inputs[0].value,
+        lastName: inputs[1].value,
+        phoneNumber: inputs[2].value,
+        relationship: inputs[3].value,
       };
+      emergencyContacts.push(contactData);
+    }
+
+    // ===== Return all data together =====
+    return {
+      CIN,
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      role,
+      password,
+      confirmPassword,
+      emergencyContacts,
+      address,
+    };
   }
 
   getEditUserInputData() {
-      const emergencyContacts = [];
-      const contactBlocks = document.querySelectorAll("#editEmergencyContactsContainer .emergency-contact");
+    const emergencyContacts = [];
+    const contactBlocks = document.querySelectorAll(
+      "#editEmergencyContactsContainer .emergency-contact"
+    );
 
-      contactBlocks.forEach(block => {
-          emergencyContacts.push({
-              firstName: block.querySelector(".edit-ec-firstName").value.trim(),
-              lastName: block.querySelector(".edit-ec-lastName").value.trim(),
-              phoneNumber: block.querySelector(".edit-ec-phone").value.trim(),
-              relationship: block.querySelector(".edit-ec-relationship").value.trim(),
-          });
+    contactBlocks.forEach((block) => {
+      emergencyContacts.push({
+        firstName: block.querySelector(".edit-ec-firstName").value.trim(),
+        lastName: block.querySelector(".edit-ec-lastName").value.trim(),
+        phoneNumber: block.querySelector(".edit-ec-phone").value.trim(),
+        relationship: block.querySelector(".edit-ec-relationship").value.trim(),
       });
+    });
 
-      return {
-          userId: document.getElementById("editUserId").value.trim(),
-          firstName: document.getElementById("editUserFirstName").value.trim(),
-          lastName: document.getElementById("editUserLastName").value.trim(),
-          CIN: document.getElementById("editUserCIN").value.trim(),
-          phoneNumber: document.getElementById("editUserPhone").value.trim(),
-          role: document.getElementById("editUserRole").value,
-          status: document.getElementById("editUserStatus").value,
-          email: document.getElementById("editUserEmail").value.trim(),
-          address: document.getElementById("editUserAddress").value.trim(),
-          emergencyContacts
-      };
+    return {
+      userId: document.getElementById("editUserId").value.trim(),
+      firstName: document.getElementById("editUserFirstName").value.trim(),
+      lastName: document.getElementById("editUserLastName").value.trim(),
+      CIN: document.getElementById("editUserCIN").value.trim(),
+      phoneNumber: document.getElementById("editUserPhone").value.trim(),
+      role: document.getElementById("editUserRole").value,
+      status: document.getElementById("editUserStatus").value,
+      email: document.getElementById("editUserEmail").value.trim(),
+      address: document.getElementById("editUserAddress").value.trim(),
+      emergencyContacts,
+    };
   }
 }

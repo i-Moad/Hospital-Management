@@ -10,7 +10,7 @@ import Storage from "../models/Storage.js";
 const page = document.body.dataset.page;
 const session = Storage.load("Session");
 
-// Storage.seed();
+//Storage.seed();
 
 function redirect() {
     const dashboards = {

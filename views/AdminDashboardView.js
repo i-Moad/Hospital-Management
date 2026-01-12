@@ -4,6 +4,16 @@ export default class AdminDashboardView {
     this.nbrServices = document.getElementById("nbrServices");
     this.nbrStaff = document.getElementById("nbrStaff");
     this.nbrDoctors = document.getElementById("nbrDoctors");
+
+    // Langue actuelle
+    this.currentLang = localStorage.getItem("lang") || "fr";
+  }
+
+  translate(labelFr, labelEn, labelAr) {
+    if (this.currentLang === "fr") return labelFr;
+    if (this.currentLang === "en") return labelEn;
+    if (this.currentLang === "ar") return labelAr;
+    return labelFr; // fallback
   }
 
   renderUsersChart(counts) {
@@ -15,12 +25,18 @@ export default class AdminDashboardView {
     this.nbrStaff.textContent = counts.staff;
     this.nbrDoctors.textContent = counts.doctors;
 
+    // Traductions
+    const labelPatients = this.translate("Patients", "Patients", "المرضى");
+    const labelDoctors = this.translate("Médecins", "Doctors", "الأطباء");
+    const labelServices = this.translate("Services Médicaux", "Medical Services", "الخدمات الطبية");
+    const chartLabel = this.translate("Nombre", "Count", "عدد");
+
     new Chart(ctx.getContext('2d'), {
       type: 'bar',
       data: {
-        labels: ['Patients', 'Doctors', 'Services Médicaux'],
+        labels: [labelPatients, labelDoctors, labelServices],
         datasets: [{
-          label: 'Nombre',
+          label: chartLabel,
           data: [counts.patients, counts.doctors, counts.services],
           backgroundColor: ['#3B82F6', '#10B981', '#F59E0B'],
           borderRadius: 5,
@@ -38,30 +54,31 @@ export default class AdminDashboardView {
     const canvas = document.getElementById("userRolesChart");
     if (!canvas) return;
 
+    // Traductions
+    const labelPatients = this.translate("Patients", "Patients", "المرضى");
+    const labelDoctors = this.translate("Médecins", "Doctors", "الأطباء");
+    const labelStaff = this.translate("Personnel", "Staff", "الموظفين");
+    const chartTitle = this.translate("Utilisateurs par rôle", "Users by Role", "المستخدمون حسب الدور");
+
     new Chart(canvas.getContext("2d"), {
       type: "polarArea",
       data: {
-        labels: ["Patients", "Doctors", "Staff"],
+        labels: [labelPatients, labelDoctors, labelStaff],
         datasets: [
           {
-            label: "User Roles",
-            data: [
-              counts.patients,
-              counts.doctors,
-              counts.staff
-            ]
+            label: chartTitle,
+            data: [counts.patients, counts.doctors, counts.staff],
+            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B'],
           }
         ]
       },
       options: {
         responsive: true,
         plugins: {
-          legend: {
-            position: "top"
-          },
+          legend: { position: "top" },
           title: {
             display: true,
-            text: "Users by Role"
+            text: chartTitle
           }
         }
       }
