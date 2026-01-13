@@ -1468,5 +1468,15 @@
     "fr": "Personnel total",
     "en": "Total Staff",
     "ar": "إجمالي الموظفين"
+  },
+  "Cette action est critique. Toutes les données du service seront définitivement supprimées.": {
+    "fr": "Cette action est critique. Toutes les données du service seront définitivement supprimées.",
+    "en": "This action is critical. All service data will be permanently deleted.",
+    "ar": "هذا الإجراء حاسم. جميع بيانات الخدمة سيتم حذفها نهائياً."
+  },
+  "Ajouter le service": {
+    "fr": "Ajouter le service",
+    "en": "Add Service",
+    "ar": "إضافة خدمة"
   }
 }
