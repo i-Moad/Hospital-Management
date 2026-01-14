@@ -31,7 +31,7 @@ export default class AuthController {
           const session = Storage.load("Session");
           console.log(session)
           if (session.role === "admin") {
-            window.location.href = "../Dashboards/Admin/index.html"
+            window.location.href = "/index.html"
             return;
           }
           if (session.role === "doctor") {
