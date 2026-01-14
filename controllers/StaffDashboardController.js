@@ -10,6 +10,9 @@ export default class StaffDashboardController {
   init() {
     const counts = StaffStats.getCounts();
 
+    const appointmentsByStatus = StaffStats.getAppointmentsByStatus();
+
     this.view.renderChart(counts);
+    this.view.renderAppointmentsByStatusChart(appointmentsByStatus);
   }
 }

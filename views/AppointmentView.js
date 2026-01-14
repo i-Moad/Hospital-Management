@@ -69,6 +69,85 @@ export default class AppointmentView {
 
   // ---------------- RENDER ----------------
 
+  renderAppointmentsList(appointments) {
+        const tbody = document.getElementById("appointments-list");
+        if (tbody) tbody.innerHTML = "";
+
+        const sortedAppointments = [...appointments].sort(
+            (a, b) =>
+                new Date(a.appointmentDateTime) -
+                new Date(b.appointmentDateTime)
+        );
+
+        sortedAppointments.forEach(appointment => {
+            const tr = document.createElement("tr");
+
+            let statusClass = "";
+            let statusText = "";
+
+            switch (appointment.status) {
+                case "confirmed":
+                    statusClass = "status-confirmed";
+                    statusText = "Confirmé";
+                    break;
+                case "pending":
+                    statusClass = "status-pending";
+                    statusText = "En_attente";
+                    break;
+                case "cancelled":
+                    statusClass = "status-cancelled";
+                    statusText = "Annulé";
+                    break;
+            }
+
+            tr.innerHTML = `
+                <td class="px-4 py-3 whitespace-nowrap">
+                    ${formatDateTime(appointment.appointmentDateTime)}
+                </td>
+
+                <td class="px-4 py-3 whitespace-nowrap">
+                    ${appointment.patientName}
+                </td>
+
+                <td class="px-4 py-3 whitespace-nowrap">
+                    <span class="px-2 py-1 text-xs rounded-full ${statusClass}" data-i18n="${statusText}">
+                    </span>
+                </td>
+
+                <td class="px-4 py-3 whitespace-nowrap">
+                    <div class="flex space-x-2">
+                        ${appointment.status === "pending" ? `
+                            <button
+                                data-action="confirm"
+                                data-id="${appointment.appointmentId}"
+                                class="text-green-600 hover:text-green-800 transition-colors p-1"
+                                title="Confirmer">
+                                <i data-feather="check" class="w-4 h-4"></i>
+                            </button>
+                        ` : ""}
+
+                        ${appointment.status !== "cancelled" ? `
+                            <button
+                                data-action="cancel"
+                                data-id="${appointment.appointmentId}"
+                                class="text-red-600 hover:text-red-800 transition-colors p-1"
+                                title="Annuler">
+                                <i data-feather="x" class="w-4 h-4"></i>
+                            </button>
+                        ` : ""}
+                    </div>
+                </td>
+
+            `;
+
+            tbody.appendChild(tr);
+        });
+
+        if (typeof feather !== "undefined") {
+            feather.replace();
+        }
+    }
+
   renderTable(data, currentPage, perPage) {
     if (!this.tbody) return;
 
@@ -278,5 +357,24 @@ export default class AppointmentView {
     this.cancelAdd?.addEventListener("click", () => this.closeAddModal());
     this.closeView1?.addEventListener("click", () => this.closeViewModal());
     this.closeView2?.addEventListener("click", () => this.closeViewModal());
+
+      const tbody = document.getElementById("appointments-list");
+
+      if (tbody) {
+          tbody.addEventListener("click", (e) => {
+              const btn = e.target.closest("button");
+              if (!btn) return;
+
+              const action = btn.dataset.action;
+              const id = parseInt(btn.dataset.id);
+
+              if (!action || !id) return;
+
+              // call the controller methods
+              if (action === "confirm") this.onConfirm && this.onConfirm(id);
+              if (action === "cancel") this.onCancel && this.onCancel(id);
+          });
+      }
+
   }
 }

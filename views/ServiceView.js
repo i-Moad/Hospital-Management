@@ -21,6 +21,9 @@ export default class ServiceView {
     this.submitAddService = document.getElementById("submitAddService");
     this.submitEditService = document.getElementById("submitEditService");
     this.submitASD = document.getElementById("submitAssignServiceDoctor");
+    this.cancelEditServiceBtn = document.getElementById("cancelEditServiceBtn");
+    this.cancelAddServiceBtn = document.getElementById("cancelAddServiceBtn");
+    this.closeAddServiceModal = document.getElementById("closeAddServiceModal");
 
     // Confirm buttons
     this.confirmDeleteBtn = document.getElementById("confirmDeleteServiceBtn");
@@ -313,6 +316,9 @@ document.getElementById("viewServiceStatus").textContent = statusText;
           document.getElementById("assignDoctorSelect").value
         )
       );
+
+    if (this.cancelAddServiceBtn) this.cancelAddServiceBtn.addEventListener("click", () => closeModal("addServiceModal"));
+    if (this.closeAddServiceModal) this.closeAddServiceModal.addEventListener("click", () => closeModal("addServiceModal"));
 
     // TABLE BUTTONS (delegated like UserView)
     document.addEventListener("click", (e) => {

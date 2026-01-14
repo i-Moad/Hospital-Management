@@ -1,7 +1,9 @@
 import AppointmentModel from "../models/Appointment.js";
 import User from "../models/User.js";
 import AppointmentView from "../views/AppointmentView.js";
+import Storage from "../models/Storage.js";
 import { openModal, closeModal } from "../src/utils/modal.js";
+import Appointment from "../models/Appointment.js";
 
 export default class AppointmentController {
   constructor() {
@@ -9,14 +11,15 @@ export default class AppointmentController {
     this.data = [];
     this.page = 1;
     this.perPage = 10;
+    this.session = Storage.load("Session");
 
     this.view.setupEvents(this);
     this.applyFilters();
   }
 
-  applyFilters() {
-    const date = this.view.filterDate.value;
-    const status = this.view.filterStatus.value;
+   applyFilters() {
+    const date = this.view.filterDate ? this.view.filterDate.value : null;
+    const status = this.view.filterStatus ? this.view.filterStatus.value : null;
 
     this.data = AppointmentModel.getAll().filter(a => {
       const d = a.appointmentDateTime.split("T")[0];
@@ -33,7 +36,32 @@ export default class AppointmentController {
   render() {
     this.view.renderTable(this.data, this.page, this.perPage);
     this.view.renderPagination(this.data, this.page, this.perPage);
+
+      this.view.onConfirm = (id) => this.confirm(id);
+      this.view.onCancel = (id) => this.cancelD(id);
+
+    this.loadDoctorAppointments();
   }
+
+    loadDoctorAppointments() {
+        const doctorId = this.session.userId;
+
+        const appointments = Appointment.getAppointmentsByDoctorID(doctorId);
+
+        this.view.renderAppointmentsList(appointments);
+    }
+
+    confirm(appointmentId) {
+        Appointment.confirm(appointmentId);
+        this.loadDoctorAppointments();
+    }
+
+    cancelD(appointmentId) {
+        console.log("we'er fking here")
+        Appointment.cancel(appointmentId);
+        this.loadDoctorAppointments();
+    }
+
 
   prevPage() {
     if (this.page > 1) {

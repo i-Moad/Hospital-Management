@@ -113,7 +113,7 @@ export default class User {
   }
 
   static deleteUser(userId) {
-    userId = Number(userId);
+    userId = userId;
     
     const success = Storage.removeItem(
       this.USERS_KEY,

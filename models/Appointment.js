@@ -23,6 +23,21 @@ export default class Appointment {
     }));
   }
 
+   static getUsersByDoctorID(doctorId) {
+        const appointments = Storage
+            .load(APPOINTMENTS_KEY)
+            .filter(a => a.doctorId == doctorId);
+
+        if (appointments.length === 0) return [];
+
+        const users = Storage.load(USERS_KEY);
+
+        return users.filter(user =>
+            user.role === "patient" &&
+            appointments.some(a => a.patientId == user.userId)
+        );
+   }
+
   static getById(id) {
     const appointment = Storage
       .load(APPOINTMENTS_KEY)
@@ -48,7 +63,41 @@ export default class Appointment {
           fullName: `${user.lastName} ${user.firstName}`
         }))
     };
-  }
+    }
+
+    static getAppointmentsByDoctorID(doctorId) {
+        return this.getAll().filter(
+            a => a.doctorId == doctorId
+        );
+    }
+
+    static confirm(appointmentId) {
+        const appointment = this.getById(appointmentId);
+        if (!appointment) return false;
+
+        if (appointment.status !== "pending") return false;
+
+        return Storage.updateItem(
+            APPOINTMENTS_KEY,
+            "appointmentId",
+            appointmentId,
+            { status: "confirmed" }
+        );
+    }
+
+    static cancel(appointmentId) {
+        const appointment = this.getById(appointmentId);
+        if (!appointment) return false;
+
+        if (appointment.status === "cancelled") return false;
+
+        return Storage.updateItem(
+            APPOINTMENTS_KEY,
+            "appointmentId",
+            appointmentId,
+            { status: "cancelled" }
+        );
+    }
 
   static create(data) {
     return Storage.addItem(APPOINTMENTS_KEY, data);
