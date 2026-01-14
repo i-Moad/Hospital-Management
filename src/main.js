@@ -1,16 +1,41 @@
 import AdminDashboardController from "../controllers/AdminDashboardController.js";
+import AppointmentController from "../controllers/AppointmentController.js";
 import AuthController from "../controllers/AuthController.js";
 import ServiceController from "../controllers/ServiceController.js";
 import SettingController from "../controllers/SettingController.js";
+import StaffDashboardController from "../controllers/StaffDashboardController.js";
 import UserController from "../controllers/UserController.js";
 
 import Auth from "../models/Auth.js";
 import Storage from "../models/Storage.js";
+import StaffDashboardView from "../views/StaffDashboardView.js";
 
 const page = document.body.dataset.page;
 const session = Storage.load("Session");
 
-//Storage.seed();
+const keys = [
+    "Users",
+    "Services",
+    "Prescriptions",
+    "MedicalNotes",
+    "HospitalSetting",
+    "DoctorServices",
+    "Appointments",
+    "AppointmentRequests"
+];
+
+// Check if any key is "missing" (empty array)
+if (keys.some(key => Storage.load(key).length === 0)) {
+    // Clear all keys
+    keys.forEach(key => Storage.clear(key));
+
+    // Seed storage
+    Storage.seed();
+
+    setTimeout(() => {
+        window.location.reload();
+    }, 500)
+}
 
 function redirect() {
     const dashboards = {
@@ -52,4 +77,13 @@ if (page === "Dashboard-Doctor") {
         redirect();
     }
     new UserController();
+}
+
+if (page === "Dashboard-Staff") {
+    if (session.role !== "staff") {
+        redirect();
+    }
+    new UserController();
+    new StaffDashboardController();
+    new AppointmentController();
 }
