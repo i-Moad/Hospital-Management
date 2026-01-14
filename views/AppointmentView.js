@@ -4,7 +4,9 @@ export default class AppointmentView {
   constructor() {
     // Table
     this.tbody = document.getElementById("appointmentsTableBody");
-    this.paginationNumbers = document.getElementById("appointmentsPaginationNumbers");
+    this.paginationNumbers = document.getElementById(
+      "appointmentsPaginationNumbers"
+    );
     this.startItem = document.getElementById("appointmentsStartItem");
     this.endItem = document.getElementById("appointmentsEndItem");
     this.totalItems = document.getElementById("appointmentsTotalItems");
@@ -40,13 +42,13 @@ export default class AppointmentView {
   getEditAppointmentErrorElements() {
     return {
       date: document.getElementById("errorEditDate"),
-      time: document.getElementById("errorEditTime")
+      time: document.getElementById("errorEditTime"),
     };
   }
 
   clearEditAddAppointmentErrors() {
     const errors = this.getEditAppointmentErrorElements();
-    Object.values(errors).forEach(el => el.textContent = "");
+    Object.values(errors).forEach((el) => (el.textContent = ""));
   }
 
   getAddAppointmentErrorElements() {
@@ -54,13 +56,13 @@ export default class AppointmentView {
       patient: document.getElementById("errorAddPatient"),
       doctor: document.getElementById("errorAddDoctor"),
       date: document.getElementById("errorAddDate"),
-      time: document.getElementById("errorAddTime")
+      time: document.getElementById("errorAddTime"),
     };
   }
 
   clearAllAddAppointmentErrors() {
     const errors = this.getAddAppointmentErrorElements();
-    Object.values(errors).forEach(el => el.textContent = "");
+    Object.values(errors).forEach((el) => (el.textContent = ""));
   }
 
   showError(el, message) {
@@ -70,37 +72,36 @@ export default class AppointmentView {
   // ---------------- RENDER ----------------
 
   renderAppointmentsList(appointments) {
-        const tbody = document.getElementById("appointments-list");
-        if (tbody) tbody.innerHTML = "";
+    const tbody = document.getElementById("appointments-list");
+    if (tbody) tbody.innerHTML = "";
 
-        const sortedAppointments = [...appointments].sort(
-            (a, b) =>
-                new Date(a.appointmentDateTime) -
-                new Date(b.appointmentDateTime)
-        );
+    const sortedAppointments = [...appointments].sort(
+      (a, b) =>
+        new Date(a.appointmentDateTime) - new Date(b.appointmentDateTime)
+    );
 
-        sortedAppointments.forEach(appointment => {
-            const tr = document.createElement("tr");
+    sortedAppointments.forEach((appointment) => {
+      const tr = document.createElement("tr");
 
-            let statusClass = "";
-            let statusText = "";
+      let statusClass = "";
+      let statusText = "";
 
-            switch (appointment.status) {
-                case "confirmed":
-                    statusClass = "status-confirmed";
-                    statusText = "Confirmé";
-                    break;
-                case "pending":
-                    statusClass = "status-pending";
-                    statusText = "En_attente";
-                    break;
-                case "cancelled":
-                    statusClass = "status-cancelled";
-                    statusText = "Annulé";
-                    break;
-            }
+      switch (appointment.status) {
+        case "confirmed":
+          statusClass = "status-confirmed";
+          statusText = "Confirmé";
+          break;
+        case "pending":
+          statusClass = "status-pending";
+          statusText = "En_attente";
+          break;
+        case "cancelled":
+          statusClass = "status-cancelled";
+          statusText = "Annulé";
+          break;
+      }
 
-            tr.innerHTML = `
+      tr.innerHTML = `
                 <td class="px-4 py-3 whitespace-nowrap">
                     ${formatDateTime(appointment.appointmentDateTime)}
                 </td>
@@ -116,7 +117,9 @@ export default class AppointmentView {
 
                 <td class="px-4 py-3 whitespace-nowrap">
                     <div class="flex space-x-2">
-                        ${appointment.status === "pending" ? `
+                        ${
+                          appointment.status === "pending"
+                            ? `
                             <button
                                 data-action="confirm"
                                 data-id="${appointment.appointmentId}"
@@ -124,9 +127,13 @@ export default class AppointmentView {
                                 title="Confirmer">
                                 <i data-feather="check" class="w-4 h-4"></i>
                             </button>
-                        ` : ""}
+                        `
+                            : ""
+                        }
 
-                        ${appointment.status !== "cancelled" ? `
+                        ${
+                          appointment.status !== "cancelled"
+                            ? `
                             <button
                                 data-action="cancel"
                                 data-id="${appointment.appointmentId}"
@@ -134,19 +141,21 @@ export default class AppointmentView {
                                 title="Annuler">
                                 <i data-feather="x" class="w-4 h-4"></i>
                             </button>
-                        ` : ""}
+                        `
+                            : ""
+                        }
                     </div>
                 </td>
 
             `;
 
-            tbody.appendChild(tr);
-        });
+      tbody.appendChild(tr);
+    });
 
-        if (typeof feather !== "undefined") {
-            feather.replace();
-        }
+    if (typeof feather !== "undefined") {
+      feather.replace();
     }
+  }
 
   renderTable(data, currentPage, perPage) {
     if (!this.tbody) return;
@@ -155,28 +164,39 @@ export default class AppointmentView {
     const end = Math.min(start + perPage, data.length);
     const slice = data.slice(start, end);
 
+    const lang = localStorage.getItem("lang") || "en";
+
+    
+    const noAppointmentsText =
+      lang === "fr"
+        ? "Aucun rendez-vous trouvé"
+        : lang === "ar"
+        ? "لم يتم العثور على مواعيد"
+        : "No appointments found";
+
     if (!slice.length) {
       this.tbody.innerHTML = `
         <tr>
           <td colspan="7" class="px-6 py-12 text-center text-gray-500">
-            Aucun rendez-vous trouvé
+            ${noAppointmentsText}
           </td>
         </tr>
       `;
       return;
     }
 
-    this.tbody.innerHTML = slice.map(a => {
-      const [date, time] = a.appointmentDateTime.split("T");
+    this.tbody.innerHTML = slice
+      .map((a) => {
+        const [date, time] = a.appointmentDateTime.split("T");
 
-      const statusClasses = {
-        pending: "bg-yellow-100 text-yellow-800",
-        confirmed: "bg-green-100 text-green-800",
-        cancelled: "bg-red-100 text-red-800",
-        completed: "bg-blue-100 text-blue-800"
-      };
+        const statusClasses = {
+          pending: "bg-yellow-100 text-yellow-800",
+          confirmed: "bg-green-100 text-green-800",
+          cancelled: "bg-red-100 text-red-800",
+          completed: "bg-blue-100 text-blue-800",
+        };
 
-      return `
+        return `
         <tr data-id="${a.appointmentId}" class="hover:bg-gray-50 transition">
           
           <!-- ID -->
@@ -253,7 +273,8 @@ export default class AppointmentView {
 
         </tr>
       `;
-    }).join("");
+      })
+      .join("");
 
     this.startItem.textContent = data.length ? start + 1 : 0;
     this.endItem.textContent = end;
@@ -269,7 +290,9 @@ export default class AppointmentView {
     let html = "";
 
     for (let i = 1; i <= pages; i++) {
-      html += `<button data-page="${i}" ${i === currentPage ? "disabled" : ""}>${i}</button>`;
+      html += `<button data-page="${i}" ${
+        i === currentPage ? "disabled" : ""
+      }>${i}</button>`;
     }
 
     this.paginationNumbers.innerHTML = html;
@@ -293,10 +316,12 @@ export default class AppointmentView {
   }
 
   fillViewModal(appointment) {
-    document.getElementById("viewAppointmentId").value = appointment.appointmentId;
-    document.getElementById("viewAppointmentPatient").value = appointment.patientName;
+    document.getElementById("viewAppointmentId").value =
+      appointment.appointmentId;
+    document.getElementById("viewAppointmentPatient").value =
+      appointment.patientName;
 
-    appointment.allDoctors.forEach(doc => {
+    appointment.allDoctors.forEach((doc) => {
       const option = document.createElement("option");
       option.value = doc.id;
       option.textContent = doc.fullName;
@@ -304,11 +329,12 @@ export default class AppointmentView {
       document.getElementById("viewAppointmentDoctor").appendChild(option);
     });
 
-    document.getElementById("viewAppointmentDoctor").value = appointment.doctorId;
+    document.getElementById("viewAppointmentDoctor").value =
+      appointment.doctorId;
 
     const [date, time] = appointment.appointmentDateTime.split("T");
     document.getElementById("viewAppointmentDate").value = date;
-    document.getElementById("viewAppointmentTime").value = time.slice(0,5);
+    document.getElementById("viewAppointmentTime").value = time.slice(0, 5);
 
     // document.getElementById("viewAppointmentReason").value = appointment.reason || "";
     document.getElementById("viewAppointmentStatus").value = appointment.status;
@@ -319,29 +345,42 @@ export default class AppointmentView {
   // ---------------- EVENTS ----------------
 
   setupEvents(controller) {
-    if (this.filterDate) this.filterDate.addEventListener("change", () => controller.applyFilters());
-    if (this.filterStatus) this.filterStatus.addEventListener("change", () => controller.applyFilters());
-    if (this.filterDoctor) this.filterDoctor.addEventListener("change", () => controller.applyFilters());
+    if (this.filterDate)
+      this.filterDate.addEventListener("change", () =>
+        controller.applyFilters()
+      );
+    if (this.filterStatus)
+      this.filterStatus.addEventListener("change", () =>
+        controller.applyFilters()
+      );
+    if (this.filterDoctor)
+      this.filterDoctor.addEventListener("change", () =>
+        controller.applyFilters()
+      );
 
-    if (this.prevBtn) this.prevBtn.addEventListener("click", () => controller.prevPage());
-    if (this.nextBtn) this.nextBtn.addEventListener("click", () => controller.nextPage());
+    if (this.prevBtn)
+      this.prevBtn.addEventListener("click", () => controller.prevPage());
+    if (this.nextBtn)
+      this.nextBtn.addEventListener("click", () => controller.nextPage());
 
     if (this.perPageSelect)
-      this.perPageSelect.addEventListener("change", e => controller.changePerPage(e));
+      this.perPageSelect.addEventListener("change", (e) =>
+        controller.changePerPage(e)
+      );
 
     if (this.addBtn)
       this.addBtn.addEventListener("click", () => controller.openAddModal());
 
     if (this.addForm)
-      this.addForm.addEventListener("submit", e => controller.create(e));
+      this.addForm.addEventListener("submit", (e) => controller.create(e));
 
     if (this.viewForm)
-      this.viewForm.addEventListener("submit", e => controller.update(e));
+      this.viewForm.addEventListener("submit", (e) => controller.update(e));
 
     if (this.cancelBtn)
       this.cancelBtn.addEventListener("click", () => controller.cancel());
 
-    document.addEventListener("click", e => {
+    document.addEventListener("click", (e) => {
       const row = e.target.closest("tr[data-id]");
       if (!row) return;
 
@@ -358,23 +397,22 @@ export default class AppointmentView {
     this.closeView1?.addEventListener("click", () => this.closeViewModal());
     this.closeView2?.addEventListener("click", () => this.closeViewModal());
 
-      const tbody = document.getElementById("appointments-list");
+    const tbody = document.getElementById("appointments-list");
 
-      if (tbody) {
-          tbody.addEventListener("click", (e) => {
-              const btn = e.target.closest("button");
-              if (!btn) return;
+    if (tbody) {
+      tbody.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
 
-              const action = btn.dataset.action;
-              const id = parseInt(btn.dataset.id);
+        const action = btn.dataset.action;
+        const id = parseInt(btn.dataset.id);
 
-              if (!action || !id) return;
+        if (!action || !id) return;
 
-              // call the controller methods
-              if (action === "confirm") this.onConfirm && this.onConfirm(id);
-              if (action === "cancel") this.onCancel && this.onCancel(id);
-          });
-      }
-
+        // call the controller methods
+        if (action === "confirm") this.onConfirm && this.onConfirm(id);
+        if (action === "cancel") this.onCancel && this.onCancel(id);
+      });
+    }
   }
 }
