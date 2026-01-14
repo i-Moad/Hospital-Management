@@ -282,11 +282,11 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Filtrer par rôle"></label>
                             <select id="filterRole" class="px-3 py-2 border border-gray-300 rounded-lg text-sm w-48">
-                                <option value="">Tous les rôles</option>
-                                <option value="admin">Administrateur</option>
-                                <option value="doctor">Médecin</option>
-                                <option value="staff">Personnel</option>
-                                <option value="patient">Patient</option>
+                                <option value="" data-i18n="Tous les rôles"></option>
+                                <option value="admin" data-i18n="Administrateur"></option></option>
+                                <option value="doctor" data-i18n="Médecin"></option></option>
+                                <option value="staff" data-i18n="Personnel"></option></option>
+                                <option value="patient" data-i18n="Patient"></option>
                             </select>
                         </div>
                         
@@ -294,10 +294,10 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Filtrer par statut"></label>
                             <select id="filterStatus" class="px-3 py-2 border border-gray-300 rounded-lg text-sm w-48">
-                                <option value="">Tous les statuts</option>
-                                <option value="active">Actif</option>
-                                <option value="inactive">Inactif</option>
-                                <option value="pending">En attente</option>
+                                <option value="" data-i18n="Tous les status"></option>
+                                <option value="active" data-i18n="Actif"></option>
+                                <option value="inactive" data-i18n="Inactif"></option>
+                                <option value="pending" data-i18n="En attente"></option>
                             </select>
                         </div>
                         
@@ -403,9 +403,9 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Filtrer par statut"></label>
                             <select id="filterServiceStatus" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                                <option value="">Tous les statuts</option>
-                                <option value="active">Actif</option>
-                                <option value="inactive">Inactif</option>
+                                <option value="" data-i18n="Tous les status"></option>
+                                <option value="active" data-i18n="Actif"></option>
+                                <option value="inactive" data-i18n="Inactif"></option>
                             </select>
                         </div>
                         
@@ -413,7 +413,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Rechercher"></label>
                             <div class="relative">
-                                <i data-feather="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <i data-feather="search" class="absolute left-3 top-7 s transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
                                 <input type="text" id="searchServicesTable" data-i18n-placeholder="Nom du service..." 
                                     class="pl-10 px-3 py-2 border border-gray-300 rounded-lg text-sm w-64">
                             </div>
@@ -809,7 +809,7 @@
                             <div class="space-y-3">
                                 <div>
                                     <label class="text-sm font-medium text-gray-500" data-i18n="Rôle"></label>
-                                    <span id="viewUserRole" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                    <span id="viewUserRole" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800" data-i18n="">
                                         -
                                     </span>
                                 </div>
@@ -1012,14 +1012,16 @@
                         <!-- Emergency Contacts -->
                         <div class="space-y-4">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center justify-between">
-                                <span class="flex items-center">
+                                <span class="flex items-center" data-i18n="Contacts d'urgence">
                                     <i data-feather="users" class="w-5 h-5 mr-2 text-blue-600"></i>
-                                    Emergency Contacts
+                                    
                                 </span>
 
                                 <button id="addEditEmergencyContactBtn"
-                                    class="text-sm text-blue-600 hover:underline">
-                                    + Add
+                                    class="text-sm text-blue-600 hover:underline"
+                                    data-i18n="Ajouter"
+                                    >
+                                    
                                 </button>
                             </h3>
 
@@ -1131,7 +1133,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <div>
-                                    <label class="text-sm font-medium text-gray-500" data-i18n="  Service"></label>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="Service"></label>
                                     <p id="viewServiceId" class="text-gray-900 text-[.85rem] font-bold">-</p>
                                 </div>
                                 <div>
@@ -1230,8 +1232,8 @@
                                         class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <select id="editServiceStatus"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
-                                        <option value="1">Actif</option>
-                                        <option value="0">Inactif</option>
+                                        <option value="1" data-i18n="Actif"></option>
+                                        <option value="0" data-i18n="Inactif"></option>
                                     </select>
                                     <p id="errorEditStatus" class="text-red-600 ml-2 text-sm mt-2"></p>
                                 </div>
@@ -1255,11 +1257,7 @@
 
                         <!-- Footer -->
                         <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
-                            <button type="button" id="cancelEditServiceBtn"
-                                class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
-                                <i data-feather="x" class="w-4 h-4 mr-2"></i>
-                                <span data-i18n="Annuler"></span>
-                            </button>
+
                             <button type="submit" id="submitEditService"
                                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
                                 <i data-feather="save" class="w-4 h-4 mr-2"></i>
@@ -1450,7 +1448,7 @@
                                 <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                 <select id="assignDoctorSelect"
                                     class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
-                                    <option value="">Choisir un médecin</option>
+                                    <option value="" data-i18n="Choisir un médecin" id="choisir"></option>
                                 </select>
                                 <p id="errorASD" class="text-red-600 ml-2 text-sm mt-2"></p>
                             </div>
