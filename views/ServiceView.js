@@ -317,6 +317,9 @@ document.getElementById("viewServiceStatus").textContent = statusText;
         )
       );
 
+    if (this.cancelAddServiceBtn) this.cancelAddServiceBtn.addEventListener("click", () => closeModal("addServiceModal"));
+    if (this.closeAddServiceModal) this.closeAddServiceModal.addEventListener("click", () => closeModal("addServiceModal"));
+
     // TABLE BUTTONS (delegated like UserView)
     document.addEventListener("click", (e) => {
       const viewBtn = e.target.closest(".view-service-btn");

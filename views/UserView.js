@@ -868,22 +868,6 @@ return `
           emergencyContacts,
           address
       };
-      emergencyContacts.push(contactData);
-    }
-
-    // ===== Return all data together =====
-    return {
-      CIN,
-      firstName,
-      lastName,
-      email,
-      phoneNumber,
-      role,
-      password,
-      confirmPassword,
-      emergencyContacts,
-      address,
-    };
   }
 
   getEditUserInputData() {
