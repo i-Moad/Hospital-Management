@@ -44,26 +44,50 @@ export default class DoctorDashboardView {
         });
     }
 
-    renderAppointmentsByStatusChart(data) {
-        if (this.statusChart) this.statusChart.destroy();
+renderAppointmentsByStatusChart(data) {
+    if (this.statusChart) this.statusChart.destroy();
 
-        this.statusChart = new Chart(this.statusChartEl, {
-            type: "doughnut",
-            data: {
-                labels: data.map(d => d.status),
-                datasets: [{
-                    label: "Appointments",
-                    data: data.map(d => d.count),
-                    backgroundColor: ["#facc15", "#22c55e", "#ef4444"] // yellow, green, red
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: "bottom" },
-                    tooltip: { enabled: true }
-                }
+    // Récupérer la langue depuis localStorage
+    const lang = localStorage.getItem("lang") || "en"; // valeur par défaut = anglais
+
+    // Traduction des statuts selon la langue
+    const translatedStatuses = data.map(d => {
+        if (d.status === "pending") {
+            if (lang === "fr") return "En attente";
+            if (lang === "ar") return "قيد الانتظار";
+            return "Pending";
+        }
+        if (d.status === "cancelled") {
+            if (lang === "fr") return "Annulé";
+            if (lang === "ar") return "ملغى";
+            return "Cancelled";
+        }
+        if (d.status === "confirmed") {
+            if (lang === "fr") return "Confirmé";
+            if (lang === "ar") return "مؤكد";
+            return "Confirmed";
+        }
+        return d.status; // par défaut
+    });
+
+    this.statusChart = new Chart(this.statusChartEl, {
+        type: "doughnut",
+        data: {
+            labels: translatedStatuses,
+            datasets: [{
+                label: lang === "fr" ? "Rendez-vous" : lang === "ar" ? "المواعيد" : "Appointments",
+                data: data.map(d => d.count),
+                backgroundColor: ["#facc15", "#ef4444", "#22c55e"] // jaune, rouge, vert
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: "bottom" },
+                tooltip: { enabled: true }
             }
-        });
-    }
+        }
+    });
+}
+
 }
