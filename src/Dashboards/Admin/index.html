@@ -195,36 +195,54 @@
             </div>
 
             <!-- Dashboard Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div id="totalUsersCard" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-                    <div class="text-sm text-gray-500 mb-2" data-i18n="Utilisateurs Totaux"></div>
-                    <div id="nbrUsers" class="text-2xl font-bold text-gray-900 mb-2"></div>
-                    <!-- <div class="flex items-center text-sm text-green-600">
-                        <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                    </div> -->
-                </div>
-                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-                    <div class="text-sm text-gray-500 mb-2" data-i18n="Doctors Totaux"></div>
-                    <div id="nbrDoctors" class="text-2xl font-bold text-gray-900 mb-2"></div>
-                    <!-- <div class="flex items-center text-sm text-green-600">
-                        <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                    </div> -->
-                </div>
-                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-                    <div class="text-sm text-gray-500 mb-2" data-i18n="Staff Totaux"></div>
-                    <div id="nbrStaff" class="text-2xl font-bold text-gray-900 mb-2"></div>
-                    <!-- <div class="flex items-center text-sm text-red-600">
-                        <i data-feather="trending-down" class="w-4 h-4 mr-1"></i>
-                    </div> -->
-                </div>
-                <div id="medicalServicesCard" class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-                    <div class="text-sm text-gray-500 mb-2" data-i18n="Services Médicaux"></div>
-                    <div id="nbrServices" class="text-2xl font-bold text-gray-900 mb-2"></div>
-                    <!-- <div class="flex items-center text-sm text-green-600">
-                        <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                    </div> -->
-                </div>
-            </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <div
+    id="totalUsersCard"
+    class="bg-white rounded-lg p-6
+           shadow-[8px_8px_0_0_#000]
+           transition-all duration-300 ease-out
+           hover:shadow-[2px_2px_0_0_#000]
+           hover:-translate-x-1 hover:-translate-y-1"
+  >
+    <div class="text-sm text-gray-500 mb-2" data-i18n="Utilisateurs Totaux"></div>
+    <div id="nbrUsers" class="text-2xl font-bold text-gray-900 mb-2"></div>
+  </div>
+
+  <div
+    class="bg-white rounded-lg p-6
+           shadow-[8px_8px_0_0_#000]
+           transition-all duration-300 ease-out
+           hover:shadow-[2px_2px_0_0_#000]
+           hover:-translate-x-1 hover:-translate-y-1"
+  >
+    <div class="text-sm text-gray-500 mb-2" data-i18n="Doctors Totaux"></div>
+    <div id="nbrDoctors" class="text-2xl font-bold text-gray-900 mb-2"></div>
+  </div>
+
+  <div
+    class="bg-white rounded-lg p-6
+           shadow-[8px_8px_0_0_#000]
+           transition-all duration-300 ease-out
+           hover:shadow-[2px_2px_0_0_#000]
+           hover:-translate-x-1 hover:-translate-y-1"
+  >
+    <div class="text-sm text-gray-500 mb-2" data-i18n="Staff Totaux"></div>
+    <div id="nbrStaff" class="text-2xl font-bold text-gray-900 mb-2"></div>
+  </div>
+
+  <div
+    id="medicalServicesCard"
+    class="bg-white rounded-lg p-6
+           shadow-[8px_8px_0_0_#000]
+           transition-all duration-300 ease-out
+           hover:shadow-[2px_2px_0_0_#000]
+           hover:-translate-x-1 hover:-translate-y-1"
+  >
+    <div class="text-sm text-gray-500 mb-2" data-i18n="Services Médicaux"></div>
+    <div id="nbrServices" class="text-2xl font-bold text-gray-900 mb-2"></div>
+  </div>
+</div>
+
             
             <!-- Charts Section -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -305,16 +323,16 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Rechercher"></label>
                             <div class="relative">
-                                <i data-feather="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <i data-feather="search" class="absolute left-3 top-7 rtl:right-3 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
                                 <input type="text" id="searchUsers" data-i18n-placeholder="Nom, email, CIN..." 
-                                    class="pl-10 px-3 py-2 border border-gray-300 rounded-lg text-sm w-64">
+                                    class="pl-10 rtl:pr-10 px-3 py-2 border border-gray-300 rounded-lg text-sm w-64">
                             </div>
                         </div>
                     </div>
                     
                     <!-- Add Button -->
                     <button id="addUserBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center self-start">
-                        <i data-feather="user-plus" class="w-4 h-4 mr-2"></i>
+                        <i data-feather="user-plus" class="w-4 h-4 mr-2 rtl:ml-2"></i>
                         <span data-i18n="Ajouter un utilisateur"></span>
                     </button>
                 </div>
@@ -413,16 +431,16 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Rechercher"></label>
                             <div class="relative">
-                                <i data-feather="search" class="absolute left-3 top-7 s transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <i data-feather="search" class="absolute left-3 top-7 rtl:right-3 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
                                 <input type="text" id="searchServicesTable" data-i18n-placeholder="Nom du service..." 
-                                    class="pl-10 px-3 py-2 border border-gray-300 rounded-lg text-sm w-64">
+                                    class="pl-10 rtl:pr-10 px-3 py-2 border border-gray-300 rounded-lg text-sm w-64">
                             </div>
                         </div>
                     </div>
                     
                     <!-- Add Button -->
                     <button id="addServiceBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
-                        <i data-feather="plus" class="w-4 h-4 mr-2"></i>
+                        <i data-feather="plus" class="w-4 h-4 mr-2 rtl:ml-2"></i>
                         <span data-i18n="Ajouter un service"></span>
                     </button>
                 </div>
@@ -565,7 +583,7 @@
                     <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
                         <button type="submit" id="saveHospitalBtn"
                             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
-                            <i data-feather="save" class="w-4 h-4 inline mr-2"></i>
+                            <i data-feather="save" class="w-4 h-4 inline mr-2 rlt:ml-2"></i>
                             <span data-i18n="Enregistrer"></span>
                         </button>
                     </div>
@@ -1394,7 +1412,7 @@
                         </div>
 
                         <!-- Actions -->
-                        <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
+                        <div class="pt-4 border-t border-gray-200 flex justify-end gap-2">
                             <button type="button" id="cancelAddServiceBtn"
                                 class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors flex items-center">
                                 <i data-feather="x" class="w-4 h-4 mr-2"></i>
@@ -1402,7 +1420,7 @@
                             </button>
                             <button type="submit" id="submitAddService"
                                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
-                                <i data-feather="plus" class="w-4 h-4 mr-2"></i>
+                                <i data-feather="plus" class="w-4 h-4 mr-2 rtl:ml-2"></i>
                                 <span data-i18n="Ajouter le service"></span>
                             </button>
                         </div>

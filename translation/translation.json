@@ -1468,5 +1468,85 @@
     "fr": "Personnel total",
     "en": "Total Staff",
     "ar": "إجمالي الموظفين"
+  },
+  "Cette action est critique. Toutes les données du service seront définitivement supprimées.": {
+    "fr": "Cette action est critique. Toutes les données du service seront définitivement supprimées.",
+    "en": "This action is critical. All service data will be permanently deleted.",
+    "ar": "هذا الإجراء حاسم. جميع بيانات الخدمة سيتم حذفها نهائياً."
+  },
+  "Ajouter le service": {
+    "fr": "Ajouter le service",
+    "en": "Add Service",
+    "ar": "إضافة خدمة"
+  },
+    "Remplissez les informations du patient": {
+    "fr": "Remplissez les informations du patient",
+    "en": "Fill in patient information",
+    "ar": "املأ معلومات المريض"
+  },
+  "Enregistrer le patient": {
+    "fr": "Enregistrer le patient",
+    "en": "Save patient",
+    "ar": "حفظ المريض"
+  },
+  "User Id": {
+    "fr": "ID utilisateur",
+    "en": "User Id",
+    "ar": "معرّف المستخدم"
+  },
+  "Détails du rendez-vous": {
+    "fr": "Détails du rendez-vous",
+    "en": "Appointment details",
+    "ar": "تفاصيل الموعد"
+  },
+  "Informations du rendez-vous": {
+    "fr": "Informations du rendez-vous",
+    "en": "Appointment information",
+    "ar": "معلومات الموعد"
+  },
+  "Annuler le RDV": {
+    "fr": "Annuler le RDV",
+    "en": "Cancel appointment",
+    "ar": "إلغاء الموعد"
+  },
+    "Créer le rendez-vous": {
+    "fr": "Créer le rendez-vous",
+    "en": "Create appointment",
+    "ar": "إنشاء الموعد"
+  },
+  "Créez un nouveau rendez-vous": {
+    "fr": "Créez un nouveau rendez-vous",
+    "en": "Create a new appointment",
+    "ar": "أنشئ موعدًا جديدًا"
+  },
+  "Sélectionnez un patient": {
+    "fr": "Sélectionnez un patient",
+    "en": "Select a patient",
+    "ar": "اختر مريضًا"
+  },
+  "Sélectionnez un médecin": {
+    "fr": "Sélectionnez un médecin",
+    "en": "Select a doctor",
+    "ar": "اختر طبيبًا"
+  },
+  "Sélectionnez une heure": {
+    "fr": "Sélectionnez une heure",
+    "en": "Select a time",
+    "ar": "اختر وقتًا"
+  },
+    "Total des Patients": {
+    "fr": "Total des Patients",
+    "en": "Total Patients",
+    "ar": "إجمالي المرضى"
+  },
+  "Rendez-vous en Attente": {
+    "fr": "Rendez-vous en Attente",
+    "en": "Pending Appointments",
+    "ar": "المواعيد المعلقة"
+  },
+  "Rendez-vous Confirmés": {
+    "fr": "Rendez-vous Confirmés",
+    "en": "Total Patients",
+    "ar": "إجمالي المرضى"
   }
 }
