@@ -40,9 +40,9 @@ if (keys.some(key => Storage.load(key).length === 0)) {
 
 function redirect() {
     const dashboards = {
-        doctor: "Hospital-Management/src/Dashboards/Doctor/index.html",
-        admin: "Hospital-Management/index.html",
-        staff: "Hospital-Management/src/Dashboards/Staff/index.html",
+        doctor: "/src/Dashboards/Doctor/index.html",
+        admin: "/index.html",
+        staff: "/Dashboards/Staff/index.html",
     };
 
     const url = dashboards[session.role];
@@ -51,7 +51,7 @@ function redirect() {
 
 // Protect all pages except login
 if (!Auth.isAuthenticated() && page !== "Auth") {
-    window.location.href = "Hospital-Management/src/auth/login.html";
+    window.location.href = "/src/auth/login.html";
 }
 
 // Redirect logged in user from login page to role dashboard
