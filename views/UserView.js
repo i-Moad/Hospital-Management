@@ -23,8 +23,12 @@ export default class UserView {
 
     // Edit User
     this.editUser = document.getElementById("editUser");
-    this.addEditEmergencyContactBtn = document.getElementById("addEditEmergencyContactBtn");
-    this.editEmergencyContactsContainer = document.getElementById("editEmergencyContactsContainer");
+    this.addEditEmergencyContactBtn = document.getElementById(
+      "addEditEmergencyContactBtn"
+    );
+    this.editEmergencyContactsContainer = document.getElementById(
+      "editEmergencyContactsContainer"
+    );
     this.editStaffBtn = document.getElementById("saveProfileBtn");
 
     // Filters
@@ -52,19 +56,20 @@ export default class UserView {
     this.closeViewModal2 = document.getElementById("closeViewUserModal2");
     this.cancelDeleteBtn = document.getElementById("cancelDeleteUserBtn");
     this.editFromViewBtn = document.getElementById("editFromViewUserBtn");
+    this.closeAddPatientModal = document.getElementById("closeAddPatientModal");
   }
 
   getAllEditStaffElements() {
     return {
       email: document.getElementById("errorEditStaffEmail"),
       phone: document.getElementById("errorEditStaffPhone"),
-      address: document.getElementById("errorEditStaffAddress")
+      address: document.getElementById("errorEditStaffAddress"),
     };
   }
 
   clearAllEditStaffErrors() {
     const errors = this.getAllEditStaffElements();
-    Object.values(errors).forEach(el => el.textContent = "");
+    Object.values(errors).forEach((el) => (el.textContent = ""));
   }
 
   showStaffError(el, message) {
@@ -130,7 +135,32 @@ export default class UserView {
     if (this.menuUsername) this.menuUsername.textContent = fullName;
     if (this.avatarUsername) this.avatarUsername.textContent = fullName;
     if (this.menuEmail) this.menuEmail.textContent = session.email;
-    if (this.avatarRole) this.avatarRole.textContent = session.role;
+    if (this.avatarRole) {
+      if (session.role === "admin") {
+        this.avatarRole.textContent =
+          localStorage.getItem("lang") === "ar"
+            ? "مسؤول"
+            : localStorage.getItem("lang") === "en"
+            ? "Administrator"
+            : "Administrateur";
+      } else if (session.role === "doctor") {
+        this.avatarRole.textContent =
+          localStorage.getItem("lang") === "ar"
+            ? "طبيب"
+            : localStorage.getItem("lang") === "en"
+            ? "Doctor"
+            : "Médecin";
+      } else if (session.role === "staff") {
+        this.avatarRole.textContent =
+          localStorage.getItem("lang") === "ar"
+            ? "موظف"
+            : localStorage.getItem("lang") === "en"
+            ? "Staff"
+            : "Personnel";
+      } else {
+        this.avatarRole.textContent = session.role; // fallback
+      }
+    }
   }
 
   renderAvatar(session) {
@@ -139,7 +169,7 @@ export default class UserView {
     const img = document.createElement("img");
     img.id = "userAvatar";
     img.className = "w-full h-full object-cover";
-    img.src = `https://ui-avatars.com/api/?name=${session.lastName}+${session.firstName}&background=0D8ABC&color=fff&bold=true&size=128`;
+    img.src = `https://ui-avatars.com/api/?name=${session.lastName}+${session.firstName}&background=155dfc&color=fff&bold=true&size=128`;
     img.alt = "User Avatar";
     this.avatarContainer.appendChild(img);
   }
@@ -301,7 +331,10 @@ export default class UserView {
     if (!this.ptbody) return;
 
     const startIndex = (currentPage - 1) * usersPerPage;
-    const endIndex = Math.min(startIndex + usersPerPage, filteredUsersData.length);
+    const endIndex = Math.min(
+      startIndex + usersPerPage,
+      filteredUsersData.length
+    );
     const paginatedUsers = filteredUsersData.slice(startIndex, endIndex);
 
     if (paginatedUsers.length === 0) {
@@ -324,10 +357,10 @@ export default class UserView {
     }
 
     let html = "";
-    paginatedUsers.forEach(user => {
+    paginatedUsers.forEach((user) => {
       if (user.status === "active") {
         const fullName = `${user.firstName} ${user.lastName}`;
-  
+
         html += `
           <tr class="user-row" data-user-id="${user.userId}">
             <td class="px-6 py-4 whitespace-nowrap">
@@ -348,10 +381,14 @@ export default class UserView {
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex space-x-2">
-                <button class="edit-user-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" title="Modifier" data-user-id="${user.userId}">
+                <button class="edit-user-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" title="Modifier" data-user-id="${
+                  user.userId
+                }">
                   <i data-feather="edit" class="w-4 h-4"></i>
                 </button>
-                <button class="view-user-btn p-1 text-green-600 hover:text-green-800 transition-colors" title="Voir détails" data-user-id="${user.userId}">
+                <button class="view-user-btn p-1 text-green-600 hover:text-green-800 transition-colors" title="Voir détails" data-user-id="${
+                  user.userId
+                }">
                   <i data-feather="eye" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -463,20 +500,52 @@ export default class UserView {
 
   // --- Setup events with callbacks provided by Controller ---
   setupEvents(controller) {
-    if (this.menuLogout) this.menuLogout.addEventListener("click", (e) => controller.handleLogout(e));
-    if (this.filterRole) this.filterRole.addEventListener("change", () => controller.applyFilters());
-    if (this.filterStatus) this.filterStatus.addEventListener("change", () => controller.applyFilters());
-    if (this.searchUsers) this.searchUsers.addEventListener("input", () => controller.applyFilters());
+    if (this.menuLogout)
+      this.menuLogout.addEventListener("click", (e) =>
+        controller.handleLogout(e)
+      );
+    if (this.filterRole)
+      this.filterRole.addEventListener("change", () =>
+        controller.applyFilters()
+      );
+    if (this.filterStatus)
+      this.filterStatus.addEventListener("change", () =>
+        controller.applyFilters()
+      );
+    if (this.searchUsers)
+      this.searchUsers.addEventListener("input", () =>
+        controller.applyFilters()
+      );
 
-    if (this.prevBtn) this.prevBtn.addEventListener("click", () => controller.prevPage());
-    if (this.nextBtn) this.nextBtn.addEventListener("click", () => controller.nextPage());
-    if (this.usersPerPageSelect) this.usersPerPageSelect.addEventListener("change", (e) => controller.changeUsersPerPage(e));
+    if (this.prevBtn)
+      this.prevBtn.addEventListener("click", () => controller.prevPage());
+    if (this.nextBtn)
+      this.nextBtn.addEventListener("click", () => controller.nextPage());
+    if (this.usersPerPageSelect)
+      this.usersPerPageSelect.addEventListener("change", (e) =>
+        controller.changeUsersPerPage(e)
+      );
 
-    if (this.addUserBtn) this.addUserBtn.addEventListener("click", () => openModal("addUserModal"));
-    if (this.addUserData) this.addUserData.addEventListener("click", (e) => controller.addUserData(e, this.getUserInputData()));
-    if (this.editUser) this.editUser.addEventListener("click", () => controller.updateUserData(this.getEditUserInputData()));
-    if (this.confirmDeleteBtn) this.confirmDeleteBtn.addEventListener("click", () => controller.deleteUser());
-    if (this.editStaffBtn) this.editStaffBtn.addEventListener("click", (e) => controller.updateStaffData(e, this.getStaffInputData()))
+    if (this.addUserBtn)
+      this.addUserBtn.addEventListener("click", () =>
+        openModal("addUserModal")
+      );
+    if (this.addUserData)
+      this.addUserData.addEventListener("click", (e) =>
+        controller.addUserData(e, this.getUserInputData())
+      );
+    if (this.editUser)
+      this.editUser.addEventListener("click", () =>
+        controller.updateUserData(this.getEditUserInputData())
+      );
+    if (this.confirmDeleteBtn)
+      this.confirmDeleteBtn.addEventListener("click", () =>
+        controller.deleteUser()
+      );
+    if (this.editStaffBtn)
+      this.editStaffBtn.addEventListener("click", (e) =>
+        controller.updateStaffData(e, this.getStaffInputData())
+      );
 
     // if (this.addEditEmergencyContactBtn) this.addEditEmergencyContactBtn.addEventListener("click", () => this.createEmergencyContactBlock());
 
@@ -536,6 +605,10 @@ export default class UserView {
       this.cancelAddBtn.addEventListener("click", () =>
         closeModal("addUserModal")
       );
+    if (this.closeAddPatientModal)
+      this.closeAddPatientModal.addEventListener("click", () =>
+        closeModal("addUserModal")
+      );
     if (this.closeEditModal)
       this.closeEditModal.addEventListener("click", () =>
         closeModal("editUserModal")
@@ -579,13 +652,59 @@ export default class UserView {
     const roleInfo = this.getRoleInfo(user.role);
     const statusInfo = this.getStatusInfo(user.status);
 
-    document.getElementById("viewUserRole").textContent = roleInfo.text;
+    // ROLE
+    document.getElementById("viewUserRole").textContent = `
+${
+  roleInfo.text === "Administrateur"
+    ? localStorage.getItem("lang") === "ar"
+      ? "مسؤول"
+      : localStorage.getItem("lang") === "en"
+      ? "Administrator"
+      : "Administrateur"
+    : roleInfo.text === "Médecin"
+    ? localStorage.getItem("lang") === "ar"
+      ? "طبيب"
+      : localStorage.getItem("lang") === "en"
+      ? "Doctor"
+      : "Médecin"
+    : roleInfo.text === "Personnel"
+    ? localStorage.getItem("lang") === "ar"
+      ? "موظف"
+      : localStorage.getItem("lang") === "en"
+      ? "Staff"
+      : "Personnel"
+    : roleInfo.text === "Patient"
+    ? localStorage.getItem("lang") === "ar"
+      ? "مريض"
+      : localStorage.getItem("lang") === "en"
+      ? "Patient"
+      : "Patient"
+    : roleInfo.text
+}`.trim();
+
     document.getElementById(
       "viewUserRole"
     ).className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${roleInfo.color}`;
-    document.getElementById(
-      "viewUserStatus"
-    ).innerHTML = `<i data-feather="${statusInfo.icon}" class="w-4 h-4 mr-1"></i> ${statusInfo.text}`;
+
+    // STATUS
+    document.getElementById("viewUserStatus").innerHTML = `
+<i data-feather="${statusInfo.icon}" class="w-4 h-4 mr-1"></i>
+${
+  statusInfo.text === "Actif"
+    ? localStorage.getItem("lang") === "ar"
+      ? "نشط"
+      : localStorage.getItem("lang") === "en"
+      ? "Active"
+      : "Actif"
+    : statusInfo.text === "Inactif"
+    ? localStorage.getItem("lang") === "ar"
+      ? "غير نشط"
+      : localStorage.getItem("lang") === "en"
+      ? "Inactive"
+      : "Inactif"
+    : statusInfo.text
+}`.trim();
+
     document.getElementById(
       "viewUserStatus"
     ).className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${statusInfo.color}`;
@@ -625,19 +744,31 @@ export default class UserView {
   }
 
   createEmergencyContactBlock(contact = {}, index = 1) {
-return `
+    return `
   <div class="relative border border-gray-200 rounded-xl p-4 bg-gray-50 emergency-contact">
     <!-- Header -->
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-sm font-semibold text-gray-700">
-        ${currentLang === "fr" ? `Contact d'urgence ${index}` :
-          currentLang === "en" ? `Emergency Contact ${index}` :
-          currentLang === "ar" ? `جهة اتصال طارئة ${index}` : `Contact ${index}`}
+        ${
+          currentLang === "fr"
+            ? `Contact d'urgence ${index}`
+            : currentLang === "en"
+            ? `Emergency Contact ${index}`
+            : currentLang === "ar"
+            ? `جهة اتصال طارئة ${index}`
+            : `Contact ${index}`
+        }
       </h3>
 
       <button type="button"
         class="text-red-500 hover:text-red-700 transition-colors remove-emergency-contact"
-        title="${currentLang === 'fr' ? 'Supprimer' : currentLang === 'en' ? 'Remove' : 'حذف'}">
+        title="${
+          currentLang === "fr"
+            ? "Supprimer"
+            : currentLang === "en"
+            ? "Remove"
+            : "حذف"
+        }">
         <i data-feather="x" class="w-4 h-4"></i>
       </button>
     </div>
@@ -646,51 +777,98 @@ return `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label class="block text-xs font-medium text-gray-600 mb-1">
-          ${currentLang === "fr" ? "Prénom" : currentLang === "en" ? "First Name" : "الاسم الأول"}
+          ${
+            currentLang === "fr"
+              ? "Prénom"
+              : currentLang === "en"
+              ? "First Name"
+              : "الاسم الأول"
+          }
         </label>
         <input type="text"
           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-firstName"
-          placeholder="${currentLang === "fr" ? "Prénom" : currentLang === "en" ? "First Name" : "الاسم الأول"}"
+          placeholder="${
+            currentLang === "fr"
+              ? "Prénom"
+              : currentLang === "en"
+              ? "First Name"
+              : "الاسم الأول"
+          }"
           value="${contact.firstName || ""}">
         <p class="error-edit-firstName"></p>
       </div>
 
       <div>
         <label class="block text-xs font-medium text-gray-600 mb-1">
-          ${currentLang === "fr" ? "Nom" : currentLang === "en" ? "Last Name" : "اسم العائلة"}
+          ${
+            currentLang === "fr"
+              ? "Nom"
+              : currentLang === "en"
+              ? "Last Name"
+              : "اسم العائلة"
+          }
         </label>
         <input type="text"
           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-lastName"
-          placeholder="${currentLang === "fr" ? "Nom" : currentLang === "en" ? "Last Name" : "اسم العائلة"}"
+          placeholder="${
+            currentLang === "fr"
+              ? "Nom"
+              : currentLang === "en"
+              ? "Last Name"
+              : "اسم العائلة"
+          }"
           value="${contact.lastName || ""}">
         <p class="error-edit-lastName"></p>
       </div>
 
       <div>
         <label class="block text-xs font-medium text-gray-600 mb-1">
-          ${currentLang === "fr" ? "Téléphone" : currentLang === "en" ? "Phone" : "الهاتف"}
+          ${
+            currentLang === "fr"
+              ? "Téléphone"
+              : currentLang === "en"
+              ? "Phone"
+              : "الهاتف"
+          }
         </label>
         <input type="text"
           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-phone"
-          placeholder="${currentLang === "fr" ? "+212 6XX XXX XXX" : currentLang === "en" ? "+212 6XX XXX XXX" : "+212 6XX XXX XXX"}"
+          placeholder="${
+            currentLang === "fr"
+              ? "+212 6XX XXX XXX"
+              : currentLang === "en"
+              ? "+212 6XX XXX XXX"
+              : "+212 6XX XXX XXX"
+          }"
           value="${contact.phoneNumber || ""}">
         <p class="error-edit-phone"></p>
       </div>
 
       <div>
         <label class="block text-xs font-medium text-gray-600 mb-1">
-          ${currentLang === "fr" ? "Relation" : currentLang === "en" ? "Relationship" : "العلاقة"}
+          ${
+            currentLang === "fr"
+              ? "Relation"
+              : currentLang === "en"
+              ? "Relationship"
+              : "العلاقة"
+          }
         </label>
         <input type="text"
           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 edit-ec-relationship"
-          placeholder="${currentLang === "fr" ? "Ex: Père, Mère, Frère..." : currentLang === "en" ? "Ex: Father, Mother, Brother..." : "مثال: أب، أم، أخ..."}"
+          placeholder="${
+            currentLang === "fr"
+              ? "Ex: Père, Mère, Frère..."
+              : currentLang === "en"
+              ? "Ex: Father, Mother, Brother..."
+              : "مثال: أب، أم، أخ..."
+          }"
           value="${contact.relationship || ""}">
         <p class="error-edit-relationship"></p>
       </div>
     </div>
   </div>
 `;
-
   }
 
   renderEditUserModal(user) {
@@ -757,54 +935,46 @@ return `
       CIN,
       email,
       phoneNumber,
-      address
-    }
+      address,
+    };
   }
 
   getUserInputData() {
-      const CIN = document.getElementById("addUserCIN").value;
-      const firstName = document.getElementById("addUserFirstName").value;
-      const lastName = document.getElementById("addUserLastName").value;
-      const email = document.getElementById("addUserEmail").value;
-      const phoneNumber = document.getElementById("addUserPhone").value;
-      const role = document.getElementById("addUserRole")?.value || "patient";
-      const password = document.getElementById("addUserPassword")?.value || "";
-      const confirmPassword = document.getElementById("addUserConfirmPassword")?.value || "";
-      const address = document.getElementById("addUserAddress").value;
+    const CIN = document.getElementById("addUserCIN").value.trim();
+    const firstName = document.getElementById("addUserFirstName").value.trim();
+    const lastName = document.getElementById("addUserLastName").value.trim();
+    const email = document.getElementById("addUserEmail").value.trim();
+    const phoneNumber = document.getElementById("addUserPhone").value.trim();
+    const role = document.getElementById("addUserRole")?.value || "patient";
+    const password = document.getElementById("addUserPassword")?.value || "";
+    const confirmPassword =
+      document.getElementById("addUserConfirmPassword")?.value || "";
+    const address = document.getElementById("addUserAddress").value.trim();
 
-      // ===== Retrieve Emergency Contacts =====
-      const emergencyContacts = [];
-      const contactsContainer = document.getElementById("emergencyContactsContainer");
-      const contactDivs = contactsContainer.children;
+    // ===== Emergency Contacts =====
+    const emergencyContacts = [];
+    const contactsContainer = document.getElementById(
+      "emergencyContactsContainer"
+    );
 
-      for (let i = 0; i < contactDivs.length; i++) {
-          const inputs = contactDivs[i].querySelectorAll("input");
-          const contactData = {
-              firstName: inputs[0].value,
-              lastName: inputs[1].value,
-              phoneNumber: inputs[2].value,
-              relationship: inputs[3].value
-          };
-          emergencyContacts.push(contactData);
-      }
+    if (contactsContainer) {
+      const contactDivs =
+        contactsContainer.querySelectorAll(".emergency-contact");
 
-      // ===== Return all data together =====
-      return {
-          CIN,
-          firstName,
-          lastName,
-          email,
-          phoneNumber,
-          role,
-          password,
-          confirmPassword,
-          emergencyContacts,
-          address
-      };
-      emergencyContacts.push(contactData);
+      contactDivs.forEach((div) => {
+        emergencyContacts.push({
+          firstName:
+            div.querySelector("input:nth-of-type(1)")?.value.trim() || "",
+          lastName:
+            div.querySelector("input:nth-of-type(2)")?.value.trim() || "",
+          phoneNumber:
+            div.querySelector("input:nth-of-type(3)")?.value.trim() || "",
+          relationship:
+            div.querySelector("input:nth-of-type(4)")?.value.trim() || "",
+        });
+      });
     }
 
-    // ===== Return all data together =====
     return {
       CIN,
       firstName,
@@ -834,17 +1004,17 @@ return `
       });
     });
 
-      return {
-          userId: document.getElementById("editUserId").value.trim(),
-          firstName: document.getElementById("editUserFirstName").value.trim(),
-          lastName: document.getElementById("editUserLastName").value.trim(),
-          CIN: document.getElementById("editUserCIN").value.trim(),
-          phoneNumber: document.getElementById("editUserPhone").value.trim(),
-          role: document.getElementById("editUserRole")?.value || "patient",
-          status: document.getElementById("editUserStatus")?.value || "active",
-          email: document.getElementById("editUserEmail").value.trim(),
-          address: document.getElementById("editUserAddress").value.trim(),
-          emergencyContacts
-      };
+    return {
+      userId: document.getElementById("editUserId").value.trim(),
+      firstName: document.getElementById("editUserFirstName").value.trim(),
+      lastName: document.getElementById("editUserLastName").value.trim(),
+      CIN: document.getElementById("editUserCIN").value.trim(),
+      phoneNumber: document.getElementById("editUserPhone").value.trim(),
+      role: document.getElementById("editUserRole")?.value || "patient",
+      status: document.getElementById("editUserStatus")?.value || "active",
+      email: document.getElementById("editUserEmail").value.trim(),
+      address: document.getElementById("editUserAddress").value.trim(),
+      emergencyContacts,
+    };
   }
 }
