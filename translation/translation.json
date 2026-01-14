@@ -1388,5 +1388,85 @@
     "fr": "Tous les médecins",
     "en": "All doctors",
     "ar": "جميع الأطباء"
+  },
+"Remplissez les informations du nouvel utilisateur": {
+  "fr": "Remplissez les informations du nouvel utilisateur",
+  "en": "Fill in the new user's information",
+  "ar": "املأ معلومات المستخدم الجديد"
+},
+  "Compte": {
+    "fr": "Compte",
+    "en": "Account",
+    "ar": "حساب"
+  },
+  "Emergency Contacts": {
+    "fr": "Contacts d'urgence",
+    "en": "Emergency Contacts",
+    "ar": "جهات الاتصال في حالات الطوارئ"
+  },
+    "Confirmer le mot de passe": {
+    "fr": "Confirmer le mot de passe",
+    "en": "Confirm Password",
+    "ar": "تأكيد كلمة المرور"
+  },
+  "Ajouter l'utilisateur": {
+    "fr": "Ajouter l'utilisateur",
+    "en": "Add User",
+    "ar": "إضافة مستخدم"
+  },
+    "Ajouter un contact d'urgence": {
+    "fr": "Ajouter un contact d'urgence",
+    "en": "Add Emergency Contact",
+    "ar": "إضافة جهة اتصال للطوارئ"
+  },
+    "Tous les rôles": {
+    "fr": "Tous les rôles",
+    "en": "All Roles",
+    "ar": "جميع الأدوار"
+  },
+    "Nom, email, CIN...": {
+    "fr": "Nom, email, CIN...",
+    "en": "Name, email, ID number...",
+    "ar": "الاسم، البريد الإلكتروني، رقم الهوية..."
+  },
+    "Sélectionnez un médecin pour ce service": {
+    "fr": "Sélectionnez un médecin pour ce service",
+    "en": "Select a doctor for this service",
+    "ar": "حدد طبيبًا لهذه الخدمة"
+  },
+  "Affecter un médecin": {
+    "fr": "Affecter un médecin",
+    "en": "Assign a doctor",
+    "ar": "تعيين طبيب"
+  },
+  "Sélectionner un médecin": {
+    "fr": "Sélectionner un médecin",
+    "en": "Select a doctor",
+    "ar": "اختر طبيبًا"
+  },
+  "Choisir un médecin": {
+    "fr": "Choisir un médecin",
+    "en": "Choose a doctor",
+    "ar": "اختر طبيبًا"
+  },
+    "Contacts d'urgence": {
+    "fr": "Contacts d'urgence",
+    "en": "Emergency Contacts",
+    "ar": "جهات الاتصال في حالات الطوارئ"
+  },
+  "Ajouter": {
+    "fr": "Ajouter",
+    "en": "Add",
+    "ar": "إضافة"
+  },
+    "Doctors Totaux": {
+    "fr": "Médecins totaux",
+    "en": "Total Doctors",
+    "ar": "إجمالي الأطباء"
+  },
+  "Staff Totaux": {
+    "fr": "Personnel total",
+    "en": "Total Staff",
+    "ar": "إجمالي الموظفين"
   }
 }
