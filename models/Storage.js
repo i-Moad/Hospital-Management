@@ -22,16 +22,17 @@ export default class Storage {
     // idField = the id column, idValue = the value of id | exemple: (serviceId, 5)
     // updates is an object
 
+    
     const data = this.load(key);
-    const index = data.findIndex(item => item[idField] === idValue);
-
+    const index = data.findIndex(item => item[idField] == idValue);
+    
     if (index === -1) return false;
-
+    
     data[index] = {
       ...data[index],
       ...updates
     };
-
+    
     this.#save(key, data);
     return true
   }

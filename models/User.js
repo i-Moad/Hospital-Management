@@ -65,7 +65,6 @@ export default class User {
 
   static updateUserInfo(userId, updates) {
     const allowedUpdates = {};
-    userId = Number(userId);
 
     if ("phoneNumber" in updates) allowedUpdates.phoneNumber = updates.phoneNumber;
     if ("address" in updates) allowedUpdates.address = updates.address;
@@ -90,6 +89,27 @@ export default class User {
     }
 
     return this.getUserById(userId);
+  }
+
+  static updateByCIN(CIN, updates) {
+    const allowedUpdates = {};
+    
+    if ("phoneNumber" in updates) allowedUpdates.phoneNumber = updates.phoneNumber;
+    if ("address" in updates) allowedUpdates.address = updates.address;
+    if ("email" in updates) allowedUpdates.email = updates.email;
+
+    const success = Storage.updateItem(
+      this.USERS_KEY,
+      "CIN",
+      CIN,
+      allowedUpdates
+    );
+
+    if (!success) {
+      throw new Error("User not found");
+    }
+
+    return this.getUserByCIN(CIN);
   }
 
   static deleteUser(userId) {

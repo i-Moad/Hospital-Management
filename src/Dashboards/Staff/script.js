@@ -200,116 +200,116 @@ function getStatusInfo(status) {
 async function loadAllData() {
     try {
         await Promise.all([
-            loadUsersData(),
-            loadAppointmentsData(),
-            loadAppointmentRequestsData(),
+            // loadUsersData(),
+            // loadAppointmentsData(),
+            // loadAppointmentRequestsData(),
             loadServicesData()
         ]);
         
         // Mettre à jour le dashboard après le chargement
-        updateDashboardStats();
+        // updateDashboardStats();
         
     } catch (error) {
         console.error("Erreur lors du chargement des données:", error);
-        showToast("Erreur lors du chargement des données", "error");
+        // showToast("Erreur lors du chargement des données", "error");
     }
 }
 
-async function loadUsersData() {
-    try {
-        const response = await fetch(DATA_URLS.users);
-        const allUsers = await response.json();
+// async function loadUsersData() {
+//     try {
+//         const response = await fetch(DATA_URLS.users);
+//         const allUsers = await response.json();
         
-        // Filtrer seulement les patients
-        patientsData = allUsers
-            .filter(user => user.role === "patient")
-            .map(patient => ({
-                id: patient.userId,
-                cin: patient.CIN,
-                firstName: patient.firstName,
-                lastName: patient.lastName,
-                email: patient.email,
-                phone: `+212 ${patient.phoneNumber}`,
-                address: patient.address,
-                birthDate: null, // Pas dans votre JSON
-                gender: "male", // Par défaut
-                registrationDate: patient.createdAt,
-                emergencyContact: patient.emergencyContact ? 
-                    `${patient.emergencyContact.firstName} ${patient.emergencyContact.lastName}` : ""
-            }));
+//         // Filtrer seulement les patients
+//         patientsData = allUsers
+//             .filter(user => user.role === "patient")
+//             .map(patient => ({
+//                 id: patient.userId,
+//                 cin: patient.CIN,
+//                 firstName: patient.firstName,
+//                 lastName: patient.lastName,
+//                 email: patient.email,
+//                 phone: `+212 ${patient.phoneNumber}`,
+//                 address: patient.address,
+//                 birthDate: null, // Pas dans votre JSON
+//                 gender: "male", // Par défaut
+//                 registrationDate: patient.createdAt,
+//                 emergencyContact: patient.emergencyContact ? 
+//                     `${patient.emergencyContact.firstName} ${patient.emergencyContact.lastName}` : ""
+//             }));
 
-        // Extraire les médecins
-        doctorsData = allUsers
-            .filter(user => user.role === "doctor")
-            .map(doctor => ({
-                id: doctor.userId,
-                name: `Dr. ${doctor.firstName} ${doctor.lastName}`,
-                specialty: "Généraliste", // À adapter selon vos données
-                service: "general", // À adapter
-                cin: doctor.CIN,
-                email: doctor.email,
-                phone: `+212 ${doctor.phoneNumber}`,
-                address: doctor.address
-            }));
+//         // Extraire les médecins
+//         doctorsData = allUsers
+//             .filter(user => user.role === "doctor")
+//             .map(doctor => ({
+//                 id: doctor.userId,
+//                 name: `Dr. ${doctor.firstName} ${doctor.lastName}`,
+//                 specialty: "Généraliste", // À adapter selon vos données
+//                 service: "general", // À adapter
+//                 cin: doctor.CIN,
+//                 email: doctor.email,
+//                 phone: `+212 ${doctor.phoneNumber}`,
+//                 address: doctor.address
+//             }));
 
-        filterAndPaginatePatients();
+//         filterAndPaginatePatients();
         
-    } catch (error) {
-        console.error("Erreur lors du chargement des utilisateurs:", error);
-        showToast("Erreur lors du chargement des utilisateurs", "error");
-        // Données par défaut
-        patientsData = [];
-        doctorsData = [];
-    }
-}
+//     } catch (error) {
+//         console.error("Erreur lors du chargement des utilisateurs:", error);
+//         showToast("Erreur lors du chargement des utilisateurs", "error");
+//         // Données par défaut
+//         patientsData = [];
+//         doctorsData = [];
+//     }
+// }
 
-async function loadAppointmentsData() {
-    try {
-        const response = await fetch(DATA_URLS.appointments);
-        const appointments = await response.json();
+// async function loadAppointmentsData() {
+//     try {
+//         const response = await fetch(DATA_URLS.appointments);
+//         const appointments = await response.json();
         
-        appointmentsData = appointments.map(appointment => {
-            // Trouver le patient correspondant
-            const patient = patientsData.find(p => p.id === appointment.patientId);
-            // Trouver le médecin correspondant
-            const doctor = doctorsData.find(d => d.id === appointment.doctorId);
+//         appointmentsData = appointments.map(appointment => {
+//             // Trouver le patient correspondant
+//             const patient = patientsData.find(p => p.id === appointment.patientId);
+//             // Trouver le médecin correspondant
+//             const doctor = doctorsData.find(d => d.id === appointment.doctorId);
             
-            return {
-                id: appointment.appointmentId,
-                patientId: appointment.patientId,
-                patientName: patient ? `${patient.firstName} ${patient.lastName}` : `Patient ${appointment.patientId}`,
-                doctorId: appointment.doctorId,
-                doctorName: doctor ? doctor.name : `Dr. ${appointment.doctorId}`,
-                serviceId: appointment.serviceId,
-                date: extractDateFromISO(appointment.appointmentDateTime),
-                time: extractTimeFromISO(appointment.appointmentDateTime),
-                reason: "", // Pas dans votre JSON
-                status: appointment.status,
-                createdAt: appointment.createdAt,
-                createdBy: appointment.createdBy
-            };
-        });
+//             return {
+//                 id: appointment.appointmentId,
+//                 patientId: appointment.patientId,
+//                 patientName: patient ? `${patient.firstName} ${patient.lastName}` : `Patient ${appointment.patientId}`,
+//                 doctorId: appointment.doctorId,
+//                 doctorName: doctor ? doctor.name : `Dr. ${appointment.doctorId}`,
+//                 serviceId: appointment.serviceId,
+//                 date: extractDateFromISO(appointment.appointmentDateTime),
+//                 time: extractTimeFromISO(appointment.appointmentDateTime),
+//                 reason: "", // Pas dans votre JSON
+//                 status: appointment.status,
+//                 createdAt: appointment.createdAt,
+//                 createdBy: appointment.createdBy
+//             };
+//         });
 
-        populateDoctorFilters();
-        filterAndPaginateAppointments();
+//         populateDoctorFilters();
+//         filterAndPaginateAppointments();
         
-    } catch (error) {
-        console.error("Erreur lors du chargement des rendez-vous:", error);
-        showToast("Erreur lors du chargement des rendez-vous", "error");
-        appointmentsData = [];
-    }
-}
+//     } catch (error) {
+//         console.error("Erreur lors du chargement des rendez-vous:", error);
+//         showToast("Erreur lors du chargement des rendez-vous", "error");
+//         appointmentsData = [];
+//     }
+// }
 
-async function loadAppointmentRequestsData() {
-    try {
-        const response = await fetch(DATA_URLS.appointmentRequests);
-        appointmentRequestsData = await response.json();
+// async function loadAppointmentRequestsData() {
+//     try {
+//         const response = await fetch(DATA_URLS.appointmentRequests);
+//         appointmentRequestsData = await response.json();
         
-    } catch (error) {
-        console.error("Erreur lors du chargement des demandes:", error);
-        appointmentRequestsData = [];
-    }
-}
+//     } catch (error) {
+//         console.error("Erreur lors du chargement des demandes:", error);
+//         appointmentRequestsData = [];
+//     }
+// }
 
 async function loadServicesData() {
     try {
@@ -326,61 +326,61 @@ async function loadServicesData() {
 // GESTION DU DASHBOARD
 // ============================================
 
-function updateDashboardStats() {
-    try {
-        // 1. Total des patients
-        const totalPatients = patientsData.length;
+// function updateDashboardStats() {
+//     try {
+//         // 1. Total des patients
+//         const totalPatients = patientsData.length;
         
-        document.getElementById("totalPatients").textContent = totalPatients;
+//         document.getElementById("totalPatients").textContent = totalPatients;
         
-        // Calculer l'évolution des patients cette semaine
-        const oneWeekAgo = new Date();
-        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-        const patientsThisWeek = patientsData.filter(patient => {
-            const regDate = new Date(patient.registrationDate);
-            return regDate >= oneWeekAgo;
-        }).length;
+//         // Calculer l'évolution des patients cette semaine
+//         const oneWeekAgo = new Date();
+//         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+//         const patientsThisWeek = patientsData.filter(patient => {
+//             const regDate = new Date(patient.registrationDate);
+//             return regDate >= oneWeekAgo;
+//         }).length;
         
-        document.getElementById("patientsEvolution").textContent = 
-            patientsThisWeek > 0 ? `+${patientsThisWeek} cette semaine` : "Aucun nouveau cette semaine";
+//         document.getElementById("patientsEvolution").textContent = 
+//             patientsThisWeek > 0 ? `+${patientsThisWeek} cette semaine` : "Aucun nouveau cette semaine";
 
-        // 2. Rendez-vous aujourd'hui
-        const today = new Date().toISOString().split('T')[0];
-        const todayAppointments = appointmentsData.filter(app => app.date === today);
-        document.getElementById("todayAppointments").textContent = todayAppointments.length;
+//         // 2. Rendez-vous aujourd'hui
+//         const today = new Date().toISOString().split('T')[0];
+//         const todayAppointments = appointmentsData.filter(app => app.date === today);
+//         document.getElementById("todayAppointments").textContent = todayAppointments.length;
         
-        // Détails des rendez-vous d'aujourd'hui
-        const confirmedToday = todayAppointments.filter(app => app.status === 'confirmed').length;
-        const pendingToday = todayAppointments.filter(app => app.status === 'pending').length;
-        document.getElementById("todayAppointmentsInfo").textContent = 
-            `${confirmedToday} confirmés, ${pendingToday} en attente`;
+//         // Détails des rendez-vous d'aujourd'hui
+//         const confirmedToday = todayAppointments.filter(app => app.status === 'confirmed').length;
+//         const pendingToday = todayAppointments.filter(app => app.status === 'pending').length;
+//         document.getElementById("todayAppointmentsInfo").textContent = 
+//             `${confirmedToday} confirmés, ${pendingToday} en attente`;
 
-        // 3. Rendez-vous en attente (tous)
-        const pendingAppointments = appointmentsData.filter(app => app.status === 'pending');
-        document.getElementById("pendingAppointments").textContent = pendingAppointments.length;
+//         // 3. Rendez-vous en attente (tous)
+//         const pendingAppointments = appointmentsData.filter(app => app.status === 'pending');
+//         document.getElementById("pendingAppointments").textContent = pendingAppointments.length;
         
-        // 4. Rendez-vous confirmés (tous)
-        const confirmedAppointments = appointmentsData.filter(app => app.status === 'confirmed');
-        document.getElementById("confirmedAppointments").textContent = confirmedAppointments.length;
+//         // 4. Rendez-vous confirmés (tous)
+//         const confirmedAppointments = appointmentsData.filter(app => app.status === 'confirmed');
+//         document.getElementById("confirmedAppointments").textContent = confirmedAppointments.length;
         
-        // Rendez-vous confirmés à venir (prochains 7 jours)
-        const nextWeek = new Date();
-        nextWeek.setDate(nextWeek.getDate() + 7);
-        const upcomingConfirmed = confirmedAppointments.filter(app => {
-            const appDate = new Date(app.date);
-            return appDate <= nextWeek && appDate >= new Date();
-        }).length;
+//         // Rendez-vous confirmés à venir (prochains 7 jours)
+//         const nextWeek = new Date();
+//         nextWeek.setDate(nextWeek.getDate() + 7);
+//         const upcomingConfirmed = confirmedAppointments.filter(app => {
+//             const appDate = new Date(app.date);
+//             return appDate <= nextWeek && appDate >= new Date();
+//         }).length;
         
-        document.getElementById("confirmedAppointmentsInfo").textContent = 
-            upcomingConfirmed > 0 ? `${upcomingConfirmed} prochains 7j` : "Confirmés";
+//         document.getElementById("confirmedAppointmentsInfo").textContent = 
+//             upcomingConfirmed > 0 ? `${upcomingConfirmed} prochains 7j` : "Confirmés";
 
-        // Mettre à jour le chart
-        updateDashboardChart();
+//         // Mettre à jour le chart
+//         updateDashboardChart();
         
-    } catch (error) {
-        console.error("Erreur lors de la mise à jour des statistiques:", error);
-    }
-}
+//     } catch (error) {
+//         console.error("Erreur lors de la mise à jour des statistiques:", error);
+//     }
+// }
 
 function updateDashboardChart() {
     const appointmentsChartCtx = document.getElementById("appointmentsChart");
@@ -425,408 +425,408 @@ function updateDashboardChart() {
     updateUpcomingAppointments();
 }
 
-function updateUpcomingAppointments() {
-    const nextWeek = new Date();
-    nextWeek.setDate(nextWeek.getDate() + 7);
-    const upcomingAppointments = appointmentsData
-        .filter(app => {
-            const appDate = new Date(app.date);
-            return appDate >= new Date() && 
-                   appDate <= nextWeek && 
-                   app.status !== 'cancelled';
-        })
-        .sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time))
-        .slice(0, 5);
+// function updateUpcomingAppointments() {
+//     const nextWeek = new Date();
+//     nextWeek.setDate(nextWeek.getDate() + 7);
+//     const upcomingAppointments = appointmentsData
+//         .filter(app => {
+//             const appDate = new Date(app.date);
+//             return appDate >= new Date() && 
+//                    appDate <= nextWeek && 
+//                    app.status !== 'cancelled';
+//         })
+//         .sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time))
+//         .slice(0, 5);
 
-    const upcomingBody = document.getElementById("upcomingAppointmentsBody");
-    if (upcomingBody) {
-        if (upcomingAppointments.length === 0) {
-            upcomingBody.innerHTML = `
-                <tr>
-                    <td colspan="4" class="px-4 py-6 text-center text-gray-500">
-                        <i data-feather="calendar" class="w-8 h-8 mx-auto mb-2"></i>
-                        <p data-i18n="Aucun rendez-vous à venir"></p>
-                    </td>
-                </tr>
-            `;
-        } else {
-            upcomingBody.innerHTML = upcomingAppointments.map(appointment => {
-                const statusInfo = getStatusInfo(appointment.status);
-                return `
-                    <tr>
-                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">${appointment.patientName}</td>
-                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${appointment.doctorName}</td>
-                        <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
-                            ${formatDate(appointment.date)} ${appointment.time}
-                        </td>
-                        <td class="px-4 py-3 whitespace-nowrap">
-                            <span class="${statusInfo.color} status-badge">
-                                <i data-feather="${statusInfo.icon}" class="w-3 h-3 inline mr-1"></i>
-                                ${statusInfo.text}
-                            </span>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-        feather.replace();
-    }
-}
+//     const upcomingBody = document.getElementById("upcomingAppointmentsBody");
+//     if (upcomingBody) {
+//         if (upcomingAppointments.length === 0) {
+//             upcomingBody.innerHTML = `
+//                 <tr>
+//                     <td colspan="4" class="px-4 py-6 text-center text-gray-500">
+//                         <i data-feather="calendar" class="w-8 h-8 mx-auto mb-2"></i>
+//                         <p data-i18n="Aucun rendez-vous à venir"></p>
+//                     </td>
+//                 </tr>
+//             `;
+//         } else {
+//             upcomingBody.innerHTML = upcomingAppointments.map(appointment => {
+//                 const statusInfo = getStatusInfo(appointment.status);
+//                 return `
+//                     <tr>
+//                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">${appointment.patientName}</td>
+//                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${appointment.doctorName}</td>
+//                         <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
+//                             ${formatDate(appointment.date)} ${appointment.time}
+//                         </td>
+//                         <td class="px-4 py-3 whitespace-nowrap">
+//                             <span class="${statusInfo.color} status-badge">
+//                                 <i data-feather="${statusInfo.icon}" class="w-3 h-3 inline mr-1"></i>
+//                                 ${statusInfo.text}
+//                             </span>
+//                         </td>
+//                     </tr>
+//                 `;
+//             }).join('');
+//         }
+//         feather.replace();
+//     }
+// }
 
 // ============================================
 // GESTION DES PATIENTS
 // ============================================
 
-function filterAndPaginatePatients() {
-    const searchTerm = document.getElementById("searchPatients").value.toLowerCase();
+// function filterAndPaginatePatients() {
+//     const searchTerm = document.getElementById("searchPatients").value.toLowerCase();
 
-    filteredPatientsData = patientsData.filter((patient) => {
-        const matchesSearch =
-            !searchTerm ||
-            patient.firstName.toLowerCase().includes(searchTerm) ||
-            patient.lastName.toLowerCase().includes(searchTerm) ||
-            patient.cin.toLowerCase().includes(searchTerm) ||
-            patient.phone.toLowerCase().includes(searchTerm);
+//     filteredPatientsData = patientsData.filter((patient) => {
+//         const matchesSearch =
+//             !searchTerm ||
+//             patient.firstName.toLowerCase().includes(searchTerm) ||
+//             patient.lastName.toLowerCase().includes(searchTerm) ||
+//             patient.cin.toLowerCase().includes(searchTerm) ||
+//             patient.phone.toLowerCase().includes(searchTerm);
 
-        return matchesSearch;
-    });
+//         return matchesSearch;
+//     });
 
-    currentPatientsPage = 1;
-    renderPatientsTable();
-    updatePatientsPagination();
-}
+//     currentPatientsPage = 1;
+//     renderPatientsTable();
+//     updatePatientsPagination();
+// }
 
-function renderPatientsTable() {
-    const tbody = document.getElementById("patientsTableBody");
+// function renderPatientsTable() {
+//     const tbody = document.getElementById("patientsTableBody");
 
-    const startIndex = (currentPatientsPage - 1) * patientsPerPage;
-    const endIndex = Math.min(
-        startIndex + patientsPerPage,
-        filteredPatientsData.length
-    );
-    const paginatedPatients = filteredPatientsData.slice(startIndex, endIndex);
+//     const startIndex = (currentPatientsPage - 1) * patientsPerPage;
+//     const endIndex = Math.min(
+//         startIndex + patientsPerPage,
+//         filteredPatientsData.length
+//     );
+//     const paginatedPatients = filteredPatientsData.slice(startIndex, endIndex);
 
-    if (paginatedPatients.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="5" class="px-6 py-12 text-center">
-                    <div class="flex flex-col items-center justify-center">
-                        <i data-feather="users" class="w-12 h-12 text-gray-400 mb-4"></i>
-                        <span class="text-gray-500 mb-4" data-i18n="Aucun patient trouvé"></span>
-                        <button id="addFirstPatientBtn"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                            <i data-feather="user-plus" class="w-4 h-4 inline mr-2"></i>
-                            <span data-i18n="Enregistrer votre premier patient"></span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `;
+//     if (paginatedPatients.length === 0) {
+//         tbody.innerHTML = `
+//             <tr>
+//                 <td colspan="5" class="px-6 py-12 text-center">
+//                     <div class="flex flex-col items-center justify-center">
+//                         <i data-feather="users" class="w-12 h-12 text-gray-400 mb-4"></i>
+//                         <span class="text-gray-500 mb-4" data-i18n="Aucun patient trouvé"></span>
+//                         <button id="addFirstPatientBtn"
+//                             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+//                             <i data-feather="user-plus" class="w-4 h-4 inline mr-2"></i>
+//                             <span data-i18n="Enregistrer votre premier patient"></span>
+//                         </button>
+//                     </div>
+//                 </td>
+//             </tr>
+//         `;
 
-        document.getElementById("addFirstPatientBtn")?.addEventListener("click", () => {
-            openModal("addPatientModal");
-        });
+//         document.getElementById("addFirstPatientBtn")?.addEventListener("click", () => {
+//             openModal("addPatientModal");
+//         });
 
-        updatePatientsPagination();
-        feather.replace();
-        return;
-    }
+//         updatePatientsPagination();
+//         feather.replace();
+//         return;
+//     }
 
-    let html = "";
-    paginatedPatients.forEach((patient) => {
-        const fullName = `${patient.firstName} ${patient.lastName}`;
-        const genderIcon = patient.gender === "male" ? "user" : "user";
-        const genderColor = patient.gender === "male" ? "text-blue-600" : "text-pink-600";
+//     let html = "";
+//     paginatedPatients.forEach((patient) => {
+//         const fullName = `${patient.firstName} ${patient.lastName}`;
+//         const genderIcon = patient.gender === "male" ? "user" : "user";
+//         const genderColor = patient.gender === "male" ? "text-blue-600" : "text-pink-600";
 
-        html += `
-            <tr class="patient-row" data-patient-id="${patient.id}">
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        ${generatePatientCode(patient.id)}
-                    </span>
-                </td>
-                <td class="px-6 py-4">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-                            <i data-feather="${genderIcon}" class="w-4 h-4 ${genderColor}"></i>
-                        </div>
-                        <div>
-                            <div class="font-medium text-gray-900">${fullName}</div>
-                            <div class="text-sm text-gray-500">${patient.cin}</div>
-                        </div>
-                    </div>
-                </td>
-                <td class="px-6 py-4">
-                    <div class="text-sm text-gray-900">${patient.phone}</div>
-                    <div class="text-sm text-gray-500">${patient.email || "-"}</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    ${formatDate(patient.registrationDate)}
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex space-x-2">
-                        <button class="edit-patient-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" 
-                                title="Modifier" data-patient-id="${patient.id}">
-                            <i data-feather="edit" class="w-4 h-4"></i>
-                        </button>
-                        <button class="view-patient-appointments-btn p-1 text-green-600 hover:text-green-800 transition-colors"
-                                title="Voir rendez-vous" data-patient-id="${patient.id}">
-                            <i data-feather="calendar" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `;
-    });
+//         html += `
+//             <tr class="patient-row" data-patient-id="${patient.id}">
+//                 <td class="px-6 py-4 whitespace-nowrap">
+//                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+//                         ${generatePatientCode(patient.id)}
+//                     </span>
+//                 </td>
+//                 <td class="px-6 py-4">
+//                     <div class="flex items-center">
+//                         <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mr-3">
+//                             <i data-feather="${genderIcon}" class="w-4 h-4 ${genderColor}"></i>
+//                         </div>
+//                         <div>
+//                             <div class="font-medium text-gray-900">${fullName}</div>
+//                             <div class="text-sm text-gray-500">${patient.cin}</div>
+//                         </div>
+//                     </div>
+//                 </td>
+//                 <td class="px-6 py-4">
+//                     <div class="text-sm text-gray-900">${patient.phone}</div>
+//                     <div class="text-sm text-gray-500">${patient.email || "-"}</div>
+//                 </td>
+//                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+//                     ${formatDate(patient.registrationDate)}
+//                 </td>
+//                 <td class="px-6 py-4 whitespace-nowrap">
+//                     <div class="flex space-x-2">
+//                         <button class="edit-patient-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" 
+//                                 title="Modifier" data-patient-id="${patient.id}">
+//                             <i data-feather="edit" class="w-4 h-4"></i>
+//                         </button>
+//                         <button class="view-patient-appointments-btn p-1 text-green-600 hover:text-green-800 transition-colors"
+//                                 title="Voir rendez-vous" data-patient-id="${patient.id}">
+//                             <i data-feather="calendar" class="w-4 h-4"></i>
+//                         </button>
+//                     </div>
+//                 </td>
+//             </tr>
+//         `;
+//     });
 
-    tbody.innerHTML = html;
+//     tbody.innerHTML = html;
 
-    document.getElementById("patientsStartItem").textContent = startIndex + 1;
-    document.getElementById("patientsEndItem").textContent = endIndex;
-    document.getElementById("patientsTotalItems").textContent = filteredPatientsData.length;
+//     document.getElementById("patientsStartItem").textContent = startIndex + 1;
+//     document.getElementById("patientsEndItem").textContent = endIndex;
+//     document.getElementById("patientsTotalItems").textContent = filteredPatientsData.length;
 
-    feather.replace();
-}
+//     feather.replace();
+// }
 
-function updatePatientsPagination() {
-    const totalPages = Math.ceil(filteredPatientsData.length / patientsPerPage);
-    const prevBtn = document.getElementById("prevPatientsPage");
-    const nextBtn = document.getElementById("nextPatientsPage");
-    const paginationNumbers = document.getElementById("patientsPaginationNumbers");
+// function updatePatientsPagination() {
+//     const totalPages = Math.ceil(filteredPatientsData.length / patientsPerPage);
+//     const prevBtn = document.getElementById("prevPatientsPage");
+//     const nextBtn = document.getElementById("nextPatientsPage");
+//     const paginationNumbers = document.getElementById("patientsPaginationNumbers");
 
-    prevBtn.disabled = currentPatientsPage === 1;
-    nextBtn.disabled = currentPatientsPage === totalPages || totalPages === 0;
+//     prevBtn.disabled = currentPatientsPage === 1;
+//     nextBtn.disabled = currentPatientsPage === totalPages || totalPages === 0;
 
-    let paginationHTML = "";
-    const maxVisiblePages = 5;
-    let startPage = Math.max(1, currentPatientsPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+//     let paginationHTML = "";
+//     const maxVisiblePages = 5;
+//     let startPage = Math.max(1, currentPatientsPage - Math.floor(maxVisiblePages / 2));
+//     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
-    if (endPage - startPage + 1 < maxVisiblePages) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
+//     if (endPage - startPage + 1 < maxVisiblePages) {
+//         startPage = Math.max(1, endPage - maxVisiblePages + 1);
+//     }
 
-    if (startPage > 1) {
-        paginationHTML += `
-            <button class="patients-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="1">
-                1
-            </button>
-            ${startPage > 2 ? '<span class="px-2 text-gray-500">...</span>' : ""}
-        `;
-    }
+//     if (startPage > 1) {
+//         paginationHTML += `
+//             <button class="patients-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="1">
+//                 1
+//             </button>
+//             ${startPage > 2 ? '<span class="px-2 text-gray-500">...</span>' : ""}
+//         `;
+//     }
 
-    for (let i = startPage; i <= endPage; i++) {
-        paginationHTML += `
-            <button class="patients-page-btn px-3 py-1 border ${
-                i === currentPatientsPage ? "bg-blue-600 text-white border-blue-600" : "border-gray-300"
-            } rounded text-sm" 
-                    data-page="${i}">
-                ${i}
-            </button>
-        `;
-    }
+//     for (let i = startPage; i <= endPage; i++) {
+//         paginationHTML += `
+//             <button class="patients-page-btn px-3 py-1 border ${
+//                 i === currentPatientsPage ? "bg-blue-600 text-white border-blue-600" : "border-gray-300"
+//             } rounded text-sm" 
+//                     data-page="${i}">
+//                 ${i}
+//             </button>
+//         `;
+//     }
 
-    if (endPage < totalPages) {
-        paginationHTML += `
-            ${endPage < totalPages - 1 ? '<span class="px-2 text-gray-500">...</span>' : ""}
-            <button class="patients-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="${totalPages}">
-                ${totalPages}
-            </button>
-        `;
-    }
+//     if (endPage < totalPages) {
+//         paginationHTML += `
+//             ${endPage < totalPages - 1 ? '<span class="px-2 text-gray-500">...</span>' : ""}
+//             <button class="patients-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="${totalPages}">
+//                 ${totalPages}
+//             </button>
+//         `;
+//     }
 
-    paginationNumbers.innerHTML = paginationHTML;
-}
+//     paginationNumbers.innerHTML = paginationHTML;
+// }
 
 // ============================================
 // GESTION DES RENDEZ-VOUS
 // ============================================
 
-function populateDoctorFilters() {
-    const filterDoctor = document.getElementById("filterDoctor");
-    const addAppointmentDoctor = document.getElementById("addAppointmentDoctor");
-    const viewAppointmentDoctor = document.getElementById("viewAppointmentDoctor");
+// function populateDoctorFilters() {
+//     const filterDoctor = document.getElementById("filterDoctor");
+//     const addAppointmentDoctor = document.getElementById("addAppointmentDoctor");
+//     const viewAppointmentDoctor = document.getElementById("viewAppointmentDoctor");
 
-    if (filterDoctor) {
-        filterDoctor.innerHTML = '<option value="" data-i18n="Tous les médecins">Tous les médecins</option>' +
-            doctorsData.map(doctor => 
-                `<option value="${doctor.id}">${doctor.name} (${doctor.specialty})</option>`
-            ).join('');
-    }
+//     if (filterDoctor) {
+//         filterDoctor.innerHTML = '<option value="" data-i18n="Tous les médecins">Tous les médecins</option>' +
+//             doctorsData.map(doctor => 
+//                 `<option value="${doctor.id}">${doctor.name} (${doctor.specialty})</option>`
+//             ).join('');
+//     }
 
-    if (addAppointmentDoctor) {
-        addAppointmentDoctor.innerHTML = '<option value="">Sélectionnez un médecin</option>' +
-            doctorsData.map(doctor => 
-                `<option value="${doctor.id}">${doctor.name} (${doctor.specialty})</option>`
-            ).join('');
-    }
+//     if (addAppointmentDoctor) {
+//         addAppointmentDoctor.innerHTML = '<option value="">Sélectionnez un médecin</option>' +
+//             doctorsData.map(doctor => 
+//                 `<option value="${doctor.id}">${doctor.name} (${doctor.specialty})</option>`
+//             ).join('');
+//     }
 
-    if (viewAppointmentDoctor) {
-        viewAppointmentDoctor.innerHTML = '<option value="">Sélectionnez un médecin</option>' +
-            doctorsData.map(doctor => 
-                `<option value="${doctor.id}">${doctor.name} (${doctor.specialty})</option>`
-            ).join('');
-    }
-}
+//     if (viewAppointmentDoctor) {
+//         viewAppointmentDoctor.innerHTML = '<option value="">Sélectionnez un médecin</option>' +
+//             doctorsData.map(doctor => 
+//                 `<option value="${doctor.id}">${doctor.name} (${doctor.specialty})</option>`
+//             ).join('');
+//     }
+// }
 
-function filterAndPaginateAppointments() {
-    const dateFilter = document.getElementById("filterDate").value;
-    const statusFilter = document.getElementById("filterAppointmentStatus").value;
-    const doctorFilter = document.getElementById("filterDoctor").value;
+// function filterAndPaginateAppointments() {
+//     const dateFilter = document.getElementById("filterDate").value;
+//     const statusFilter = document.getElementById("filterAppointmentStatus").value;
+//     const doctorFilter = document.getElementById("filterDoctor").value;
 
-    filteredAppointmentsData = appointmentsData.filter((appointment) => {
-        const matchesDate = !dateFilter || appointment.date === dateFilter;
-        const matchesStatus = !statusFilter || appointment.status === statusFilter;
-        const matchesDoctor = !doctorFilter || appointment.doctorId == doctorFilter;
+//     filteredAppointmentsData = appointmentsData.filter((appointment) => {
+//         const matchesDate = !dateFilter || appointment.date === dateFilter;
+//         const matchesStatus = !statusFilter || appointment.status === statusFilter;
+//         const matchesDoctor = !doctorFilter || appointment.doctorId == doctorFilter;
 
-        return matchesDate && matchesStatus && matchesDoctor;
-    });
+//         return matchesDate && matchesStatus && matchesDoctor;
+//     });
 
-    currentAppointmentsPage = 1;
-    renderAppointmentsTable();
-    updateAppointmentsPagination();
-}
+//     currentAppointmentsPage = 1;
+//     renderAppointmentsTable();
+//     updateAppointmentsPagination();
+// }
 
-function renderAppointmentsTable() {
-    const tbody = document.getElementById("appointmentsTableBody");
+// function renderAppointmentsTable() {
+//     const tbody = document.getElementById("appointmentsTableBody");
 
-    const startIndex = (currentAppointmentsPage - 1) * appointmentsPerPage;
-    const endIndex = Math.min(
-        startIndex + appointmentsPerPage,
-        filteredAppointmentsData.length
-    );
-    const paginatedAppointments = filteredAppointmentsData.slice(startIndex, endIndex);
+//     const startIndex = (currentAppointmentsPage - 1) * appointmentsPerPage;
+//     const endIndex = Math.min(
+//         startIndex + appointmentsPerPage,
+//         filteredAppointmentsData.length
+//     );
+//     const paginatedAppointments = filteredAppointmentsData.slice(startIndex, endIndex);
 
-    if (paginatedAppointments.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="7" class="px-6 py-12 text-center">
-                    <div class="flex flex-col items-center justify-center">
-                        <i data-feather="calendar" class="w-12 h-12 text-gray-400 mb-4"></i>
-                        <span class="text-gray-500 mb-4" data-i18n="Aucun rendez-vous trouvé"></span>
-                        <button id="addFirstAppointmentBtn"
-                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                            <i data-feather="calendar" class="w-4 h-4 inline mr-2"></i>
-                            <span data-i18n="Créer votre premier rendez-vous"></span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `;
+//     if (paginatedAppointments.length === 0) {
+//         tbody.innerHTML = `
+//             <tr>
+//                 <td colspan="7" class="px-6 py-12 text-center">
+//                     <div class="flex flex-col items-center justify-center">
+//                         <i data-feather="calendar" class="w-12 h-12 text-gray-400 mb-4"></i>
+//                         <span class="text-gray-500 mb-4" data-i18n="Aucun rendez-vous trouvé"></span>
+//                         <button id="addFirstAppointmentBtn"
+//                             class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+//                             <i data-feather="calendar" class="w-4 h-4 inline mr-2"></i>
+//                             <span data-i18n="Créer votre premier rendez-vous"></span>
+//                         </button>
+//                     </div>
+//                 </td>
+//             </tr>
+//         `;
 
-        document.getElementById("addFirstAppointmentBtn")?.addEventListener("click", () => {
-            openModal("addAppointmentModal");
-        });
+//         document.getElementById("addFirstAppointmentBtn")?.addEventListener("click", () => {
+//             openModal("addAppointmentModal");
+//         });
 
-        updateAppointmentsPagination();
-        feather.replace();
-        return;
-    }
+//         updateAppointmentsPagination();
+//         feather.replace();
+//         return;
+//     }
 
-    let html = "";
-    paginatedAppointments.forEach((appointment) => {
-        const statusInfo = getStatusInfo(appointment.status);
-        const dateTime = `${formatDate(appointment.date)} ${appointment.time}`;
+//     let html = "";
+//     paginatedAppointments.forEach((appointment) => {
+//         const statusInfo = getStatusInfo(appointment.status);
+//         const dateTime = `${formatDate(appointment.date)} ${appointment.time}`;
 
-        html += `
-            <tr class="appointment-row" data-appointment-id="${appointment.id}">
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                        ${generateAppointmentCode(appointment.id)}
-                    </span>
-                </td>
-                <td class="px-6 py-4">
-                    <div class="font-medium text-gray-900">${appointment.patientName}</div>
-                </td>
-                <td class="px-6 py-4">
-                    <div class="text-sm text-gray-900">${appointment.doctorName}</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">${dateTime}</div>
-                </td>
-                <td class="px-6 py-4">
-                    <div class="text-sm text-gray-600 max-w-xs truncate">${appointment.reason || "Consultation"}</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="${statusInfo.color} status-badge">
-                        <i data-feather="${statusInfo.icon}" class="w-3 h-3 inline mr-1"></i>
-                        ${statusInfo.text}
-                    </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex space-x-2">
-                        <button class="edit-appointment-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" 
-                                title="Modifier" data-appointment-id="${appointment.id}">
-                            <i data-feather="edit" class="w-4 h-4"></i>
-                        </button>
-                        <button class="cancel-appointment-btn p-1 text-red-600 hover:text-red-800 transition-colors"
-                                title="Annuler" data-appointment-id="${appointment.id}">
-                            <i data-feather="x-circle" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `;
-    });
+//         html += `
+//             <tr class="appointment-row" data-appointment-id="${appointment.id}">
+//                 <td class="px-6 py-4 whitespace-nowrap">
+//                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+//                         ${generateAppointmentCode(appointment.id)}
+//                     </span>
+//                 </td>
+//                 <td class="px-6 py-4">
+//                     <div class="font-medium text-gray-900">${appointment.patientName}</div>
+//                 </td>
+//                 <td class="px-6 py-4">
+//                     <div class="text-sm text-gray-900">${appointment.doctorName}</div>
+//                 </td>
+//                 <td class="px-6 py-4 whitespace-nowrap">
+//                     <div class="text-sm text-gray-900">${dateTime}</div>
+//                 </td>
+//                 <td class="px-6 py-4">
+//                     <div class="text-sm text-gray-600 max-w-xs truncate">${appointment.reason || "Consultation"}</div>
+//                 </td>
+//                 <td class="px-6 py-4 whitespace-nowrap">
+//                     <span class="${statusInfo.color} status-badge">
+//                         <i data-feather="${statusInfo.icon}" class="w-3 h-3 inline mr-1"></i>
+//                         ${statusInfo.text}
+//                     </span>
+//                 </td>
+//                 <td class="px-6 py-4 whitespace-nowrap">
+//                     <div class="flex space-x-2">
+//                         <button class="edit-appointment-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" 
+//                                 title="Modifier" data-appointment-id="${appointment.id}">
+//                             <i data-feather="edit" class="w-4 h-4"></i>
+//                         </button>
+//                         <button class="cancel-appointment-btn p-1 text-red-600 hover:text-red-800 transition-colors"
+//                                 title="Annuler" data-appointment-id="${appointment.id}">
+//                             <i data-feather="x-circle" class="w-4 h-4"></i>
+//                         </button>
+//                     </div>
+//                 </td>
+//             </tr>
+//         `;
+//     });
 
-    tbody.innerHTML = html;
+//     tbody.innerHTML = html;
 
-    document.getElementById("appointmentsStartItem").textContent = startIndex + 1;
-    document.getElementById("appointmentsEndItem").textContent = endIndex;
-    document.getElementById("appointmentsTotalItems").textContent = filteredAppointmentsData.length;
+//     document.getElementById("appointmentsStartItem").textContent = startIndex + 1;
+//     document.getElementById("appointmentsEndItem").textContent = endIndex;
+//     document.getElementById("appointmentsTotalItems").textContent = filteredAppointmentsData.length;
 
-    feather.replace();
-}
+//     feather.replace();
+// }
 
-function updateAppointmentsPagination() {
-    const totalPages = Math.ceil(filteredAppointmentsData.length / appointmentsPerPage);
-    const prevBtn = document.getElementById("prevAppointmentsPage");
-    const nextBtn = document.getElementById("nextAppointmentsPage");
-    const paginationNumbers = document.getElementById("appointmentsPaginationNumbers");
+// function updateAppointmentsPagination() {
+//     const totalPages = Math.ceil(filteredAppointmentsData.length / appointmentsPerPage);
+//     const prevBtn = document.getElementById("prevAppointmentsPage");
+//     const nextBtn = document.getElementById("nextAppointmentsPage");
+//     const paginationNumbers = document.getElementById("appointmentsPaginationNumbers");
 
-    prevBtn.disabled = currentAppointmentsPage === 1;
-    nextBtn.disabled = currentAppointmentsPage === totalPages || totalPages === 0;
+//     prevBtn.disabled = currentAppointmentsPage === 1;
+//     nextBtn.disabled = currentAppointmentsPage === totalPages || totalPages === 0;
 
-    let paginationHTML = "";
-    const maxVisiblePages = 5;
-    let startPage = Math.max(1, currentAppointmentsPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+//     let paginationHTML = "";
+//     const maxVisiblePages = 5;
+//     let startPage = Math.max(1, currentAppointmentsPage - Math.floor(maxVisiblePages / 2));
+//     let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
-    if (endPage - startPage + 1 < maxVisiblePages) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
+//     if (endPage - startPage + 1 < maxVisiblePages) {
+//         startPage = Math.max(1, endPage - maxVisiblePages + 1);
+//     }
 
-    if (startPage > 1) {
-        paginationHTML += `
-            <button class="appointments-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="1">
-                1
-            </button>
-            ${startPage > 2 ? '<span class="px-2 text-gray-500">...</span>' : ""}
-        `;
-    }
+//     if (startPage > 1) {
+//         paginationHTML += `
+//             <button class="appointments-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="1">
+//                 1
+//             </button>
+//             ${startPage > 2 ? '<span class="px-2 text-gray-500">...</span>' : ""}
+//         `;
+//     }
 
-    for (let i = startPage; i <= endPage; i++) {
-        paginationHTML += `
-            <button class="appointments-page-btn px-3 py-1 border ${
-                i === currentAppointmentsPage ? "bg-blue-600 text-white border-blue-600" : "border-gray-300"
-            } rounded text-sm" 
-                    data-page="${i}">
-                ${i}
-            </button>
-        `;
-    }
+//     for (let i = startPage; i <= endPage; i++) {
+//         paginationHTML += `
+//             <button class="appointments-page-btn px-3 py-1 border ${
+//                 i === currentAppointmentsPage ? "bg-blue-600 text-white border-blue-600" : "border-gray-300"
+//             } rounded text-sm" 
+//                     data-page="${i}">
+//                 ${i}
+//             </button>
+//         `;
+//     }
 
-    if (endPage < totalPages) {
-        paginationHTML += `
-            ${endPage < totalPages - 1 ? '<span class="px-2 text-gray-500">...</span>' : ""}
-            <button class="appointments-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="${totalPages}">
-                ${totalPages}
-            </button>
-        `;
-    }
+//     if (endPage < totalPages) {
+//         paginationHTML += `
+//             ${endPage < totalPages - 1 ? '<span class="px-2 text-gray-500">...</span>' : ""}
+//             <button class="appointments-page-btn px-3 py-1 border border-gray-300 rounded text-sm" data-page="${totalPages}">
+//                 ${totalPages}
+//             </button>
+//         `;
+//     }
 
-    paginationNumbers.innerHTML = paginationHTML;
-}
+//     paginationNumbers.innerHTML = paginationHTML;
+// }
 
 // ============================================
 // GESTION DES PLANNINGS MÉDECINS
@@ -913,24 +913,24 @@ async function loadDoctorsSchedules() {
     }
 }
 
-function bookAppointmentWithDoctor(doctorId, date) {
-    // Ouvrir le modal de création de rendez-vous avec ce médecin et cette date
-    openAddAppointmentModal();
+// function bookAppointmentWithDoctor(doctorId, date) {
+//     // Ouvrir le modal de création de rendez-vous avec ce médecin et cette date
+//     openAddAppointmentModal();
     
-    // Pré-remplir les champs
-    setTimeout(() => {
-        document.getElementById("addAppointmentDoctor").value = doctorId;
-        document.getElementById("addAppointmentDate").value = date;
-    }, 100);
-}
+//     // Pré-remplir les champs
+//     setTimeout(() => {
+//         document.getElementById("addAppointmentDoctor").value = doctorId;
+//         document.getElementById("addAppointmentDate").value = date;
+//     }, 100);
+// }
 
 // ============================================
 // GESTION DES MODALES PATIENTS
 // ============================================
 
-function openAddPatientModal() {
-    openModal("addPatientModal");
-}
+// function openAddPatientModal() {
+//     openModal("addPatientModal");
+// }
 
 function openEditPatientModal(patientId) {
     const patient = patientsData.find(p => p.id == patientId);
@@ -957,6 +957,103 @@ function openEditPatientModal(patientId) {
     currentEditingPatientId = patientId;
 
     openModal("editPatientModal");
+}
+
+const addEmergencyContactBtn = document.getElementById("addEmergencyContactBtn");
+const emergencyContactsContainer = document.getElementById("emergencyContactsContainer");
+
+addEmergencyContactBtn.addEventListener("click", () => {
+    // Count current contacts
+    const currentCount = emergencyContactsContainer.children.length + 1;
+
+    const contactHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 border border-gray-200 rounded-lg relative">
+            <h3 class="absolute -top-3 left-3 bg-white px-2 text-sm font-semibold text-gray-700">
+                Contact d'urgence ${currentCount}
+            </h3>
+
+            <!-- First Name -->
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Prénom</label>
+                <div class="relative">
+                    <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <input type="text" name="emergencyFirstName${currentCount}"
+                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Entrez le prénom" required>
+                    <p class="error-firstName text-red-600 text-sm mt-1"></p>
+                </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Nom</label>
+                <div class="relative">
+                    <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <input type="text" name="emergencyLastName${currentCount}"
+                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Entrez le nom" required>
+                    <p class="error-lastName text-red-600 text-sm mt-1"></p>
+                </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Téléphone</label>
+                <div class="relative">
+                    <i data-feather="phone" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <input type="text" name="emergencyPhone${currentCount}"
+                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="+212 600-000000" required>
+                    <p class="error-phone text-red-600 text-sm mt-1"></p>
+                </div>
+            </div>
+
+            <!-- Relationship -->
+            <div class="space-y-2">
+                <label class="text-sm font-medium text-gray-700">Relation</label>
+                <div class="relative">
+                    <i data-feather="users" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <input type="text" name="emergencyRelationship${currentCount}"
+                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Ex: Parent, Ami" required>
+                    <p class="error-relationship text-red-600 text-sm mt-1"></p>
+                </div>
+            </div>
+
+            <!-- Remove button -->
+            <button type="button" class="absolute top-2 right-2 text-red-500 hover:text-red-700 removeContactBtn">
+                <i data-feather="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+    `;
+
+    emergencyContactsContainer.insertAdjacentHTML('beforeend', contactHTML);
+    feather.replace(); // refresh icons
+
+    // Update remove buttons
+    const removeBtns = emergencyContactsContainer.querySelectorAll(".removeContactBtn");
+    removeBtns.forEach(btn => {
+        btn.onclick = () => {
+            btn.parentElement.remove();
+            updateEmergencyContactNumbers();
+        };
+    });
+});
+
+// Function to renumber emergency contacts after removing
+function updateEmergencyContactNumbers() {
+    const contacts = emergencyContactsContainer.children;
+    for (let i = 0; i < contacts.length; i++) {
+        const h3 = contacts[i].querySelector("h3");
+        h3.textContent = `Contact d'urgence ${i + 1}`;
+
+        // Update input names
+        const inputs = contacts[i].querySelectorAll("input");
+        inputs[0].name = `emergencyFirstName${i + 1}`;
+        inputs[1].name = `emergencyLastName${i + 1}`;
+        inputs[2].name = `emergencyPhone${i + 1}`;
+        inputs[3].name = `emergencyRelationship${i + 1}`;
+    }
 }
 
 // ============================================
@@ -1058,327 +1155,327 @@ function openCancelAppointmentModal(appointmentId) {
 // GESTION DES ÉVÉNEMENTS PATIENTS
 // ============================================
 
-function setupPatientsEvents() {
-    // Search
-    document.getElementById("searchPatients")?.addEventListener("input", filterAndPaginatePatients);
+// function setupPatientsEvents() {
+//     // Search
+//     document.getElementById("searchPatients")?.addEventListener("input", filterAndPaginatePatients);
 
-    // Pagination
-    document.getElementById("prevPatientsPage")?.addEventListener("click", () => {
-        if (currentPatientsPage > 1) {
-            currentPatientsPage--;
-            renderPatientsTable();
-            updatePatientsPagination();
-        }
-    });
+//     // Pagination
+//     document.getElementById("prevPatientsPage")?.addEventListener("click", () => {
+//         if (currentPatientsPage > 1) {
+//             currentPatientsPage--;
+//             renderPatientsTable();
+//             updatePatientsPagination();
+//         }
+//     });
 
-    document.getElementById("nextPatientsPage")?.addEventListener("click", () => {
-        const totalPages = Math.ceil(filteredPatientsData.length / patientsPerPage);
-        if (currentPatientsPage < totalPages) {
-            currentPatientsPage++;
-            renderPatientsTable();
-            updatePatientsPagination();
-        }
-    });
+//     document.getElementById("nextPatientsPage")?.addEventListener("click", () => {
+//         const totalPages = Math.ceil(filteredPatientsData.length / patientsPerPage);
+//         if (currentPatientsPage < totalPages) {
+//             currentPatientsPage++;
+//             renderPatientsTable();
+//             updatePatientsPagination();
+//         }
+//     });
 
-    // Items per page
-    document.getElementById("patientsPerPage")?.addEventListener("change", (e) => {
-        patientsPerPage = parseInt(e.target.value);
-        currentPatientsPage = 1;
-        filterAndPaginatePatients();
-    });
+//     // Items per page
+//     document.getElementById("patientsPerPage")?.addEventListener("change", (e) => {
+//         patientsPerPage = parseInt(e.target.value);
+//         currentPatientsPage = 1;
+//         filterAndPaginatePatients();
+//     });
 
-    // Page numbers
-    document.addEventListener("click", (e) => {
-        if (e.target.closest(".patients-page-btn")) {
-            const page = parseInt(e.target.closest(".patients-page-btn").getAttribute("data-page"));
-            if (page && page !== currentPatientsPage) {
-                currentPatientsPage = page;
-                renderPatientsTable();
-                updatePatientsPagination();
-            }
-        }
+//     // Page numbers
+//     document.addEventListener("click", (e) => {
+//         if (e.target.closest(".patients-page-btn")) {
+//             const page = parseInt(e.target.closest(".patients-page-btn").getAttribute("data-page"));
+//             if (page && page !== currentPatientsPage) {
+//                 currentPatientsPage = page;
+//                 renderPatientsTable();
+//                 updatePatientsPagination();
+//             }
+//         }
 
-        if (e.target.closest(".appointments-page-btn")) {
-            const page = parseInt(e.target.closest(".appointments-page-btn").getAttribute("data-page"));
-            if (page && page !== currentAppointmentsPage) {
-                currentAppointmentsPage = page;
-                renderAppointmentsTable();
-                updateAppointmentsPagination();
-            }
-        }
-    });
+//         if (e.target.closest(".appointments-page-btn")) {
+//             const page = parseInt(e.target.closest(".appointments-page-btn").getAttribute("data-page"));
+//             if (page && page !== currentAppointmentsPage) {
+//                 currentAppointmentsPage = page;
+//                 renderAppointmentsTable();
+//                 updateAppointmentsPagination();
+//             }
+//         }
+//     });
 
-    // Add patient button
-    document.getElementById("addPatientBtn")?.addEventListener("click", openAddPatientModal);
+//     // Add patient button
+//     document.getElementById("addPatientBtn")?.addEventListener("click", openAddPatientModal);
 
-    // Add patient form
-    document.getElementById("addPatientForm")?.addEventListener("submit", async (e) => {
-        e.preventDefault();
+//     // Add patient form
+//     document.getElementById("addPatientForm")?.addEventListener("submit", async (e) => {
+//         e.preventDefault();
 
-        const newPatient = {
-            id: patientsData.length > 0 ? Math.max(...patientsData.map(p => p.id)) + 1 : 1,
-            cin: document.getElementById("addPatientCIN").value,
-            firstName: document.getElementById("addPatientFirstName").value,
-            lastName: document.getElementById("addPatientLastName").value,
-            email: document.getElementById("addPatientEmail").value,
-            phone: document.getElementById("addPatientPhone").value,
-            address: document.getElementById("addPatientAddress").value,
-            birthDate: document.getElementById("addPatientBirthDate").value,
-            gender: document.querySelector('input[name="gender"]:checked')?.value || "male",
-            registrationDate: new Date().toISOString().split('T')[0],
-            emergencyContact: ""
-        };
+//         const newPatient = {
+//             id: patientsData.length > 0 ? Math.max(...patientsData.map(p => p.id)) + 1 : 1,
+//             cin: document.getElementById("addPatientCIN").value,
+//             firstName: document.getElementById("addPatientFirstName").value,
+//             lastName: document.getElementById("addPatientLastName").value,
+//             email: document.getElementById("addPatientEmail").value,
+//             phone: document.getElementById("addPatientPhone").value,
+//             address: document.getElementById("addPatientAddress").value,
+//             birthDate: document.getElementById("addPatientBirthDate").value,
+//             gender: document.querySelector('input[name="gender"]:checked')?.value || "male",
+//             registrationDate: new Date().toISOString().split('T')[0],
+//             emergencyContact: ""
+//         };
 
-        patientsData.unshift(newPatient);
-        document.getElementById("addPatientForm").reset();
-        closeModal("addPatientModal");
-        filterAndPaginatePatients();
-        updateDashboardStats();
+//         patientsData.unshift(newPatient);
+//         document.getElementById("addPatientForm").reset();
+//         closeModal("addPatientModal");
+//         filterAndPaginatePatients();
+//         updateDashboardStats();
 
-        showToast("Patient enregistré avec succès", "success");
-    });
+//         showToast("Patient enregistré avec succès", "success");
+//     });
 
-    // Edit patient form
-    document.getElementById("editPatientForm")?.addEventListener("submit", async (e) => {
-        e.preventDefault();
+//     // Edit patient form
+//     document.getElementById("editPatientForm")?.addEventListener("submit", async (e) => {
+//         e.preventDefault();
 
-        const patientId = document.getElementById("editPatientId").value;
-        const patientIndex = patientsData.findIndex(p => p.id == patientId);
+//         const patientId = document.getElementById("editPatientId").value;
+//         const patientIndex = patientsData.findIndex(p => p.id == patientId);
 
-        if (patientIndex === -1) {
-            showToast("Patient non trouvé", "error");
-            return;
-        }
+//         if (patientIndex === -1) {
+//             showToast("Patient non trouvé", "error");
+//             return;
+//         }
 
-        patientsData[patientIndex] = {
-            ...patientsData[patientIndex],
-            firstName: document.getElementById("editPatientFirstName").value,
-            lastName: document.getElementById("editPatientLastName").value,
-            cin: document.getElementById("editPatientCIN").value,
-            email: document.getElementById("editPatientEmail").value,
-            phone: document.getElementById("editPatientPhone").value,
-            address: document.getElementById("editPatientAddress").value,
-            birthDate: document.getElementById("editPatientBirthDate").value,
-            gender: document.querySelector('input[name="editGender"]:checked')?.value || "male"
-        };
+//         patientsData[patientIndex] = {
+//             ...patientsData[patientIndex],
+//             firstName: document.getElementById("editPatientFirstName").value,
+//             lastName: document.getElementById("editPatientLastName").value,
+//             cin: document.getElementById("editPatientCIN").value,
+//             email: document.getElementById("editPatientEmail").value,
+//             phone: document.getElementById("editPatientPhone").value,
+//             address: document.getElementById("editPatientAddress").value,
+//             birthDate: document.getElementById("editPatientBirthDate").value,
+//             gender: document.querySelector('input[name="editGender"]:checked')?.value || "male"
+//         };
 
-        closeModal("editPatientModal");
-        filterAndPaginatePatients();
+//         closeModal("editPatientModal");
+//         filterAndPaginatePatients();
 
-        showToast("Patient modifié avec succès", "success");
-    });
+//         showToast("Patient modifié avec succès", "success");
+//     });
 
-    // Modal controls for patients
-    document.getElementById("closeAddPatientModal")?.addEventListener("click", () => {
-        closeModal("addPatientModal");
-    });
+//     // Modal controls for patients
+//     document.getElementById("closeAddPatientModal")?.addEventListener("click", () => {
+//         closeModal("addPatientModal");
+//     });
 
-    document.getElementById("cancelAddPatientBtn")?.addEventListener("click", () => {
-        closeModal("addPatientModal");
-    });
+//     document.getElementById("cancelAddPatientBtn")?.addEventListener("click", () => {
+//         closeModal("addPatientModal");
+//     });
 
-    document.getElementById("closeEditPatientModal")?.addEventListener("click", () => {
-        closeModal("editPatientModal");
-    });
+//     document.getElementById("closeEditPatientModal")?.addEventListener("click", () => {
+//         closeModal("editPatientModal");
+//     });
 
-    document.getElementById("cancelEditPatientBtn")?.addEventListener("click", () => {
-        closeModal("editPatientModal");
-    });
+//     document.getElementById("cancelEditPatientBtn")?.addEventListener("click", () => {
+//         closeModal("editPatientModal");
+//     });
 
-    // Action buttons
-    document.addEventListener("click", (e) => {
-        if (e.target.closest(".edit-patient-btn")) {
-            const patientId = e.target.closest(".edit-patient-btn").getAttribute("data-patient-id");
-            openEditPatientModal(patientId);
-        }
+//     // Action buttons
+//     document.addEventListener("click", (e) => {
+//         if (e.target.closest(".edit-patient-btn")) {
+//             const patientId = e.target.closest(".edit-patient-btn").getAttribute("data-patient-id");
+//             openEditPatientModal(patientId);
+//         }
 
-        if (e.target.closest(".view-patient-appointments-btn")) {
-            const patientId = e.target.closest(".view-patient-appointments-btn").getAttribute("data-patient-id");
-            // Navigate to appointments page with filter
-            navigateToPage("appointments");
-            setTimeout(() => {
-                const patient = patientsData.find(p => p.id == patientId);
-                if (patient) {
-                    showToast(`Voir les rendez-vous de ${patient.firstName} ${patient.lastName}`, "info");
-                }
-            }, 100);
-        }
-    });
-}
+//         if (e.target.closest(".view-patient-appointments-btn")) {
+//             const patientId = e.target.closest(".view-patient-appointments-btn").getAttribute("data-patient-id");
+//             // Navigate to appointments page with filter
+//             navigateToPage("appointments");
+//             setTimeout(() => {
+//                 const patient = patientsData.find(p => p.id == patientId);
+//                 if (patient) {
+//                     showToast(`Voir les rendez-vous de ${patient.firstName} ${patient.lastName}`, "info");
+//                 }
+//             }, 100);
+//         }
+//     });
+// }
 
 // ============================================
 // GESTION DES ÉVÉNEMENTS RENDEZ-VOUS
 // ============================================
 
-function setupAppointmentsEvents() {
-    // Filters
-    document.getElementById("filterDate")?.addEventListener("change", filterAndPaginateAppointments);
-    document.getElementById("filterAppointmentStatus")?.addEventListener("change", filterAndPaginateAppointments);
-    document.getElementById("filterDoctor")?.addEventListener("change", filterAndPaginateAppointments);
+// function setupAppointmentsEvents() {
+//     // Filters
+//     document.getElementById("filterDate")?.addEventListener("change", filterAndPaginateAppointments);
+//     document.getElementById("filterAppointmentStatus")?.addEventListener("change", filterAndPaginateAppointments);
+//     document.getElementById("filterDoctor")?.addEventListener("change", filterAndPaginateAppointments);
 
-    // Pagination
-    document.getElementById("prevAppointmentsPage")?.addEventListener("click", () => {
-        if (currentAppointmentsPage > 1) {
-            currentAppointmentsPage--;
-            renderAppointmentsTable();
-            updateAppointmentsPagination();
-        }
-    });
+//     // Pagination
+//     document.getElementById("prevAppointmentsPage")?.addEventListener("click", () => {
+//         if (currentAppointmentsPage > 1) {
+//             currentAppointmentsPage--;
+//             renderAppointmentsTable();
+//             updateAppointmentsPagination();
+//         }
+//     });
 
-    document.getElementById("nextAppointmentsPage")?.addEventListener("click", () => {
-        const totalPages = Math.ceil(filteredAppointmentsData.length / appointmentsPerPage);
-        if (currentAppointmentsPage < totalPages) {
-            currentAppointmentsPage++;
-            renderAppointmentsTable();
-            updateAppointmentsPagination();
-        }
-    });
+//     document.getElementById("nextAppointmentsPage")?.addEventListener("click", () => {
+//         const totalPages = Math.ceil(filteredAppointmentsData.length / appointmentsPerPage);
+//         if (currentAppointmentsPage < totalPages) {
+//             currentAppointmentsPage++;
+//             renderAppointmentsTable();
+//             updateAppointmentsPagination();
+//         }
+//     });
 
-    // Items per page
-    document.getElementById("appointmentsPerPage")?.addEventListener("change", (e) => {
-        appointmentsPerPage = parseInt(e.target.value);
-        currentAppointmentsPage = 1;
-        filterAndPaginateAppointments();
-    });
+//     // Items per page
+//     document.getElementById("appointmentsPerPage")?.addEventListener("change", (e) => {
+//         appointmentsPerPage = parseInt(e.target.value);
+//         currentAppointmentsPage = 1;
+//         filterAndPaginateAppointments();
+//     });
 
-    // Add appointment button
-    document.getElementById("addAppointmentBtn")?.addEventListener("click", openAddAppointmentModal);
+//     // Add appointment button
+//     document.getElementById("addAppointmentBtn")?.addEventListener("click", openAddAppointmentModal);
 
-    // Add appointment form
-    document.getElementById("addAppointmentForm")?.addEventListener("submit", async (e) => {
-        e.preventDefault();
+//     // Add appointment form
+//     document.getElementById("addAppointmentForm")?.addEventListener("submit", async (e) => {
+//         e.preventDefault();
 
-        const patientId = document.getElementById("addAppointmentPatient").value;
-        const doctorId = document.getElementById("addAppointmentDoctor").value;
-        const patient = patientsData.find(p => p.id == patientId);
-        const doctor = doctorsData.find(d => d.id == doctorId);
+//         const patientId = document.getElementById("addAppointmentPatient").value;
+//         const doctorId = document.getElementById("addAppointmentDoctor").value;
+//         const patient = patientsData.find(p => p.id == patientId);
+//         const doctor = doctorsData.find(d => d.id == doctorId);
 
-        if (!patient || !doctor) {
-            showToast("Patient ou médecin non valide", "error");
-            return;
-        }
+//         if (!patient || !doctor) {
+//             showToast("Patient ou médecin non valide", "error");
+//             return;
+//         }
 
-        const newAppointment = {
-            id: appointmentsData.length > 0 ? Math.max(...appointmentsData.map(a => a.id)) + 1 : 1,
-            patientId: parseInt(patientId),
-            patientName: `${patient.firstName} ${patient.lastName}`,
-            doctorId: parseInt(doctorId),
-            doctorName: doctor.name,
-            date: document.getElementById("addAppointmentDate").value,
-            time: document.getElementById("addAppointmentTime").value,
-            reason: document.getElementById("addAppointmentReason").value,
-            status: document.getElementById("addAppointmentStatus").value,
-            createdAt: new Date().toISOString().split('T')[0],
-            createdBy: "staff"
-        };
+//         const newAppointment = {
+//             id: appointmentsData.length > 0 ? Math.max(...appointmentsData.map(a => a.id)) + 1 : 1,
+//             patientId: parseInt(patientId),
+//             patientName: `${patient.firstName} ${patient.lastName}`,
+//             doctorId: parseInt(doctorId),
+//             doctorName: doctor.name,
+//             date: document.getElementById("addAppointmentDate").value,
+//             time: document.getElementById("addAppointmentTime").value,
+//             reason: document.getElementById("addAppointmentReason").value,
+//             status: document.getElementById("addAppointmentStatus").value,
+//             createdAt: new Date().toISOString().split('T')[0],
+//             createdBy: "staff"
+//         };
 
-        appointmentsData.unshift(newAppointment);
-        document.getElementById("addAppointmentForm").reset();
-        closeModal("addAppointmentModal");
-        filterAndPaginateAppointments();
-        updateDashboardStats();
+//         appointmentsData.unshift(newAppointment);
+//         document.getElementById("addAppointmentForm").reset();
+//         closeModal("addAppointmentModal");
+//         filterAndPaginateAppointments();
+//         updateDashboardStats();
 
-        showToast("Rendez-vous créé avec succès", "success");
-    });
+//         showToast("Rendez-vous créé avec succès", "success");
+//     });
 
-    // View/Edit appointment form
-    document.getElementById("viewAppointmentForm")?.addEventListener("submit", async (e) => {
-        e.preventDefault();
+//     // View/Edit appointment form
+//     document.getElementById("viewAppointmentForm")?.addEventListener("submit", async (e) => {
+//         e.preventDefault();
 
-        const appointmentId = document.getElementById("viewAppointmentId").value;
-        const appointmentIndex = appointmentsData.findIndex(a => a.id == appointmentId);
+//         const appointmentId = document.getElementById("viewAppointmentId").value;
+//         const appointmentIndex = appointmentsData.findIndex(a => a.id == appointmentId);
 
-        if (appointmentIndex === -1) {
-            showToast("Rendez-vous non trouvé", "error");
-            return;
-        }
+//         if (appointmentIndex === -1) {
+//             showToast("Rendez-vous non trouvé", "error");
+//             return;
+//         }
 
-        const patientId = document.getElementById("viewAppointmentPatient").value;
-        const doctorId = document.getElementById("viewAppointmentDoctor").value;
-        const patient = patientsData.find(p => p.id == patientId);
-        const doctor = doctorsData.find(d => d.id == doctorId);
+//         const patientId = document.getElementById("viewAppointmentPatient").value;
+//         const doctorId = document.getElementById("viewAppointmentDoctor").value;
+//         const patient = patientsData.find(p => p.id == patientId);
+//         const doctor = doctorsData.find(d => d.id == doctorId);
 
-        appointmentsData[appointmentIndex] = {
-            ...appointmentsData[appointmentIndex],
-            patientId: parseInt(patientId),
-            patientName: patient ? `${patient.firstName} ${patient.lastName}` : appointmentsData[appointmentIndex].patientName,
-            doctorId: parseInt(doctorId),
-            doctorName: doctor ? doctor.name : appointmentsData[appointmentIndex].doctorName,
-            date: document.getElementById("viewAppointmentDate").value,
-            time: document.getElementById("viewAppointmentTime").value,
-            reason: document.getElementById("viewAppointmentReason").value,
-            status: document.getElementById("viewAppointmentStatus").value
-        };
+//         appointmentsData[appointmentIndex] = {
+//             ...appointmentsData[appointmentIndex],
+//             patientId: parseInt(patientId),
+//             patientName: patient ? `${patient.firstName} ${patient.lastName}` : appointmentsData[appointmentIndex].patientName,
+//             doctorId: parseInt(doctorId),
+//             doctorName: doctor ? doctor.name : appointmentsData[appointmentIndex].doctorName,
+//             date: document.getElementById("viewAppointmentDate").value,
+//             time: document.getElementById("viewAppointmentTime").value,
+//             reason: document.getElementById("viewAppointmentReason").value,
+//             status: document.getElementById("viewAppointmentStatus").value
+//         };
 
-        closeModal("viewAppointmentModal");
-        filterAndPaginateAppointments();
-        updateDashboardStats();
+//         closeModal("viewAppointmentModal");
+//         filterAndPaginateAppointments();
+//         updateDashboardStats();
 
-        showToast("Rendez-vous modifié avec succès", "success");
-    });
+//         showToast("Rendez-vous modifié avec succès", "success");
+//     });
 
-    // Cancel appointment
-    document.getElementById("cancelAppointmentBtn")?.addEventListener("click", () => {
-        const appointmentId = document.getElementById("viewAppointmentId").value;
-        closeModal("viewAppointmentModal");
-        openCancelAppointmentModal(appointmentId);
-    });
+//     // Cancel appointment
+//     document.getElementById("cancelAppointmentBtn")?.addEventListener("click", () => {
+//         const appointmentId = document.getElementById("viewAppointmentId").value;
+//         closeModal("viewAppointmentModal");
+//         openCancelAppointmentModal(appointmentId);
+//     });
 
-    document.getElementById("confirmCancelAppointmentBtn")?.addEventListener("click", () => {
-        const appointmentId = document.getElementById("cancelAppointmentId").value;
-        const cancelReason = document.getElementById("cancelReason").value;
-        const appointmentIndex = appointmentsData.findIndex(a => a.id == appointmentId);
+//     document.getElementById("confirmCancelAppointmentBtn")?.addEventListener("click", () => {
+//         const appointmentId = document.getElementById("cancelAppointmentId").value;
+//         const cancelReason = document.getElementById("cancelReason").value;
+//         const appointmentIndex = appointmentsData.findIndex(a => a.id == appointmentId);
 
-        if (appointmentIndex !== -1) {
-            appointmentsData[appointmentIndex] = {
-                ...appointmentsData[appointmentIndex],
-                status: "cancelled",
-                cancelledBy: "staff",
-                cancelReason: cancelReason
-            };
-        }
+//         if (appointmentIndex !== -1) {
+//             appointmentsData[appointmentIndex] = {
+//                 ...appointmentsData[appointmentIndex],
+//                 status: "cancelled",
+//                 cancelledBy: "staff",
+//                 cancelReason: cancelReason
+//             };
+//         }
 
-        closeModal("confirmCancelAppointmentModal");
-        filterAndPaginateAppointments();
-        updateDashboardStats();
+//         closeModal("confirmCancelAppointmentModal");
+//         filterAndPaginateAppointments();
+//         updateDashboardStats();
 
-        showToast("Rendez-vous annulé avec succès", "success");
-    });
+//         showToast("Rendez-vous annulé avec succès", "success");
+//     });
 
-    // Modal controls for appointments
-    document.getElementById("closeAddAppointmentModal")?.addEventListener("click", () => {
-        closeModal("addAppointmentModal");
-    });
+//     // Modal controls for appointments
+//     document.getElementById("closeAddAppointmentModal")?.addEventListener("click", () => {
+//         closeModal("addAppointmentModal");
+//     });
 
-    document.getElementById("cancelAddAppointmentBtn")?.addEventListener("click", () => {
-        closeModal("addAppointmentModal");
-    });
+//     document.getElementById("cancelAddAppointmentBtn")?.addEventListener("click", () => {
+//         closeModal("addAppointmentModal");
+//     });
 
-    document.getElementById("closeViewAppointmentModal")?.addEventListener("click", () => {
-        closeModal("viewAppointmentModal");
-    });
+//     document.getElementById("closeViewAppointmentModal")?.addEventListener("click", () => {
+//         closeModal("viewAppointmentModal");
+//     });
 
-    document.getElementById("closeViewAppointmentModal2")?.addEventListener("click", () => {
-        closeModal("viewAppointmentModal");
-    });
+//     document.getElementById("closeViewAppointmentModal2")?.addEventListener("click", () => {
+//         closeModal("viewAppointmentModal");
+//     });
 
-    document.getElementById("dismissCancelAppointmentBtn")?.addEventListener("click", () => {
-        closeModal("confirmCancelAppointmentModal");
-    });
+//     document.getElementById("dismissCancelAppointmentBtn")?.addEventListener("click", () => {
+//         closeModal("confirmCancelAppointmentModal");
+//     });
 
-    // Action buttons
-    document.addEventListener("click", (e) => {
-        if (e.target.closest(".edit-appointment-btn")) {
-            const appointmentId = e.target.closest(".edit-appointment-btn").getAttribute("data-appointment-id");
-            openEditAppointmentModal(appointmentId);
-        }
+//     // Action buttons
+//     document.addEventListener("click", (e) => {
+//         if (e.target.closest(".edit-appointment-btn")) {
+//             const appointmentId = e.target.closest(".edit-appointment-btn").getAttribute("data-appointment-id");
+//             openEditAppointmentModal(appointmentId);
+//         }
 
-        if (e.target.closest(".cancel-appointment-btn")) {
-            const appointmentId = e.target.closest(".cancel-appointment-btn").getAttribute("data-appointment-id");
-            openCancelAppointmentModal(appointmentId);
-        }
-    });
-}
+//         if (e.target.closest(".cancel-appointment-btn")) {
+//             const appointmentId = e.target.closest(".cancel-appointment-btn").getAttribute("data-appointment-id");
+//             openCancelAppointmentModal(appointmentId);
+//         }
+//     });
+// }
 
 // ============================================
 // GESTION DES ÉVÉNEMENTS PLANNINGS
@@ -1396,17 +1493,17 @@ function setupDoctorsEvents() {
 // GESTION DU PROFIL
 // ============================================
 
-function setupProfileEvents() {
-    document.getElementById("profileForm")?.addEventListener("submit", async (e) => {
-        e.preventDefault();
+// function setupProfileEvents() {
+//     document.getElementById("profileForm")?.addEventListener("submit", async (e) => {
+//         e.preventDefault();
         
-        showToast("Profil mis à jour avec succès", "success");
-    });
+//         showToast("Profil mis à jour avec succès", "success");
+//     });
 
-    document.getElementById("cancelProfileBtn")?.addEventListener("click", () => {
-        document.getElementById("profileForm").reset();
-    });
-}
+//     document.getElementById("cancelProfileBtn")?.addEventListener("click", () => {
+//         document.getElementById("profileForm").reset();
+//     });
+// }
 
 // ============================================
 // FONCTIONS DE BASE
@@ -1480,13 +1577,13 @@ function navigateToPage(pageId) {
     // Charger les données spécifiques à la page
     switch (pageId) {
         case "dashboard":
-            updateDashboardStats();
+            // updateDashboardStats();
             break;
         case "patients":
-            filterAndPaginatePatients();
+            // filterAndPaginatePatients();
             break;
         case "appointments":
-            filterAndPaginateAppointments();
+            // filterAndPaginateAppointments();
             break;
         case "doctors":
             loadDoctorsSchedules();
@@ -1650,35 +1747,35 @@ function changeLang(lang) {
 // GESTION DES MODALES
 // ============================================
 
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove("hidden");
-        document.body.style.overflow = "hidden";
-        setTimeout(() => feather.replace(), 100);
-    }
-}
+// function openModal(modalId) {
+//     const modal = document.getElementById(modalId);
+//     if (modal) {
+//         modal.classList.remove("hidden");
+//         document.body.style.overflow = "hidden";
+//         setTimeout(() => feather.replace(), 100);
+//     }
+// }
 
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.add("hidden");
-        document.body.style.overflow = "auto";
-    }
-}
+// function closeModal(modalId) {
+//     const modal = document.getElementById(modalId);
+//     if (modal) {
+//         modal.classList.add("hidden");
+//         document.body.style.overflow = "auto";
+//     }
+// }
 
-function Avatar() {
-    const div = document.getElementById("avatar");
-    div.innerHTML = "";
+// function Avatar() {
+//     const div = document.getElementById("avatar");
+//     div.innerHTML = "";
 
-    const img = document.createElement("img");
-    img.id = "userAvatar";
-    img.className = "w-full h-full object-cover";
-    img.src = `https://ui-avatars.com/api/?name=Staff+User&background=0D8ABC&color=fff&bold=true&size=128`;
-    img.alt = "Staff User";
+//     const img = document.createElement("img");
+//     img.id = "userAvatar";
+//     img.className = "w-full h-full object-cover";
+//     img.src = `https://ui-avatars.com/api/?name=Staff+User&background=0D8ABC&color=fff&bold=true&size=128`;
+//     img.alt = "Staff User";
 
-    div.appendChild(img);
-}
+//     div.appendChild(img);
+// }
 
 // ============================================
 // INITIALISATION
@@ -1696,11 +1793,11 @@ function init() {
         handleHashChange();
     });
     
-    setupPatientsEvents();
-    setupAppointmentsEvents();
-    setupDoctorsEvents();
-    setupProfileEvents();
-    Avatar();
+    // setupPatientsEvents();
+    // setupAppointmentsEvents();
+    // setupDoctorsEvents();
+    // setupProfileEvents();
+    // Avatar();
 }
 
 function setupEventListeners() {

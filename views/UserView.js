@@ -12,6 +12,7 @@ export default class UserView {
 
     // Users table
     this.tbody = document.getElementById("usersTableBody");
+    this.ptbody = document.getElementById("patientsTableBody");
     this.paginationNumbers = document.getElementById("usersPaginationNumbers");
     this.startItem = document.getElementById("usersStartItem");
     this.endItem = document.getElementById("usersEndItem");
@@ -24,6 +25,7 @@ export default class UserView {
     this.editUser = document.getElementById("editUser");
     this.addEditEmergencyContactBtn = document.getElementById("addEditEmergencyContactBtn");
     this.editEmergencyContactsContainer = document.getElementById("editEmergencyContactsContainer");
+    this.editStaffBtn = document.getElementById("saveProfileBtn");
 
     // Filters
     this.filterRole = document.getElementById("filterRole");
@@ -50,6 +52,23 @@ export default class UserView {
     this.closeViewModal2 = document.getElementById("closeViewUserModal2");
     this.cancelDeleteBtn = document.getElementById("cancelDeleteUserBtn");
     this.editFromViewBtn = document.getElementById("editFromViewUserBtn");
+  }
+
+  getAllEditStaffElements() {
+    return {
+      email: document.getElementById("errorEditStaffEmail"),
+      phone: document.getElementById("errorEditStaffPhone"),
+      address: document.getElementById("errorEditStaffAddress")
+    };
+  }
+
+  clearAllEditStaffErrors() {
+    const errors = this.getAllEditStaffElements();
+    Object.values(errors).forEach(el => el.textContent = "");
+  }
+
+  showStaffError(el, message) {
+    if (el) el.textContent = message;
   }
 
   showError(element, message) {
@@ -208,6 +227,78 @@ export default class UserView {
     feather.replace();
   }
 
+  renderPatientTable(filteredUsersData, currentPage, usersPerPage) {
+    if (!this.ptbody) return;
+
+    const startIndex = (currentPage - 1) * usersPerPage;
+    const endIndex = Math.min(startIndex + usersPerPage, filteredUsersData.length);
+    const paginatedUsers = filteredUsersData.slice(startIndex, endIndex);
+
+    if (paginatedUsers.length === 0) {
+      this.ptbody.innerHTML = `
+        <tr>
+          <td colspan="7" class="px-6 py-12 text-center">
+            <div class="flex flex-col items-center justify-center">
+              <i data-feather="users" class="w-12 h-12 text-gray-400 mb-4"></i>
+              <span class="text-gray-500 mb-4" data-i18n="Aucun utilisateur trouvé"></span>
+              <button id="addFirstUserBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                <i data-feather="user-plus" class="w-4 h-4 inline mr-2"></i>
+                <span data-i18n="Ajouter votre premier utilisateur"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+      feather.replace();
+      return;
+    }
+
+    let html = "";
+    paginatedUsers.forEach(user => {
+      if (user.status === "active") {
+        const fullName = `${user.firstName} ${user.lastName}`;
+  
+        html += `
+          <tr class="user-row" data-user-id="${user.userId}">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                ${generatePatientCode(String(user.userId).slice(0, 3))}...
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <div class="font-medium text-gray-900">${fullName}</div>
+              <div class="text-sm text-gray-500">${user.CIN}</div>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm text-gray-900">${user.email}</div>
+              <div class="text-sm text-gray-500">${user.phoneNumber}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              ${formatDate(user.createdAt)}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex space-x-2">
+                <button class="edit-user-btn p-1 text-blue-600 hover:text-blue-800 transition-colors" title="Modifier" data-user-id="${user.userId}">
+                  <i data-feather="edit" class="w-4 h-4"></i>
+                </button>
+                <button class="view-user-btn p-1 text-green-600 hover:text-green-800 transition-colors" title="Voir détails" data-user-id="${user.userId}">
+                  <i data-feather="eye" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }
+    });
+
+    this.ptbody.innerHTML = html;
+    this.startItem.textContent = startIndex + 1;
+    this.endItem.textContent = endIndex;
+    this.totalItems.textContent = filteredUsersData.length;
+
+    feather.replace();
+  }
+
   renderPagination(filteredUsersData, currentPage, usersPerPage) {
     if (!this.paginationNumbers) return;
 
@@ -222,6 +313,15 @@ export default class UserView {
     // Disable/enable Prev/Next buttons
     if (this.prevBtn) this.prevBtn.disabled = currentPage === 1;
     if (this.nextBtn) this.nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+  }
+
+  renderCurrentStaffInfo(userData) {
+    document.getElementById("profileFirstName").value = userData.firstName;
+    document.getElementById("profileLastName").value = userData.lastName;
+    document.getElementById("profileCIN").value = userData.CIN;
+    document.getElementById("profileEmail").value = userData.email;
+    document.getElementById("profilePhone").value = userData.phoneNumber;
+    document.getElementById("profileAddress").value = userData.address;
   }
 
   getRoleInfo(role) {
@@ -256,12 +356,10 @@ export default class UserView {
     if (this.usersPerPageSelect) this.usersPerPageSelect.addEventListener("change", (e) => controller.changeUsersPerPage(e));
 
     if (this.addUserBtn) this.addUserBtn.addEventListener("click", () => openModal("addUserModal"));
-
     if (this.addUserData) this.addUserData.addEventListener("click", (e) => controller.addUserData(e, this.getUserInputData()));
-
     if (this.editUser) this.editUser.addEventListener("click", () => controller.updateUserData(this.getEditUserInputData()));
-
     if (this.confirmDeleteBtn) this.confirmDeleteBtn.addEventListener("click", () => controller.deleteUser());
+    if (this.editStaffBtn) this.editStaffBtn.addEventListener("click", (e) => controller.updateStaffData(e, this.getStaffInputData()))
 
     // if (this.addEditEmergencyContactBtn) this.addEditEmergencyContactBtn.addEventListener("click", () => this.createEmergencyContactBlock());
 
@@ -421,15 +519,24 @@ export default class UserView {
   }
 
   renderEditUserModal(user) {
-    document.getElementById("editUserFirstName").value = user.firstName;
-    document.getElementById("editUserLastName").value = user.lastName;
-    document.getElementById("editUserCIN").value = user.CIN;
-    document.getElementById("editUserEmail").value = user.email;
-    document.getElementById("editUserPhone").value = user.phoneNumber;
-    document.getElementById("editUserAddress").value = user.address || "";
-    document.getElementById("editUserRole").value = user.role;
-    document.getElementById("editUserStatus").value = user.status;
-    document.getElementById("editUserId").value = user.userId;
+    const firstName = document.getElementById("editUserFirstName");
+    if (firstName) firstName.value = user.firstName;
+    const lastName = document.getElementById("editUserLastName");
+    if (lastName) lastName.value = user.lastName;
+    const cin = document.getElementById("editUserCIN");
+    if (cin) cin.value = user.CIN;
+    const email = document.getElementById("editUserEmail");
+    if (email) email.value = user.email;
+    const phone = document.getElementById("editUserPhone");
+    if (phone) phone.value = user.phoneNumber;
+    const address = document.getElementById("editUserAddress");
+    if (address) address.value = user.address || "";
+    const role = document.getElementById("editUserRole");
+    if (role) role.value = user.role;
+    const status = document.getElementById("editUserStatus");
+    if (status) status.value = user.status;
+    const id = document.getElementById("editUserId");
+    if (id) id.value = user.userId;
 
     // ===== Emergency Contacts =====
     this.editEmergencyContactsContainer.innerHTML = "";
@@ -461,15 +568,29 @@ export default class UserView {
     openModal("deleteUserModal");
   }
 
+  getStaffInputData() {
+    const CIN = document.getElementById("profileCIN").value;
+    const email = document.getElementById("profileEmail").value;
+    const phoneNumber = document.getElementById("profilePhone").value;
+    const address = document.getElementById("profileAddress").value;
+
+    return {
+      CIN,
+      email,
+      phoneNumber,
+      address
+    }
+  }
+
   getUserInputData() {
       const CIN = document.getElementById("addUserCIN").value;
       const firstName = document.getElementById("addUserFirstName").value;
       const lastName = document.getElementById("addUserLastName").value;
       const email = document.getElementById("addUserEmail").value;
       const phoneNumber = document.getElementById("addUserPhone").value;
-      const role = document.getElementById("addUserRole").value;
-      const password = document.getElementById("addUserPassword").value;
-      const confirmPassword = document.getElementById("addUserConfirmPassword").value;
+      const role = document.getElementById("addUserRole")?.value || "patient";
+      const password = document.getElementById("addUserPassword")?.value || "";
+      const confirmPassword = document.getElementById("addUserConfirmPassword")?.value || "";
       const address = document.getElementById("addUserAddress").value;
 
       // ===== Retrieve Emergency Contacts =====
@@ -522,8 +643,8 @@ export default class UserView {
           lastName: document.getElementById("editUserLastName").value.trim(),
           CIN: document.getElementById("editUserCIN").value.trim(),
           phoneNumber: document.getElementById("editUserPhone").value.trim(),
-          role: document.getElementById("editUserRole").value,
-          status: document.getElementById("editUserStatus").value,
+          role: document.getElementById("editUserRole")?.value || "patient",
+          status: document.getElementById("editUserStatus")?.value || "active",
           email: document.getElementById("editUserEmail").value.trim(),
           address: document.getElementById("editUserAddress").value.trim(),
           emergencyContacts

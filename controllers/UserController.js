@@ -12,17 +12,24 @@ export default class UserController {
     this.currentUsersPage = 1;
     this.usersPerPage = 10;
     this.currentEditingUserId = null;
+    this.session = Storage.load("Session");
 
     // Initialize
-    this.view.renderCurrUserInfo(Storage.load("Session"));
-    this.view.renderAvatar(Storage.load("Session"));
+    this.view.renderCurrUserInfo(this.session);
+    this.view.renderAvatar(this.session);
     this.view.setupEvents(this);
 
     this.renderUsers();
   }
 
   renderUsers() {
-    this.view.renderUsersTable(this.filteredUsersData, this.currentUsersPage, this.usersPerPage);
+    if (this.session.role === "admin") {
+      this.view.renderUsersTable(this.filteredUsersData, this.currentUsersPage, this.usersPerPage);
+    }
+    if (this.session.role === "staff") {
+        this.view.renderPatientTable([...User.getAllUsers("patient")], this.currentUsersPage, this.usersPerPage);
+        this.view.renderCurrentStaffInfo(User.getUserByCIN(this.session.CIN));
+    }
     this.view.renderPagination(this.filteredUsersData, this.currentUsersPage, this.usersPerPage);
   }
 
@@ -62,8 +69,6 @@ export default class UserController {
     const isValidPhone = str => /^\+?\d{6,15}$/.test(str.replace(/\s+/g, ''));
 
     let isValid = true;
-
-    console.log(errors);
 
     // ===== User Fields =====
     // First Name
@@ -109,7 +114,7 @@ export default class UserController {
     }
 
     // Password (if not patient)
-    if (userData.role !== "patient") {
+    if (userData.role !== "patient" || !userData.role) {
         if (!userData.password) {
             this.view.showError(errors.password, "Le mot de passe est requis.");
             isValid = false;
@@ -272,6 +277,39 @@ export default class UserController {
       return isValid;
   }
 
+  validateStaffEdit(staffData) {
+    const errors = this.view.getAllEditStaffElements();
+      this.view.clearAllEditStaffErrors();
+
+      const isValidEmail = str => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+      const isValidPhone = str => /^\+?\d{6,15}$/.test(str.replace(/\s+/g, ''));
+
+      let isValid = true;
+
+      if (!staffData.email) {
+          this.view.showStaffError(errors.email, "L'email est requis.");
+          isValid = false;
+      } else if (!isValidEmail(staffData.email)) {
+          this.view.showStaffError(errors.email, "Email invalide.");
+          isValid = false;
+      }
+
+      if (!staffData.phoneNumber) {
+          this.view.showStaffError(errors.phone, "Le numéro de téléphone est requis.");
+          isValid = false;
+      } else if (!isValidPhone(staffData.phoneNumber)) {
+          this.view.showStaffError(errors.phone, "Numéro de téléphone invalide.");
+          isValid = false;
+      }
+
+      if (!staffData.address) {
+          this.view.showStaffError(errors.address, "L'adresse est requise.");
+          isValid = false;
+      }
+
+      return isValid;
+  }
+
   addUserData(e, userData) {
       e.preventDefault();
 
@@ -294,6 +332,16 @@ export default class UserController {
       User.updateUserInfo(this.currentEditingUserId, userWithoutId);
 
       closeModal("editUserModal");
+  }
+
+  updateStaffData(e, staffData) {
+    e.preventDefault();
+
+    if (!this.validateStaffEdit(staffData)) return;
+
+    User.updateByCIN(staffData.CIN, staffData);
+
+    window.location.reload();
   }
 
   deleteUser() {
