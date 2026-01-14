@@ -198,7 +198,7 @@ export default class UserView {
   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
     roleInfo.color
   }">
-    <i data-feather="${roleInfo.icon}" class="w-3 h-3 mr-1"></i>
+    <i data-feather="${roleInfo.icon}" class="w-3 h-3 mr-1 rtl:ml-1"></i>
     ${
       roleInfo.text === "Administrateur"
         ? localStorage.getItem("lang") === "ar"
