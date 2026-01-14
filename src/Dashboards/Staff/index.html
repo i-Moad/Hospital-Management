@@ -18,52 +18,79 @@
     <title>Staff Dashboard - EMSI Health</title>
     <style>
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
-        
+
         @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
-        
+
         .modal-animation {
             animation: fadeIn 0.3s ease-out;
         }
-        
+
         .modal-content-animation {
             animation: slideIn 0.3s ease-out;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 3px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: #c1c1c1;
             border-radius: 3px;
         }
-        
+
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #a1a1a1;
         }
-        
+
         .status-badge {
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
             font-size: 0.875rem;
             font-weight: 500;
         }
-        
-        .status-confirmed { background-color: #d1fae5; color: #065f46; }
-        .status-pending { background-color: #fef3c7; color: #92400e; }
-        .status-cancelled { background-color: #fee2e2; color: #991b1b; }
-        .status-completed { background-color: #dbeafe; color: #1e40af; }
+
+        .status-confirmed {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-cancelled {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-completed {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
     </style>
 </head>
 
@@ -82,7 +109,8 @@
 
                     <!-- Logo -->
                     <a href="#" class="flex items-center ml-2">
-                        <img id="logoImage" src="../../../../assets/png/logoEmsiHealth4.png" alt="EMSI Health" width="150px" />
+                        <img id="logoImage" src="../../../../assets/png/logoEmsiHealth4.png" alt="EMSI Health"
+                            width="150px" />
                     </a>
 
                     <!-- Sélecteur de langue -->
@@ -105,7 +133,8 @@
                     <button id="userDropdownButton"
                         class="flex items-center space-x-3 p-1 pr-3 bg-white border border-gray-200 rounded-2xl hover:shadow-md transition-all duration-200">
                         <div class="relative">
-                            <div class="w-9 h-9 rounded-full overflow-hidden border-2 border-white shadow-md" id="avatar">
+                            <div class="w-9 h-9 rounded-full overflow-hidden border-2 border-white shadow-md"
+                                id="avatar">
                             </div>
                             <div id="userStatus"
                                 class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full">
@@ -121,21 +150,16 @@
 
                     <!-- Menu dropdown utilisateur -->
                     <div id="userDropdownMenu"
-                        class="absolute right-0 top-12 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform -translate-y-2">
+                        class="absolute right-0 rtl:left-0 top-20 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform -translate-y-2">
                         <div class="py-2">
                             <div class="px-4 py-3 border-b border-gray-100">
                                 <p id="dropdownUserName" class="text-sm font-semibold text-gray-800">Staff User</p>
                                 <p id="dropdownUserEmail" class="text-xs text-gray-500 mt-1">staff@emsihealth.com</p>
                             </div>
-                            <a href="#" id="profileLink"
+                            <a href="#profile" id="profileLink"
                                 class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                 <i data-feather="user" class="w-4 h-4 mr-3"></i>
                                 <span data-i18n="Mon Profil"></span>
-                            </a>
-                            <a href="#" id="settingsLink"
-                                class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
-                                <i data-feather="settings" class="w-4 h-4 mr-3"></i>
-                                <span data-i18n="Paramètres"></span>
                             </a>
                             <div class="border-t border-gray-100 my-1"></div>
                             <a href="#" id="logout"
@@ -170,8 +194,7 @@
                         data-page="patients">
                         <i data-feather="users"
                             class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-blue-600"></i>
-                        <span class="flex-1 ml-3 rtl:mr-3 whitespace-nowrap"
-                            data-i18n="Gestion des Patients"></span>
+                        <span class="flex-1 ml-3 rtl:mr-3 whitespace-nowrap" data-i18n="Gestion des Patients"></span>
                     </a>
                 </li>
                 <li>
@@ -207,46 +230,54 @@
 
             <!-- Dashboard Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+                <div class="bg-white rounded-lg p-6
+    shadow-[8px_8px_0_0_#000]
+    transition-all duration-300 ease-out
+    hover:shadow-[2px_2px_0_0_#000]
+    hover:-translate-x-1 hover:-translate-y-1">
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Total des Patients"></div>
                     <div id="totalPatients" class="text-2xl font-bold text-gray-900 mb-2">-</div>
-                    <!-- <div class="flex items-center text-sm text-green-600">
-                        <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                        <span id="patientsEvolution">+0 cette semaine</span>
-                    </div> -->
                 </div>
-                <!-- <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-                    <div class="text-sm text-gray-500 mb-2" data-i18n="Rendez-vous Aujourd'hui"></div>
-                    <div id="todayAppointments" class="text-2xl font-bold text-gray-900 mb-2">0</div>
-                    <div class="flex items-center text-sm text-blue-600">
-                        <i data-feather="calendar" class="w-4 h-4 mr-1"></i>
-                        <span id="todayAppointmentsInfo">Aucun aujourd'hui</span>
-                    </div>
-                </div> -->
-                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+
+                <div class="bg-white rounded-lg p-6
+    shadow-[8px_8px_0_0_#000]
+    transition-all duration-300 ease-out
+    hover:shadow-[2px_2px_0_0_#000]
+    hover:-translate-x-1 hover:-translate-y-1">
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Rendez-vous en Attente"></div>
                     <div id="pendingAppointments" class="text-2xl font-bold text-gray-900 mb-2">-</div>
-                    <!-- <div class="flex items-center text-sm text-yellow-600">
-                        <i data-feather="clock" class="w-4 h-4 mr-1"></i>
-                        <span id="pendingAppointmentsInfo">À confirmer</span>
-                    </div> -->
                 </div>
-                <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+
+                <div class="bg-white rounded-lg p-6
+    shadow-[8px_8px_0_0_#000]
+    transition-all duration-300 ease-out
+    hover:shadow-[2px_2px_0_0_#000]
+    hover:-translate-x-1 hover:-translate-y-1">
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Rendez-vous Confirmés"></div>
                     <div id="confirmedAppointments" class="text-2xl font-bold text-gray-900 mb-2">-</div>
-                    <!-- <div class="flex items-center text-sm text-green-600">
-                        <i data-feather="check-circle" class="w-4 h-4 mr-1"></i>
-                        <span id="confirmedAppointmentsInfo">Confirmés</span>
-                    </div> -->
                 </div>
             </div>
-            
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- Line chart Patients -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <canvas id="patientsChart" width="400" height="200"></canvas>
+  </div>
+
+  <!-- Bar chart Appointments -->
+  <div class="bg-white p-6 rounded-lg shadow">
+    <canvas id="appointmentsChart" width="400" height="200"></canvas>
+  </div>
+</div>
+
+
+
         </div>
 
         <!-- Patients Content -->
         <div id="page-patients" class="page-content hidden">
             <div class="page-header mb-6">
-                <h1 id="patientsTitle" class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Gestion des Patients"></h1>
+                <h1 id="patientsTitle" class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Gestion des Patients">
+                </h1>
                 <p id="patientsSubtitle" class="text-gray-600" data-i18n="Enregistrez et gérez les patients"></p>
             </div>
 
@@ -258,15 +289,17 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Rechercher"></label>
                             <div class="relative">
-                                <i data-feather="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
-                                <input type="text" id="searchPatients" data-i18n-placeholder="Nom, CIN, téléphone..." 
-                                    class="pl-10 px-3 py-2 border border-gray-300 rounded-lg text-sm w-64">
+                                <i data-feather="search"
+                                    class="absolute left-3 top-7 rtl:right-3 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <input type="text" id="searchPatients" data-i18n-placeholder="Nom, CIN, téléphone..."
+                                    class="pl-10 rtl:pr-10 px-3 py-2 border border-gray-300 rounded-lg text-sm w-64">
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Add Button -->
-                    <button id="addUserBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center self-start">
+                    <button id="addUserBtn"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center self-start">
                         <i data-feather="user-plus" class="w-4 h-4 mr-2"></i>
                         <span data-i18n="Enregistrer un patient"></span>
                     </button>
@@ -279,36 +312,45 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="ID"></th>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Patient"></th>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Contact"></th>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Date d'enregistrement"></th>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Actions"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="ID"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Patient"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Contact"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Date d'enregistrement"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions"></th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200" id="patientsTableBody">
                         </tbody>
                     </table>
                 </div>
-                
+
                 <!-- Pagination -->
                 <div class="px-6 py-4 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between">
                     <div class="text-sm text-gray-700 mb-4 md:mb-0">
-                        <span data-i18n="Affichage de"></span> 
-                        <span id="usersStartItem">0</span> 
-                        <span data-i18n="à"></span> 
-                        <span id="usersEndItem">0</span> 
-                        <span data-i18n="sur"></span> 
-                        <span id="usersTotalItems">0</span> 
+                        <span data-i18n="Affichage de"></span>
+                        <span id="usersStartItem">0</span>
+                        <span data-i18n="à"></span>
+                        <span id="usersEndItem">0</span>
+                        <span data-i18n="sur"></span>
+                        <span id="usersTotalItems">0</span>
                         <span data-i18n="patients"></span>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <button id="prevUsersPage" class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <button id="prevUsersPage"
+                            class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
                             <i data-feather="chevron-left" class="w-4 h-4"></i>
                         </button>
                         <div id="usersPaginationNumbers" class="flex space-x-1">
                         </div>
-                        <button id="nextUsersPage" class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <button id="nextUsersPage"
+                            class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
                             <i data-feather="chevron-right" class="w-4 h-4"></i>
                         </button>
                         <div class="ml-4 flex items-center">
@@ -339,15 +381,16 @@
                         <!-- Date Filter -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Date"></label>
-                            <input type="date" id="filterDate" 
+                            <input type="date" id="filterDate"
                                 class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
                         </div>
-                        
+
                         <!-- Status Filter -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="Statut"></label>
-                            <select id="filterAppointmentStatus" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
-                                <option value="" data-i18n="Tous les statuts"></option>
+                            <select id="filterAppointmentStatus"
+                                class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                                <option value="" data-i18n="Tous les status"></option>
                                 <option value="confirmed" data-i18n="Confirmé"></option>
                                 <option value="pending" data-i18n="En_attente"></option>
                                 <option value="cancelled" data-i18n="Annulé"></option>
@@ -355,9 +398,10 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <!-- Add Button -->
-                    <button id="addAppointmentBtn" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+                    <button id="addAppointmentBtn"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center">
                         <i data-feather="calendar" class="w-4 h-4 mr-2"></i>
                         <span data-i18n="Nouveau rendez-vous"></span>
                     </button>
@@ -370,37 +414,47 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="ID"></th>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Patient"></th>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Médecin"></th>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Date & Heure"></th>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Statut"></th>
-                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider" data-i18n="Actions"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="ID"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Patient"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Médecin"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Date & Heure"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Statut"></th>
+                                <th class="px-6 py-3 text-left rtl:text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    data-i18n="Actions"></th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200" id="appointmentsTableBody">
                         </tbody>
                     </table>
                 </div>
-                
+
                 <!-- Pagination -->
                 <div class="px-6 py-4 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between">
                     <div class="text-sm text-gray-700 mb-4 md:mb-0">
-                        <span data-i18n="Affichage de"></span> 
-                        <span id="appointmentsStartItem">0</span> 
-                        <span data-i18n="à"></span> 
-                        <span id="appointmentsEndItem">0</span> 
-                        <span data-i18n="sur"></span> 
-                        <span id="appointmentsTotalItems">0</span> 
+                        <span data-i18n="Affichage de"></span>
+                        <span id="appointmentsStartItem">0</span>
+                        <span data-i18n="à"></span>
+                        <span id="appointmentsEndItem">0</span>
+                        <span data-i18n="sur"></span>
+                        <span id="appointmentsTotalItems">0</span>
                         <span data-i18n="rendez-vous"></span>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <button id="prevAppointmentsPage" class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <button id="prevAppointmentsPage"
+                            class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
                             <i data-feather="chevron-left" class="w-4 h-4"></i>
                         </button>
                         <div id="appointmentsPaginationNumbers" class="flex space-x-1">
                         </div>
-                        <button id="nextAppointmentsPage" class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <button id="nextAppointmentsPage"
+                            class="px-3 py-1 border border-gray-300 rounded text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
                             <i data-feather="chevron-right" class="w-4 h-4"></i>
                         </button>
                         <div class="ml-4 flex items-center">
@@ -463,7 +517,7 @@
                 <h1 class="text-3xl font-bold text-gray-900 mb-2" data-i18n="Mon Profil"></h1>
                 <p class="text-gray-600" data-i18n="Gérez vos informations personnelles"></p>
             </div>
-            
+
             <div class="bg-white rounded-lg shadow p-6">
                 <form id="profileForm" class="space-y-6">
                     <div>
@@ -474,7 +528,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-2">
                             <label for="profileFirstName" class="flex items-center text-sm font-medium text-gray-700">
-                                <i data-feather="user" class="w-4 h-4 mr-2 text-gray-500"></i>
+                                <i data-feather="user" class="w-4 h-4 mr-2 rtl:ml-2text-gray-500"></i>
                                 <span data-i18n="Prénom"></span>
                             </label>
                             <input type="text" name="firstName" id="profileFirstName"
@@ -484,7 +538,7 @@
 
                         <div class="space-y-2">
                             <label for="profileLastName" class="flex items-center text-sm font-medium text-gray-700">
-                                <i data-feather="user" class="w-4 h-4 mr-2 text-gray-500"></i>
+                                <i data-feather="user" class="w-4 h-4 mr-2 rtl:ml-2text-gray-500"></i>
                                 <span data-i18n="Nom"></span>
                             </label>
                             <input type="text" name="lastName" id="profileLastName"
@@ -496,7 +550,7 @@
                     <!-- CIN -->
                     <div class="space-y-2">
                         <label for="profileCIN" class="flex items-center text-sm font-medium text-gray-700">
-                            <i data-feather="credit-card" class="w-4 h-4 mr-2 text-gray-500"></i>
+                            <i data-feather="credit-card" class="w-4 h-4 mr-2 rtl:ml-2text-gray-500"></i>
                             <span data-i18n="CIN"></span>
                         </label>
                         <input type="text" name="cin" id="profileCIN"
@@ -507,7 +561,7 @@
                     <!-- Email -->
                     <div class="space-y-2">
                         <label for="profileEmail" class="flex items-center text-sm font-medium text-gray-700">
-                            <i data-feather="mail" class="w-4 h-4 mr-2 text-gray-500"></i>
+                            <i data-feather="mail" class="w-4 h-4 mr-2 rtl:ml-2text-gray-500"></i>
                             <span data-i18n="Email"></span>
                         </label>
                         <input type="email" name="email" id="profileEmail"
@@ -518,7 +572,7 @@
                     <!-- Téléphone -->
                     <div class="space-y-2">
                         <label for="profilePhone" class="flex items-center text-sm font-medium text-gray-700">
-                            <i data-feather="phone" class="w-4 h-4 mr-2 text-gray-500"></i>
+                            <i data-feather="phone" class="w-4 h-4 mr-2 rtl:ml-2text-gray-500"></i>
                             <span data-i18n="Téléphone"></span>
                         </label>
                         <input type="text" name="phone" id="profilePhone"
@@ -529,14 +583,14 @@
                     <!-- Adresse -->
                     <div class="space-y-2">
                         <label for="profileAddress" class="flex items-center text-sm font-medium text-gray-700">
-                            <i data-feather="map-pin" class="w-4 h-4 mr-2 text-gray-500"></i>
+                            <i data-feather="map-pin" class="w-4 h-4 mr-2 rtl:ml-2text-gray-500"></i>
                             <span data-i18n="Adresse"></span>
                         </label>
                         <textarea name="address" id="profileAddress" rows="3"
                             class="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"></textarea>
-                            <p id="errorEditStaffAddress" class="text-red-600 ml-2 text-sm mt-2"></p>
+                        <p id="errorEditStaffAddress" class="text-red-600 ml-2 text-sm mt-2"></p>
                     </div>
-                    
+
                     <!-- Boutons d'action -->
                     <div class="pt-4 border-t border-gray-200 flex justify-end space-x-3">
                         <button type="submit" id="saveProfileBtn"
@@ -554,13 +608,16 @@
         <!-- ============================================ -->
 
         <!-- Add Patient Modal -->
-        <div id="addUserModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
-            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+        <div id="addUserModal"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div
+                class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900" data-i18n="Enregistrer un patient"></h2>
-                            <p class="text-sm text-gray-600 mt-1" data-i18n="Remplissez les informations du patient"></p>
+                            <p class="text-sm text-gray-600 mt-1" data-i18n="Remplissez les informations du patient">
+                            </p>
                         </div>
                         <button id="closeAddPatientModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
@@ -573,7 +630,8 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Prénom"></label>
                                 <div class="relative">
-                                    <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="user"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="text" id="addUserFirstName"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="Entrez le prénom">
@@ -585,7 +643,8 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Nom"></label>
                                 <div class="relative">
-                                    <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="user"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="text" id="addUserLastName"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="Entrez le nom">
@@ -597,7 +656,8 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="CIN"></label>
                                 <div class="relative">
-                                    <i data-feather="credit-card" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="credit-card"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="text" id="addUserCIN"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="Entrez le CIN">
@@ -609,7 +669,8 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Email"></label>
                                 <div class="relative">
-                                    <i data-feather="mail" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="mail"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="email" id="addUserEmail"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="email@exemple.com">
@@ -623,14 +684,15 @@
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-gray-700" data-i18n="Téléphone"></label>
                             <div class="relative">
-                                <i data-feather="phone" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <i data-feather="phone"
+                                    class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                 <input type="text" id="addUserPhone"
                                     class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                    data-i18n-placeholder="+212 600-000000" >
+                                    data-i18n-placeholder="+212 600-000000">
                                 <p id="errorAddPhone" class="text-red-600 ml-2 text-sm mt-2"></p>
                             </div>
                         </div>
-                            
+
                         <!-- Address -->
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-gray-700" data-i18n="Adresse"></label>
@@ -643,7 +705,7 @@
                             </div>
                         </div>
 
-                                                <!-- Add Emergency Contact Button -->
+                        <!-- Add Emergency Contact Button -->
                         <div class="pt-4">
                             <button type="button" id="addEmergencyContactBtn"
                                 class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center mb-4">
@@ -674,8 +736,10 @@
         </div>
 
         <!-- View User Modal -->
-        <div id="viewUserModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
-            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+        <div id="viewUserModal"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div
+                class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
                 <div class="p-6">
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
@@ -694,13 +758,12 @@
                         <!-- Personal Info -->
                         <div class="space-y-4">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center">
-                                <i data-feather="user" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <i data-feather="user" class="w-5 h-5 mr-2 rtl:ml-2text-blue-600"></i>
                                 <span data-i18n="Informations Personnelles"></span>
                             </h3>
                             <div class="space-y-3">
                                 <div>
-                                    <label class="text-sm font-medium text-gray-500"
-                                        data-i18n="User Id">User Id</label>
+                                    <label class="text-sm font-medium text-gray-500" data-i18n="User Id"></label>
                                     <p id="viewUserId" class="text-gray-900 font-bold text-[.85rem]">-</p>
                                 </div>
                                 <div>
@@ -717,7 +780,7 @@
                         <!-- Contact Info -->
                         <div class="space-y-4">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center">
-                                <i data-feather="mail" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <i data-feather="mail" class="w-5 h-5 mr-2 rtl:ml-2text-blue-600"></i>
                                 <span data-i18n="Contact"></span>
                             </h3>
                             <div class="space-y-3">
@@ -739,19 +802,21 @@
                         <!-- Account Info -->
                         <div class="space-y-4">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center">
-                                <i data-feather="shield" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <i data-feather="shield" class="w-5 h-5 mr-2 rtl:ml-2text-blue-600"></i>
                                 <span data-i18n="Compte"></span>
                             </h3>
                             <div class="space-y-3">
                                 <div>
                                     <label class="text-sm font-medium text-gray-500" data-i18n="Rôle"></label>
-                                    <span id="viewUserRole" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                    <span id="viewUserRole"
+                                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                                         -
                                     </span>
                                 </div>
                                 <div>
                                     <label class="text-sm font-medium text-gray-500" data-i18n="Statut"></label>
-                                    <span id="viewUserStatus" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                    <span id="viewUserStatus"
+                                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                                         <i data-feather="check-circle" class="w-4 h-4 mr-1"></i>
                                         -
                                     </span>
@@ -767,7 +832,7 @@
                         <!-- Emergency Contacts Info -->
                         <div class="space-y-4">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center">
-                                <i data-feather="phone" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                <i data-feather="phone" class="w-5 h-5 mr-2 rtl:ml-2text-blue-600"></i>
                                 <span data-i18n="Emergency Contacts">Emergency Contacts</span>
                             </h3>
 
@@ -796,8 +861,10 @@
         </div>
 
         <!-- Edit User Modal -->
-        <div id="editUserModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
-            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+        <div id="editUserModal"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div
+                class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
                 <div class="p-6">
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
@@ -843,7 +910,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Right Column -->
                             <div class="space-y-4">
                                 <!-- CIN -->
@@ -902,14 +969,14 @@
                         <!-- Emergency Contacts -->
                         <div class="space-y-4">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center justify-between">
-                                <span class="flex items-center">
-                                    <i data-feather="users" class="w-5 h-5 mr-2 text-blue-600"></i>
-                                    Emergency Contacts
+                                <span class="flex items-center" data-i18n="Emergency Contacts">
+                                    <i data-feather="users" class="w-5 h-5 mr-2 rtl:ml-2text-blue-600"></i>
+
                                 </span>
 
-                                <button id="addEditEmergencyContactBtn"
-                                    class="text-sm text-blue-600 hover:underline">
-                                    + Add
+                                <button id="addEditEmergencyContactBtn" class="text-sm text-blue-600 hover:underline"
+                                    data-i18n="Ajouter">
+
                                 </button>
                             </h3>
 
@@ -938,15 +1005,18 @@
         </div>
 
         <!-- Add Appointment Modal -->
-        <div id="addAppointmentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
-            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+        <div id="addAppointmentModal"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div
+                class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900" data-i18n="Nouveau rendez-vous"></h2>
                             <p class="text-sm text-gray-600 mt-1" data-i18n="Créez un nouveau rendez-vous"></p>
                         </div>
-                        <button id="closeAddAppointmentModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <button id="closeAddAppointmentModal"
+                            class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
                         </button>
                     </div>
@@ -956,10 +1026,10 @@
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-gray-700" data-i18n="Patient"></label>
                             <div class="relative">
-                                <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <i data-feather="user"
+                                    class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                 <select id="addAppointmentPatient"
-                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                    >
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                     <option value="" data-i18n="Sélectionnez un patient"></option>
                                 </select>
                                 <p id="errorAddPatient" class="text-red-600 ml-2 text-sm mt-2"></p>
@@ -970,10 +1040,10 @@
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-gray-700" data-i18n="Médecin"></label>
                             <div class="relative">
-                                <i data-feather="user-check" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <i data-feather="user-check"
+                                    class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                 <select id="addAppointmentDoctor"
-                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                    >
+                                    class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                     <option value="" data-i18n="Sélectionnez un médecin"></option>
                                 </select>
                                 <p id="errorAddDoctor" class="text-red-600 ml-2 text-sm mt-2"></p>
@@ -985,10 +1055,10 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Date"></label>
                                 <div class="relative">
-                                    <i data-feather="calendar" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="calendar"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="date" id="addAppointmentDate"
-                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                        >
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                     <p id="errorAddDate" class="text-red-600 ml-2 text-sm mt-2"></p>
                                 </div>
                             </div>
@@ -997,11 +1067,11 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Heure"></label>
                                 <div class="relative">
-                                    <i data-feather="clock" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="clock"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <select id="addAppointmentTime"
-                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                                        >
-                                        <option value="">Sélectionnez une heure</option>
+                                        class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                        <option value="" data-i18n="Sélectionnez une heure"></option>
                                         <option value="10:00">10:00</option>
                                         <option value="11:00">11:00</option>
                                         <option value="12:00">12:00</option>
@@ -1036,15 +1106,18 @@
         </div>
 
         <!-- View/Edit Appointment Modal -->
-        <div id="viewAppointmentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
-            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
+        <div id="viewAppointmentModal"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+            <div
+                class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto modal-content-animation">
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
                         <div>
                             <h2 class="text-2xl font-bold text-gray-900" data-i18n="Détails du rendez-vous"></h2>
                             <p class="text-sm text-gray-600 mt-1" data-i18n="Informations du rendez-vous"></p>
                         </div>
-                        <button id="closeViewAppointmentModal" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                        <button id="closeViewAppointmentModal"
+                            class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                             <i data-feather="x" class="w-5 h-5 text-gray-500"></i>
                         </button>
                     </div>
@@ -1055,7 +1128,8 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Patient"></label>
                                 <div class="relative">
-                                    <i data-feather="user" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="user"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="text" id="viewAppointmentPatient"
                                         class="pl-10 w-full bg-gray-200 text-gray-500 cursor-not-allowed px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         data-i18n-placeholder="Entrez le prénom" readonly disabled>
@@ -1066,7 +1140,8 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Médecin"></label>
                                 <div class="relative">
-                                    <i data-feather="user-check" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="user-check"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <select id="viewAppointmentDoctor"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
                                     </select>
@@ -1077,7 +1152,8 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Date"></label>
                                 <div class="relative">
-                                    <i data-feather="calendar" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="calendar"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <input type="date" id="viewAppointmentDate"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         required>
@@ -1089,7 +1165,8 @@
                             <div class="space-y-2">
                                 <label class="text-sm font-medium text-gray-700" data-i18n="Heure"></label>
                                 <div class="relative">
-                                    <i data-feather="clock" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                    <i data-feather="clock"
+                                        class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                     <select id="viewAppointmentTime"
                                         class="pl-10 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                                         required>
@@ -1123,13 +1200,14 @@
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-gray-700" data-i18n="Statut"></label>
                             <div class="relative">
-                                <i data-feather="activity" class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                                <i data-feather="activity"
+                                    class="absolute left-3 top-8 transform -translate-y-1/2 w-5 h-5 text-gray-400"></i>
                                 <select id="viewAppointmentStatus" disabled aria-readonly="true"
                                     class="pl-10 w-full bg-gray-200 text-gray-500 cursor-not-allowed px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
-                                    <option value="pending">En attente</option>
-                                    <option value="confirmed">Confirmé</option>
-                                    <option value="cancelled">Annulé</option>
-                                    <option value="completed">Terminé</option>
+                                    <option value="pending" data-i18n="En attente"></option>
+                                    <option value="confirmed" data-i18n="Confirmé"></option>
+                                    <option value="cancelled" data-i18n="Annulé"></option>
+                                    <option value="completed" data-i18n="Terminé"></option>
                                 </select>
                             </div>
                         </div>
@@ -1146,7 +1224,7 @@
                             </button>
                             <button type="button" id="cancelAppointmentBtn"
                                 class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center">
-                                <i data-feather="x-circle" class="w-4 h-4 mr-2"></i>
+                                <i data-feather="x-circle" class="w-4 h-4 mr-2 rtl:ml-2rtl:ml-2"></i>
                                 <span data-i18n="Annuler le RDV"></span>
                             </button>
                             <button type="submit"
@@ -1162,7 +1240,8 @@
 
 
         <!-- Confirm Cancel Appointment Modal -->
-        <div id="confirmCancelAppointmentModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
+        <div id="confirmCancelAppointmentModal"
+            class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 p-4 grid place-items-center modal-animation">
             <div class="bg-white rounded-xl shadow-2xl w-full max-w-md modal-content-animation">
                 <div class="p-6">
                     <!-- Warning Icon -->
@@ -1175,8 +1254,7 @@
                     <!-- Header -->
                     <div class="text-center mb-6">
                         <h2 class="text-2xl font-bold text-gray-900" data-i18n="Annuler le rendez-vous"></h2>
-                        <p class="text-gray-600 mt-2"
-                            data-i18n="Êtes-vous sûr de vouloir annuler ce rendez-vous ?">
+                        <p class="text-gray-600 mt-2" data-i18n="Êtes-vous sûr de vouloir annuler ce rendez-vous ?">
                         </p>
                     </div>
 
@@ -1191,7 +1269,8 @@
 
                     <!-- Reason -->
                     <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2" data-i18n="Raison de l'annulation"></label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2"
+                            data-i18n="Raison de l'annulation"></label>
                         <textarea id="cancelReason" rows="3"
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                             placeholder="Optionnel"></textarea>
@@ -1221,4 +1300,5 @@
     <script type="module" src="../../main.js"></script>
     <script src="./script.js"></script>
 </body>
+
 </html>

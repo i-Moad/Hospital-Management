@@ -127,12 +127,39 @@ export default class AppointmentView {
           </td>
 
           <!-- Status -->
-          <td class="px-6 py-4 whitespace-nowrap">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-              ${statusClasses[a.status] || "bg-gray-100 text-gray-800"}">
-              ${a.status}
-            </span>
-          </td>
+<td class="px-6 py-4 whitespace-nowrap">
+  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+    ${statusClasses[a.status] || "bg-gray-100 text-gray-800"}">
+    ${
+      a.status === "pending"
+        ? localStorage.getItem("lang") === "ar"
+          ? "قيد الانتظار"
+          : localStorage.getItem("lang") === "en"
+          ? "Pending"
+          : "En attente"
+        : a.status === "confirmed"
+        ? localStorage.getItem("lang") === "ar"
+          ? "مؤكد"
+          : localStorage.getItem("lang") === "en"
+          ? "Confirmed"
+          : "Confirmé"
+        : a.status === "cancelled"
+        ? localStorage.getItem("lang") === "ar"
+          ? "ملغى"
+          : localStorage.getItem("lang") === "en"
+          ? "Cancelled"
+          : "Annulé"
+        : a.status === "completed"
+        ? localStorage.getItem("lang") === "ar"
+          ? "مكتمل"
+          : localStorage.getItem("lang") === "en"
+          ? "Completed"
+          : "Terminé"
+        : a.status
+    }
+  </span>
+</td>
+
 
           <!-- Actions -->
           <td class="px-6 py-4 whitespace-nowrap">
