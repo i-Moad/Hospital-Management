@@ -127,16 +127,16 @@
                                 <p id="dropdownUserName" class="text-sm font-semibold text-gray-800">Staff User</p>
                                 <p id="dropdownUserEmail" class="text-xs text-gray-500 mt-1">staff@emsihealth.com</p>
                             </div>
-                            <a href="#" id="profileLink"
+                            <a href="#profile" id="profileLink"
                                 class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                 <i data-feather="user" class="w-4 h-4 mr-3"></i>
                                 <span data-i18n="Mon Profil"></span>
                             </a>
-                            <a href="#" id="settingsLink"
+                            <!--<a href="#" id="settingsLink"
                                 class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
                                 <i data-feather="settings" class="w-4 h-4 mr-3"></i>
                                 <span data-i18n="Paramètres"></span>
-                            </a>
+                            </a>-->
                             <div class="border-t border-gray-100 my-1"></div>
                             <a href="#" id="logout"
                                 class="flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors">
@@ -211,36 +211,44 @@
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Total des Patients"></div>
                     <div id="totalPatients" class="text-2xl font-bold text-gray-900 mb-2">-</div>
                     <!-- <div class="flex items-center text-sm text-green-600">
-                        <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
-                        <span id="patientsEvolution">+0 cette semaine</span>
-                    </div> -->
+                <i data-feather="trending-up" class="w-4 h-4 mr-1"></i>
+                <span id="patientsEvolution">+0 cette semaine</span>
+            </div> -->
                 </div>
                 <!-- <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-                    <div class="text-sm text-gray-500 mb-2" data-i18n="Rendez-vous Aujourd'hui"></div>
-                    <div id="todayAppointments" class="text-2xl font-bold text-gray-900 mb-2">0</div>
-                    <div class="flex items-center text-sm text-blue-600">
-                        <i data-feather="calendar" class="w-4 h-4 mr-1"></i>
-                        <span id="todayAppointmentsInfo">Aucun aujourd'hui</span>
-                    </div>
-                </div> -->
+            <div class="text-sm text-gray-500 mb-2" data-i18n="Rendez-vous Aujourd'hui"></div>
+            <div id="todayAppointments" class="text-2xl font-bold text-gray-900 mb-2">0</div>
+            <div class="flex items-center text-sm text-blue-600">
+                <i data-feather="calendar" class="w-4 h-4 mr-1"></i>
+                <span id="todayAppointmentsInfo">Aucun aujourd'hui</span>
+            </div>
+        </div> -->
                 <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Rendez-vous en Attente"></div>
                     <div id="pendingAppointments" class="text-2xl font-bold text-gray-900 mb-2">-</div>
                     <!-- <div class="flex items-center text-sm text-yellow-600">
-                        <i data-feather="clock" class="w-4 h-4 mr-1"></i>
-                        <span id="pendingAppointmentsInfo">À confirmer</span>
-                    </div> -->
+                <i data-feather="clock" class="w-4 h-4 mr-1"></i>
+                <span id="pendingAppointmentsInfo">À confirmer</span>
+            </div> -->
                 </div>
                 <div class="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
                     <div class="text-sm text-gray-500 mb-2" data-i18n="Rendez-vous Confirmés"></div>
                     <div id="confirmedAppointments" class="text-2xl font-bold text-gray-900 mb-2">-</div>
                     <!-- <div class="flex items-center text-sm text-green-600">
-                        <i data-feather="check-circle" class="w-4 h-4 mr-1"></i>
-                        <span id="confirmedAppointmentsInfo">Confirmés</span>
-                    </div> -->
+                <i data-feather="check-circle" class="w-4 h-4 mr-1"></i>
+                <span id="confirmedAppointmentsInfo">Confirmés</span>
+            </div> -->
                 </div>
             </div>
-            
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-lg font-semibold mb-4" data-i18n="Répartition des Patients"></h2>
+                    <canvas id="statusChart" class="w-full max-h-64"></canvas>
+                </div>
+            </div>
+
         </div>
 
         <!-- Patients Content -->

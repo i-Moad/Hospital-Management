@@ -33,6 +33,7 @@ export default class Auth {
 
     // save session
     const sessionUser = {
+      userId: user.userId,
       CIN: user.CIN,
       role: user.role,
       firstName: user.firstName,

@@ -3,6 +3,7 @@ import UserView from "../views/UserView.js";
 import Auth from "../models/Auth.js";
 import Storage from "../models/Storage.js";
 import { openModal, closeModal } from "../src/utils/modal.js";
+import Appointment from "../models/Appointment.js";
 
 export default class UserController {
   constructor() {
@@ -29,6 +30,10 @@ export default class UserController {
     if (this.session.role === "staff") {
         this.view.renderPatientTable([...User.getAllUsers("patient")], this.currentUsersPage, this.usersPerPage);
         this.view.renderCurrentStaffInfo(User.getUserByCIN(this.session.CIN));
+    }
+      if (this.session.role === "doctor") {
+          this.view.renderDoctorPatientTable(Appointment.getUsersByDoctorID(this.session.userId), this.currentUsersPage, this.usersPerPage);
+          this.view.renderCurrentStaffInfo(User.getUserByCIN(this.session.CIN));
     }
     this.view.renderPagination(this.filteredUsersData, this.currentUsersPage, this.usersPerPage);
   }

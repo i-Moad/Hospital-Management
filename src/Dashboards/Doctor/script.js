@@ -80,6 +80,9 @@
             return window.innerWidth < 1024;
         }
 
+        function generatePatientCode(id) {
+    return `PAT-${String(id).padStart(3, "0")}`;
+}
         function isRTL() {
             return localStorage.getItem('lang') === 'ar';
         }
@@ -276,15 +279,15 @@
         function loadPageData(pageId) {
             switch (pageId) {
                 case 'dashboard':
-                    loadDashboardData();
+                    //loadDashboardData();
                     break;
                 case 'patients':
-                    loadPatientsList();
+                    //loadPatientsList();
                     break;
                 case 'rendezvous':
-                    loadAppointmentsList();
-                    loadPatientsForAppointment();
-                    manageAppointmentFormVisibility();
+                    //loadAppointmentsList();
+                    //loadPatientsForAppointment();
+                    //manageAppointmentFormVisibility();
                     break;
                 case 'consultations':
                     loadConsultationsList();
@@ -294,13 +297,13 @@
             }
         }
 
-        function manageAppointmentFormVisibility() {
-            if (isMobile()) {
-                document.getElementById('appointment-sidebar').classList.add('hidden');
-            } else {
-                document.getElementById('appointment-sidebar').classList.remove('hidden');
-            }
-        }
+        //function manageAppointmentFormVisibility() {
+        //    if (isMobile()) {
+        //        document.getElementById('appointment-sidebar').classList.add('hidden');
+        //    } else {
+        //        document.getElementById('appointment-sidebar').classList.remove('hidden');
+        //    }
+        //}
 
         function handleHashChange() {
             const hash = window.location.hash.substring(1);
@@ -311,218 +314,217 @@
         // GESTION DES DONNÉES
         // ============================================
 
-        function loadDashboardData() {
-            const today = new Date().toISOString().split('T')[0];
-            const todayPatients = demoData.patients.filter(p =>
-                p.derniereVisite === today || p.prochainRdv === today
-            ).length;
+        //function loadDashboardData() {
+        //    const today = new Date().toISOString().split('T')[0];
+        //    const todayPatients = demoData.patients.filter(p =>
+        //        p.derniereVisite === today || p.prochainRdv === today
+        //    ).length;
 
-            const upcomingAppointments = demoData.appointments.filter(a =>
-                new Date(a.appointmentDateTime) >= new Date() && a.status !== 'cancelled'
-            ).length;
+        //    const upcomingAppointments = demoData.appointments.filter(a =>
+        //        new Date(a.appointmentDateTime) >= new Date() && a.status !== 'cancelled'
+        //    ).length;
 
-            const weeklyConsultations = demoData.consultations.filter(c => {
-                const consultDate = new Date(c.date);
-                const oneWeekAgo = new Date();
-                oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-                return consultDate >= oneWeekAgo;
-            }).length;
+        //    const weeklyConsultations = demoData.consultations.filter(c => {
+        //        const consultDate = new Date(c.date);
+        //        const oneWeekAgo = new Date();
+        //        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+        //        return consultDate >= oneWeekAgo;
+        //    }).length;
 
-            document.getElementById('today-patients').textContent = todayPatients;
-            document.getElementById('upcoming-appointments').textContent = upcomingAppointments;
-            document.getElementById('weekly-consultations').textContent = weeklyConsultations;
-            document.getElementById('availability').textContent = '85%';
+        //    document.getElementById('today-patients').textContent = todayPatients;
+        //    document.getElementById('upcoming-appointments').textContent = upcomingAppointments;
+        //    document.getElementById('weekly-consultations').textContent = weeklyConsultations;
+        //    document.getElementById('availability').textContent = '85%';
 
-            loadTodayAppointments();
-        }
+        //    loadTodayAppointments();
+        //}
 
-        function loadTodayAppointments() {
-            const today = new Date().toISOString().split('T')[0];
-            const todayAppointments = demoData.appointments.filter(a =>
-                a.appointmentDateTime.startsWith(today)
-            );
+        //function loadTodayAppointments() {
+        //    const today = new Date().toISOString().split('T')[0];
+        //    const todayAppointments = demoData.appointments.filter(a =>
+        //        a.appointmentDateTime.startsWith(today)
+        //    );
 
-            const tbody = document.getElementById('today-appointments-list');
-            tbody.innerHTML = '';
+        //    //const tbody = document.getElementById('today-appointments-list');
+        //    //tbody.innerHTML = '';
 
-            todayAppointments.forEach(appointment => {
-                const tr = document.createElement('tr');
-                const date = new Date(appointment.appointmentDateTime);
-                const time = date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        //    todayAppointments.forEach(appointment => {
+        //        const tr = document.createElement('tr');
+        //        const date = new Date(appointment.appointmentDateTime);
+        //        const time = date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 
-                let statusClass, statusText;
-                switch (appointment.status) {
-                    case 'confirmed':
-                        statusClass = 'status-confirmed';
-                        statusText = t('sir thwa');
-                        break;
-                    case 'pending':
-                        statusClass = 'status-pending';
-                        statusText = t('En attente');
-                        break;
-                    case 'cancelled':
-                        statusClass = 'status-cancelled';
-                        statusText = t('Annulé');
-                        data = "Annulé";
-                        break;
-                }
+        //        let statusClass, statusText;
+        //        switch (appointment.status) {
+        //            case 'confirmed':
+        //                statusClass = 'status-confirmed';
+        //                statusText = t('sir thwa');
+        //                break;
+        //            case 'pending':
+        //                statusClass = 'status-pending';
+        //                statusText = t('En attente');
+        //                break;
+        //            case 'cancelled':
+        //                statusClass = 'status-cancelled';
+        //                statusText = t('Annulé');
+        //                data = "Annulé";
+        //                break;
+        //        }
 
-                tr.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap">${time}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${appointment.patient}</td>
-                    <td class="px-6 py-4">${appointment.motif}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 py-1 text-xs rounded-full ${statusClass}" data-i18n=${data}>
-                            ${statusText}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <button onclick="confirmAppointment(${appointment.appointmentId})" class="text-green-600 hover:text-green-800 transition-colors mx-1" title="Confirmer">
-                            <i data-feather="check" class="w-4 h-4"></i>
-                        </button>
-                        <button onclick="cancelAppointment(${appointment.appointmentId})" class="text-red-600 hover:text-red-800 transition-colors mx-1" title="Annuler">
-                            <i data-feather="x" class="w-4 h-4"></i>
-                        </button>
-                        <button onclick="viewPatientDetails(${appointment.patientId})" class="text-blue-600 hover:text-blue-800 transition-colors mx-1" title="Voir patient">
-                            <i data-feather="eye" class="w-4 h-4"></i>
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
+        //        tr.innerHTML = `
+        //            <td class="px-6 py-4 whitespace-nowrap">${time}</td>
+        //            <td class="px-6 py-4 whitespace-nowrap">${appointment.patient}</td>
+        //            <td class="px-6 py-4">${appointment.motif}</td>
+        //            <td class="px-6 py-4 whitespace-nowrap">
+        //                <span class="px-2 py-1 text-xs rounded-full ${statusClass}" data-i18n=${data}>
+        //                    ${statusText}
+        //                </span>
+        //            </td>
+        //            <td class="px-6 py-4 whitespace-nowrap">
+        //                <button onclick="confirmAppointment(${appointment.appointmentId})" class="text-green-600 hover:text-green-800 transition-colors mx-1" title="Confirmer">
+        //                    <i data-feather="check" class="w-4 h-4"></i>
+        //                </button>
+        //                <button onclick="cancelAppointment(${appointment.appointmentId})" class="text-red-600 hover:text-red-800 transition-colors mx-1" title="Annuler">
+        //                    <i data-feather="x" class="w-4 h-4"></i>
+        //                </button>
+        //                <button onclick="viewPatientDetails(${appointment.patientId})" class="text-blue-600 hover:text-blue-800 transition-colors mx-1" title="Voir patient">
+        //                    <i data-feather="eye" class="w-4 h-4"></i>
+        //                </button>
+        //            </td>
+        //        `;
+        //        tbody.appendChild(tr);
+        //    });
 
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
+        //    if (typeof feather !== 'undefined') {
+        //        feather.replace();
+        //    }
+        //}
 
-        function loadPatientsList() {
-            const tbody = document.getElementById('patients-list');
-            tbody.innerHTML = '';
+        //function loadPatientsList() {
+        //    const tbody = document.getElementById('patients-list');
+        //    tbody.innerHTML = '';
 
-            demoData.patients.forEach(patient => {
-                const tr = document.createElement('tr');
+        //    demoData.patients.forEach(patient => {
+        //        const tr = document.createElement('tr');
 
-                tr.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap">${patient.id}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${patient.nom} ${patient.prenom}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${patient.age} ans</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${formatDate(patient.derniereVisite)}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">${formatDate(patient.prochainRdv)}</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex space-x-2">
-                            <button onclick="viewPatientDetails(${patient.id})" 
-                                class="text-blue-600 hover:text-blue-800 transition-colors p-1"
-                                title="Voir détails">
-                                <i data-feather="eye" class="w-4 h-4"></i>
-                            </button>
-                            <button onclick="createPrescription(${patient.id})" 
-                                class="text-green-600 hover:text-green-800 transition-colors p-1"
-                                title="Créer prescription">
-                                <i data-feather="file-text" class="w-4 h-4"></i>
-                            </button>
-                            <button onclick="viewMedicalNotes(${patient.id})" 
-                                class="text-purple-600 hover:text-purple-800 transition-colors p-1"
-                                title="Notes médicales">
-                                <i data-feather="clipboard" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
+        //        tr.innerHTML = `
+        //            <td class="px-6 py-4 whitespace-nowrap">${patient.id}</td>
+        //            <td class="px-6 py-4 whitespace-nowrap">${patient.nom} ${patient.prenom}</td>
+        //            <td class="px-6 py-4 whitespace-nowrap">${patient.age} ans</td>
+        //            <td class="px-6 py-4 whitespace-nowrap">${formatDate(patient.derniereVisite)}</td>
+        //            <td class="px-6 py-4 whitespace-nowrap">${formatDate(patient.prochainRdv)}</td>
+        //            <td class="px-6 py-4 whitespace-nowrap">
+        //                <div class="flex space-x-2">
+        //                    <button onclick="viewPatientDetails(${patient.id})" 
+        //                        class="text-blue-600 hover:text-blue-800 transition-colors p-1"
+        //                        title="Voir détails">
+        //                        <i data-feather="eye" class="w-4 h-4"></i>
+        //                    </button>
+        //                    <button onclick="createPrescription(${patient.id})" 
+        //                        class="text-green-600 hover:text-green-800 transition-colors p-1"
+        //                        title="Créer prescription">
+        //                        <i data-feather="file-text" class="w-4 h-4"></i>
+        //                    </button>
+        //                    <button onclick="viewMedicalNotes(${patient.id})" 
+        //                        class="text-purple-600 hover:text-purple-800 transition-colors p-1"
+        //                        title="Notes médicales">
+        //                        <i data-feather="clipboard" class="w-4 h-4"></i>
+        //                    </button>
+        //                </div>
+        //            </td>
+        //        `;
+        //        tbody.appendChild(tr);
+        //    });
 
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
+        //    if (typeof feather !== 'undefined') {
+        //        feather.replace();
+        //    }
+        //}
 
-        function loadAppointmentsList() {
-            const tbody = document.getElementById('appointments-list');
-            tbody.innerHTML = '';
+        //function loadAppointmentsList() {
+        //    const tbody = document.getElementById('appointments-list');
+        //    tbody.innerHTML = '';
 
-            const sortedAppointments = [...demoData.appointments].sort((a, b) =>
-                new Date(a.appointmentDateTime) - new Date(b.appointmentDateTime)
-            );
+        //    const sortedAppointments = [...demoData.appointments].sort((a, b) =>
+        //        new Date(a.appointmentDateTime) - new Date(b.appointmentDateTime)
+        //    );
 
-            sortedAppointments.forEach(appointment => {
-                const tr = document.createElement('tr');
+        //    sortedAppointments.forEach(appointment => {
+        //        const tr = document.createElement('tr');
 
-                let statusClass, statusText;
-                switch (appointment.status) {
-                    case 'confirmed':
-                        statusClass = 'status-confirmed';
-                        statusText = 'Confirmé';
-                        break;
-                    case 'pending':
-                        statusClass = 'status-pending';
-                        statusText = 'En_attente';
-                        break;
-                    case 'cancelled':
-                        statusClass = 'status-cancelled';
-                        statusText = 'Annulé';
-                        break;
-                }
+        //        let statusClass, statusText;
+        //        switch (appointment.status) {
+        //            case 'confirmed':
+        //                statusClass = 'status-confirmed';
+        //                statusText = 'Confirmé';
+        //                break;
+        //            case 'pending':
+        //                statusClass = 'status-pending';
+        //                statusText = 'En_attente';
+        //                break;
+        //            case 'cancelled':
+        //                statusClass = 'status-cancelled';
+        //                statusText = 'Annulé';
+        //                break;
+        //        }
 
-                tr.innerHTML = `
-                    <td class="px-4 py-3 whitespace-nowrap">${formatDateTime(appointment.appointmentDateTime)}</td>
-                    <td class="px-4 py-3 whitespace-nowrap">${appointment.patient}</td>
-                    <td class="px-4 py-3">${appointment.motif}</td>
-                    <td class="px-4 py-3 whitespace-nowrap">
-                        <span class="px-2 py-1 text-xs rounded-full ${statusClass}" data-i18n=${statusText}>
+        //        tr.innerHTML = `
+        //            <td class="px-4 py-3 whitespace-nowrap">${formatDateTime(appointment.appointmentDateTime)}</td>
+        //            <td class="px-4 py-3 whitespace-nowrap">${appointment.patient}</td>
+        //            <td class="px-4 py-3 whitespace-nowrap">
+        //                <span class="px-2 py-1 text-xs rounded-full ${statusClass}" data-i18n=${statusText}>
                             
-                        </span>
-                    </td>
-                    <td class="px-4 py-3 whitespace-nowrap">
-                        <div class="flex space-x-2">
-                            ${appointment.status === 'pending' ? `
-                            <button onclick="confirmAppointment(${appointment.appointmentId})" 
-                                class="text-green-600 hover:text-green-800 transition-colors p-1"
-                                title="Confirmer">
-                                <i data-feather="check" class="w-4 h-4"></i>
-                            </button>
-                            ` : ''}
-                            ${appointment.status !== 'cancelled' ? `
-                            <button onclick="cancelAppointment(${appointment.appointmentId})" 
-                                class="text-red-600 hover:text-red-800 transition-colors p-1"
-                                title="Annuler">
-                                <i data-feather="x" class="w-4 h-4"></i>
-                            </button>
-                            ` : ''}
-                            <button onclick="viewPatientDetails(${appointment.patientId})" 
-                                class="text-blue-600 hover:text-blue-800 transition-colors p-1"
-                                title="Voir patient">
-                                <i data-feather="eye" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
+        //                </span>
+        //            </td>
+        //            <td class="px-4 py-3 whitespace-nowrap">
+        //                <div class="flex space-x-2">
+        //                    ${appointment.status === 'pending' ? `
+        //                    <button onclick="confirmAppointment(${appointment.appointmentId})" 
+        //                        class="text-green-600 hover:text-green-800 transition-colors p-1"
+        //                        title="Confirmer">
+        //                        <i data-feather="check" class="w-4 h-4"></i>
+        //                    </button>
+        //                    ` : ''}
+        //                    ${appointment.status !== 'cancelled' ? `
+        //                    <button onclick="cancelAppointment(${appointment.appointmentId})" 
+        //                        class="text-red-600 hover:text-red-800 transition-colors p-1"
+        //                        title="Annuler">
+        //                        <i data-feather="x" class="w-4 h-4"></i>
+        //                    </button>
+        //                    ` : ''}
+        //                    <button onclick="viewPatientDetails(${appointment.patientId})" 
+        //                        class="text-blue-600 hover:text-blue-800 transition-colors p-1"
+        //                        title="Voir patient">
+        //                        <i data-feather="eye" class="w-4 h-4"></i>
+        //                    </button>
+        //                </div>
+        //            </td>
+        //        `;
+        //        tbody.appendChild(tr);
+        //    });
 
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
+        //    if (typeof feather !== 'undefined') {
+        //        feather.replace();
+        //    }
+        //}
 
-        function loadPatientsForAppointment() {
-            const select = document.getElementById('appointment-patient');
-            const mobileSelect = document.getElementById('mobile-appointment-patient');
-            const consultationSelect = document.getElementById('consultation-patient');
+        //function loadPatientsForAppointment() {
+        //    const select = document.getElementById('appointment-patient');
+        //    const mobileSelect = document.getElementById('mobile-appointment-patient');
+        //    const consultationSelect = document.getElementById('consultation-patient');
 
-            select.innerHTML = '<option value="" data-i18n="Sélectionner un patient"></option>';
-            mobileSelect.innerHTML = '<option value="" data-i18n="Sélectionner un patient"></option>';
-            consultationSelect.innerHTML = '<option value="" data-i18n="Sélectionner un patient"></option>';
+        //    //select.innerHTML = '<option value="" data-i18n="Sélectionner un patient"></option>';
+        //    mobileSelect.innerHTML = '<option value="" data-i18n="Sélectionner un patient"></option>';
+        //    consultationSelect.innerHTML = '<option value="" data-i18n="Sélectionner un patient"></option>';
 
-            demoData.patients.forEach(patient => {
-                const option = document.createElement('option');
-                option.value = patient.id;
-                option.textContent = `${patient.nom} ${patient.prenom}`;
-                select.appendChild(option.cloneNode(true));
-                mobileSelect.appendChild(option.cloneNode(true));
-                consultationSelect.appendChild(option.cloneNode(true));
-            });
-        }
+        //    demoData.patients.forEach(patient => {
+        //        const option = document.createElement('option');
+        //        option.value = patient.id;
+        //        option.textContent = `${patient.nom} ${patient.prenom}`;
+        //        select.appendChild(option.cloneNode(true));
+        //        mobileSelect.appendChild(option.cloneNode(true));
+        //        consultationSelect.appendChild(option.cloneNode(true));
+        //    });
+        //}
 
         function loadConsultationsList() {
             const container = document.getElementById('consultations-list');
@@ -570,347 +572,343 @@
         // GESTION DES RENDEZ-VOUS
         // ============================================
 
-        function confirmAppointment(appointmentId) {
-            const appointment = demoData.appointments.find(a => a.appointmentId === appointmentId);
-            if (appointment) {
-                appointment.status = 'confirmed';
+        //function confirmAppointment(appointmentId) {
+        //    const appointment = demoData.appointments.find(a => a.appointmentId === appointmentId);
+        //    if (appointment) {
+        //        appointment.status = 'confirmed';
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Rendez-vous confirmé',
-                    text: 'Le rendez-vous a été confirmé avec succès',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
+        //        Swal.fire({
+        //            icon: 'success',
+        //            title: 'Rendez-vous confirmé',
+        //            text: 'Le rendez-vous a été confirmé avec succès',
+        //            timer: 2000,
+        //            showConfirmButton: false
+        //        });
 
-                loadTodayAppointments();
-                loadAppointmentsList();
-            }
-        }
+        //        loadTodayAppointments();
+        //        loadAppointmentsList();
+        //    }
+        //}
 
-        function cancelAppointment(appointmentId) {
-            Swal.fire({
-                title: 'Confirmer l\'annulation',
-                text: 'Êtes-vous sûr de vouloir annuler ce rendez-vous ?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#EF4444',
-                cancelButtonColor: '#6B7280',
-                confirmButtonText: 'Oui, annuler',
-                cancelButtonText: 'Non'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const appointment = demoData.appointments.find(a => a.appointmentId === appointmentId);
-                    if (appointment) {
-                        appointment.status = 'cancelled';
+        //function cancelAppointment(appointmentId) {
+        //    Swal.fire({
+        //        title: 'Confirmer l\'annulation',
+        //        text: 'Êtes-vous sûr de vouloir annuler ce rendez-vous ?',
+        //        icon: 'warning',
+        //        showCancelButton: true,
+        //        confirmButtonColor: '#EF4444',
+        //        cancelButtonColor: '#6B7280',
+        //        confirmButtonText: 'Oui, annuler',
+        //        cancelButtonText: 'Non'
+        //    }).then((result) => {
+        //        if (result.isConfirmed) {
+        //            const appointment = demoData.appointments.find(a => a.appointmentId === appointmentId);
+        //            if (appointment) {
+        //                appointment.status = 'cancelled';
 
-                        const newRequest = {
-                            requestId: demoData.appointmentRequests.length + 1,
-                            appointmentId: appointmentId,
-                            patientId: appointment.patientId,
-                            requestType: 'cancel',
-                            requestedDateTime: null,
-                            status: 'approved',
-                            createdAt: new Date().toISOString().split('T')[0]
-                        };
-                        demoData.appointmentRequests.push(newRequest);
+        //                const newRequest = {
+        //                    requestId: demoData.appointmentRequests.length + 1,
+        //                    appointmentId: appointmentId,
+        //                    patientId: appointment.patientId,
+        //                    requestType: 'cancel',
+        //                    requestedDateTime: null,
+        //                    status: 'approved',
+        //                    createdAt: new Date().toISOString().split('T')[0]
+        //                };
+        //                demoData.appointmentRequests.push(newRequest);
 
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Rendez-vous annulé',
-                            text: 'Le rendez-vous a été annulé avec succès',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
+        //                Swal.fire({
+        //                    icon: 'success',
+        //                    title: 'Rendez-vous annulé',
+        //                    text: 'Le rendez-vous a été annulé avec succès',
+        //                    timer: 2000,
+        //                    showConfirmButton: false
+        //                });
 
-                        loadTodayAppointments();
-                        loadAppointmentsList();
-                    }
-                }
-            });
-        }
+        //                loadTodayAppointments();
+        //                loadAppointmentsList();
+        //            }
+        //        }
+        //    });
+        //}
 
         // ============================================
         // GESTION DES PATIENTS (MODAL)
         // ============================================
 
-        function viewPatientDetails(patientId) {
-            const patient = demoData.patients.find(p => p.id === patientId);
-            if (!patient) return;
+        //function viewPatientDetails(patientId) {
+        //    const patient = demoData.patients.find(p => p.id === patientId);
+        //    if (!patient) return;
 
-            // Mettre à jour les informations du modal
-            document.getElementById('patient-details-name').textContent = `${patient.nom} ${patient.prenom}`;
-            document.getElementById('patient-details-age-gender').textContent =
-                `${patient.age} ans • ${patient.sexe === 'M' ? t('Homme') : t('Femme')}`;
-            document.getElementById('patient-details-phone').textContent = patient.telephone;
-            document.getElementById('patient-details-last-visit').textContent = formatDate(patient.derniereVisite);
-            document.getElementById('patient-details-next-appointment').textContent = formatDate(patient.prochainRdv);
-            document.getElementById('patient-details-id').value = patientId;
+        //    // Mettre à jour les informations du modal
+        //    document.getElementById('patient-details-name').textContent = `${patient.nom} ${patient.prenom}`;
+        //    document.getElementById('patient-details-phone').textContent = patient.telephone;
+        //    document.getElementById('patient-details-id').value = patientId;
 
-            // Charger l'historique médical
-            const medicalHistoryContainer = document.getElementById('patient-details-medical-history');
-            medicalHistoryContainer.innerHTML = '';
+        //    // Charger l'historique médical
+        //    const medicalHistoryContainer = document.getElementById('patient-details-medical-history');
+        //    medicalHistoryContainer.innerHTML = '';
 
-            const patientConsultations = demoData.consultations.filter(c => c.patientId === patientId);
-            if (patientConsultations.length > 0) {
-                patientConsultations.forEach(consultation => {
-                    const consultationDiv = document.createElement('div');
-                    consultationDiv.className = 'bg-gray-50 p-3 rounded';
-                    consultationDiv.innerHTML = `
-                        <div class="flex justify-between">
-                            <span class="font-medium">${consultation.type}</span>
-                            <span class="text-sm text-gray-500">${formatDate(consultation.date)}</span>
-                        </div>
-                        <p class="text-sm mt-1">${consultation.diagnostic}</p>
-                    `;
-                    medicalHistoryContainer.appendChild(consultationDiv);
-                });
-            } else {
-                medicalHistoryContainer.innerHTML = `<p class="text-gray-500 text-center py-4">patient.no_consultations</p>`;
-            }
+        //    const patientConsultations = demoData.consultations.filter(c => c.patientId === patientId);
+        //    if (patientConsultations.length > 0) {
+        //        patientConsultations.forEach(consultation => {
+        //            const consultationDiv = document.createElement('div');
+        //            consultationDiv.className = 'bg-gray-50 p-3 rounded';
+        //            consultationDiv.innerHTML = `
+        //                <div class="flex justify-between">
+        //                    <span class="font-medium">${consultation.type}</span>
+        //                    <span class="text-sm text-gray-500">${formatDate(consultation.date)}</span>
+        //                </div>
+        //                <p class="text-sm mt-1">${consultation.diagnostic}</p>
+        //            `;
+        //            medicalHistoryContainer.appendChild(consultationDiv);
+        //        });
+        //    } else {
+        //        medicalHistoryContainer.innerHTML = `<p class="text-gray-500 text-center py-4">patient.no_consultations</p>`;
+        //    }
 
-            // Charger les prescriptions
-            const prescriptionsContainer = document.getElementById('patient-details-prescriptions');
-            prescriptionsContainer.innerHTML = '';
+        //    // Charger les prescriptions
+        //    const prescriptionsContainer = document.getElementById('patient-details-prescriptions');
+        //    prescriptionsContainer.innerHTML = '';
 
-            const patientPrescriptions = demoData.prescriptions.filter(p => p.patientId === patientId);
-            if (patientPrescriptions.length > 0) {
-                patientPrescriptions.forEach(prescription => {
-                    const prescriptionDiv = document.createElement('div');
-                    prescriptionDiv.className = 'bg-green-50 p-3 rounded border border-green-100';
-                    prescriptionDiv.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <span class="font-medium">${t("Prescription")} #${prescription.prescriptionId}</span>
-                            <span class="text-sm text-gray-500">${formatDate(prescription.createdAt)}</span>
-                        </div>
-                        <p class="text-sm mt-1">
-                            ${prescription.medicineList.map(m => `${m.medicineName} (${m.dosage})`).join(', ')}
-                        </p>
-                        ${prescription.note ? `<p class="text-sm mt-2 text-gray-600">${prescription.note}</p>` : ''}
-                    `;
-                    prescriptionsContainer.appendChild(prescriptionDiv);
-                });
-            } else {
-                prescriptionsContainer.innerHTML = `<p class="text-gray-500 text-center py-4">${t("Aucune prescription enregistrée")}</p>`;
-            }
+        //    const patientPrescriptions = demoData.prescriptions.filter(p => p.patientId === patientId);
+        //    if (patientPrescriptions.length > 0) {
+        //        patientPrescriptions.forEach(prescription => {
+        //            const prescriptionDiv = document.createElement('div');
+        //            prescriptionDiv.className = 'bg-green-50 p-3 rounded border border-green-100';
+        //            prescriptionDiv.innerHTML = `
+        //                <div class="flex justify-between items-start">
+        //                    <span class="font-medium">${t("Prescription")} #${prescription.prescriptionId}</span>
+        //                    <span class="text-sm text-gray-500">${formatDate(prescription.createdAt)}</span>
+        //                </div>
+        //                <p class="text-sm mt-1">
+        //                    ${prescription.medicineList.map(m => `${m.medicineName} (${m.dosage})`).join(', ')}
+        //                </p>
+        //                ${prescription.note ? `<p class="text-sm mt-2 text-gray-600">${prescription.note}</p>` : ''}
+        //            `;
+        //            prescriptionsContainer.appendChild(prescriptionDiv);
+        //        });
+        //    } else {
+        //        prescriptionsContainer.innerHTML = `<p class="text-gray-500 text-center py-4">${t("Aucune prescription enregistrée")}</p>`;
+        //    }
 
-            // Configurer les boutons d'action
-            const createPrescriptionBtn = document.getElementById('create-prescription-from-modal');
-            createPrescriptionBtn.onclick = () => createPrescription(patientId);
+        //    // Configurer les boutons d'action
+        //    const createPrescriptionBtn = document.getElementById('create-prescription-from-modal');
+        //    createPrescriptionBtn.onclick = () => createPrescription(patientId);
 
-            const viewMedicalNotesBtn = document.getElementById('view-medical-notes');
-            viewMedicalNotesBtn.onclick = () => viewMedicalNotes(patientId);
+        //    const viewMedicalNotesBtn = document.getElementById('view-medical-notes');
+        //    viewMedicalNotesBtn.onclick = () => viewMedicalNotes(patientId);
 
-            // Afficher le modal
-            showModal('patientDetails');
+        //    // Afficher le modal
+        //    showModal('patientDetails');
 
-            // Mettre à jour les icônes
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
+        //    // Mettre à jour les icônes
+        //    if (typeof feather !== 'undefined') {
+        //        feather.replace();
+        //    }
+        //}
 
-        function viewMedicalNotes(patientId) {
-            const patient = demoData.patients.find(p => p.id === patientId);
-            if (!patient) return;
+        //function viewMedicalNotes(patientId) {
+        //    const patient = demoData.patients.find(p => p.id === patientId);
+        //    if (!patient) return;
 
-            const notes = demoData.medicalNotes.filter(n => n.patientId === patientId);
+        //    const notes = demoData.medicalNotes.filter(n => n.patientId === patientId);
 
-            const container = document.getElementById('medical-notes-container');
-            container.innerHTML = '';
+        //    const container = document.getElementById('medical-notes-container');
+        //    container.innerHTML = '';
 
-            if (notes.length > 0) {
-                notes.forEach(note => {
-                    const noteDiv = document.createElement('div');
-                    noteDiv.className = 'bg-gray-50 p-4 rounded-lg';
-                    noteDiv.innerHTML = `
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="font-medium">Note #${note.noteId}</span>
-                            <span class="text-sm text-gray-500">${formatDate(note.createdAt)}</span>
-                        </div>
-                        <p class="text-sm">${note.notesText}</p>
-                    `;
-                    container.appendChild(noteDiv);
-                });
-            } else {
-                container.innerHTML = '<p class="text-gray-500 text-center py-8">Aucune note médicale pour ce patient.</p>';
-            }
+        //    if (notes.length > 0) {
+        //        notes.forEach(note => {
+        //            const noteDiv = document.createElement('div');
+        //            noteDiv.className = 'bg-gray-50 p-4 rounded-lg';
+        //            noteDiv.innerHTML = `
+        //                <div class="flex justify-between items-start mb-2">
+        //                    <span class="font-medium">Note #${note.noteId}</span>
+        //                    <span class="text-sm text-gray-500">${formatDate(note.createdAt)}</span>
+        //                </div>
+        //                <p class="text-sm">${note.notesText}</p>
+        //            `;
+        //            container.appendChild(noteDiv);
+        //        });
+        //    } else {
+        //        container.innerHTML = '<p class="text-gray-500 text-center py-8">Aucune note médicale pour ce patient.</p>';
+        //    }
 
-            document.getElementById('medical-notes-patient-id').value = patientId;
-            showModal('medicalNotes');
-        }
+        //    document.getElementById('medical-notes-patient-id').value = patientId;
+        //    showModal('medicalNotes');
+        //}
 
-        function viewConsultationDetails(consultationId) {
-            const consultation = demoData.consultations.find(c => c.consultationId === consultationId);
-            if (!consultation) return;
+        //function viewConsultationDetails(consultationId) {
+        //    const consultation = demoData.consultations.find(c => c.consultationId === consultationId);
+        //    if (!consultation) return;
 
-            const patient = demoData.patients.find(p => p.id === consultation.patientId);
+        //    const patient = demoData.patients.find(p => p.id === consultation.patientId);
 
-            document.getElementById('consultation-details-patient').textContent =
-                patient ? `${patient.nom} ${patient.prenom}` : 'Inconnu';
-            document.getElementById('consultation-details-date').textContent = formatDate(consultation.date);
-            document.getElementById('consultation-details-type').textContent = consultation.type;
-            document.getElementById('consultation-details-doctor').textContent = 'Dr. Sophie Martin';
-            document.getElementById('consultation-details-diagnostic').textContent = consultation.diagnostic;
-            document.getElementById('consultation-details-treatment').textContent = consultation.traitement;
-            document.getElementById('consultation-details-notes').textContent = consultation.notes || 'Aucune note supplémentaire';
-            document.getElementById('consultation-details-id').value = consultationId;
+        //    document.getElementById('consultation-details-patient').textContent =
+        //        patient ? `${patient.nom} ${patient.prenom}` : 'Inconnu';
+        //    document.getElementById('consultation-details-date').textContent = formatDate(consultation.date);
+        //    document.getElementById('consultation-details-type').textContent = consultation.type;
+        //    document.getElementById('consultation-details-doctor').textContent = 'Dr. Sophie Martin';
+        //    document.getElementById('consultation-details-diagnostic').textContent = consultation.diagnostic;
+        //    document.getElementById('consultation-details-treatment').textContent = consultation.traitement;
+        //    document.getElementById('consultation-details-notes').textContent = consultation.notes || 'Aucune note supplémentaire';
+        //    document.getElementById('consultation-details-id').value = consultationId;
 
-            showModal('consultationDetails');
-        }
+        //    showModal('consultationDetails');
+        //}
 
         // ============================================
         // GESTION DES PRESCRIPTIONS
         // ============================================
 
-        function createPrescription(patientId, consultationId = null) {
-            const patient = demoData.patients.find(p => p.id === patientId);
-            if (!patient) return;
+        //function createPrescription(patientId, consultationId = null) {
+        //    const patient = demoData.patients.find(p => p.id === patientId);
+        //    if (!patient) return;
 
-            document.getElementById('prescription-patient-id').value = patientId;
-            document.getElementById('prescription-consultation-id').value = consultationId || '';
+        //    document.getElementById('prescription-patient-id').value = patientId;
+        //    document.getElementById('prescription-consultation-id').value = consultationId || '';
 
-            document.getElementById('prescription-instructions').value = '';
-            document.getElementById('prescription-validity').value = '';
+        //    document.getElementById('prescription-instructions').value = '';
+        //    document.getElementById('prescription-validity').value = '';
 
-            const container = document.getElementById('medicines-container');
-            container.innerHTML = '';
+        //    const container = document.getElementById('medicines-container');
+        //    container.innerHTML = '';
 
-            const firstRow = document.createElement('div');
-            firstRow.className = 'flex space-x-2 items-center';
-            firstRow.innerHTML = `
-                <input type="text" data-i18n-placeholder="Nom du médicament" value="Paracétamol"
-                    class="flex-1 px-3 py-2 border border-gray-300 rounded-lg">
-                <input type="text" data-i18n-placeholder="Dosage" value="500mg"
-                    class="w-24 px-3 py-2 border border-gray-300 rounded-lg">
-                <input type="text" data-i18n-placeholder="Fréquence" value="3 fois par jour"
-                    class="w-24 px-3 py-2 border border-gray-300 rounded-lg">
-                <input type="text" data-i18n-placeholder="Durée" value="7 jours"
-                    class="w-20 px-3 py-2 border border-gray-300 rounded-lg">
-                <button type="button" onclick="this.parentElement.remove()" 
-                    class="text-red-600 hover:text-red-800">
-                    <i data-feather="trash-2" class="w-4 h-4"></i>
-                </button>
-            `;
-            container.appendChild(firstRow);
+        //    const firstRow = document.createElement('div');
+        //    firstRow.className = 'flex space-x-2 items-center';
+        //    firstRow.innerHTML = `
+        //        <input type="text" data-i18n-placeholder="Nom du médicament" value="Paracétamol"
+        //            class="flex-1 px-3 py-2 border border-gray-300 rounded-lg">
+        //        <input type="text" data-i18n-placeholder="Dosage" value="500mg"
+        //            class="w-24 px-3 py-2 border border-gray-300 rounded-lg">
+        //        <input type="text" data-i18n-placeholder="Fréquence" value="3 fois par jour"
+        //            class="w-24 px-3 py-2 border border-gray-300 rounded-lg">
+        //        <input type="text" data-i18n-placeholder="Durée" value="7 jours"
+        //            class="w-20 px-3 py-2 border border-gray-300 rounded-lg">
+        //        <button type="button" onclick="this.parentElement.remove()" 
+        //            class="text-red-600 hover:text-red-800">
+        //            <i data-feather="trash-2" class="w-4 h-4"></i>
+        //        </button>
+        //    `;
+        //    container.appendChild(firstRow);
 
-            const validityDate = new Date();
-            validityDate.setDate(validityDate.getDate() + 30);
-            document.getElementById('prescription-validity').value = validityDate.toISOString().split('T')[0];
+        //    const validityDate = new Date();
+        //    validityDate.setDate(validityDate.getDate() + 30);
+        //    document.getElementById('prescription-validity').value = validityDate.toISOString().split('T')[0];
 
-            showModal('prescription');
+        //    showModal('prescription');
 
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
+        //    if (typeof feather !== 'undefined') {
+        //        feather.replace();
+        //    }
+        //}
 
-        function addMedicineRow() {
-            const container = document.getElementById('medicines-container');
-            const row = document.createElement('div');
-            row.className = 'flex space-x-2 items-center';
-            row.innerHTML = `
-                <input type="text" data-i18n-placeholder="Nom du médicament" 
-                    class="flex-1 px-3 py-2 border border-gray-300 rounded-lg">
-                <input type="text" data-i18n-placeholder="Dosage" 
-                    class="w-24 px-3 py-2 border border-gray-300 rounded-lg">
-                <input type="text" data-i18n-placeholder="Fréquence" 
-                    class="w-24 px-3 py-2 border border-gray-300 rounded-lg">
-                <input type="text" data-i18n-placeholder="Durée" 
-                    class="w-20 px-3 py-2 border border-gray-300 rounded-lg">
-                <button type="button" onclick="this.parentElement.remove()" 
-                    class="text-red-600 hover:text-red-800">
-                    <i data-feather="trash-2" class="w-4 h-4"></i>
-                </button>
-            `;
-            container.appendChild(row);
+        //function addMedicineRow() {
+        //    const container = document.getElementById('medicines-container');
+        //    const row = document.createElement('div');
+        //    row.className = 'flex space-x-2 items-center';
+        //    row.innerHTML = `
+        //        <input type="text" data-i18n-placeholder="Nom du médicament" 
+        //            class="flex-1 px-3 py-2 border border-gray-300 rounded-lg">
+        //        <input type="text" data-i18n-placeholder="Dosage" 
+        //            class="w-24 px-3 py-2 border border-gray-300 rounded-lg">
+        //        <input type="text" data-i18n-placeholder="Fréquence" 
+        //            class="w-24 px-3 py-2 border border-gray-300 rounded-lg">
+        //        <input type="text" data-i18n-placeholder="Durée" 
+        //            class="w-20 px-3 py-2 border border-gray-300 rounded-lg">
+        //        <button type="button" onclick="this.parentElement.remove()" 
+        //            class="text-red-600 hover:text-red-800">
+        //            <i data-feather="trash-2" class="w-4 h-4"></i>
+        //        </button>
+        //    `;
+        //    container.appendChild(row);
 
-            if (typeof feather !== 'undefined') {
-                feather.replace();
-            }
-        }
+        //    if (typeof feather !== 'undefined') {
+        //        feather.replace();
+        //    }
+        //}
 
         // ============================================
         // INITIALISATION DES CHARTES
         // ============================================
 
-        function initCharts() {
-            const ctx1 = document.getElementById('weeklyActivityChart');
-            if (ctx1) {
-                new Chart(ctx1.getContext('2d'), {
-                    type: 'line',
-                    data: {
-                        labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
-                        datasets: [{
-                            label: 'Consultations',
-                            data: [5, 7, 8, 6, 9, 4, 2],
-                            borderColor: '#3B82F6',
-                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                            tension: 0.3,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: function (context) {
-                                        return `${context.parsed.y} consultations`;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function (value) {
-                                        return value;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
+        //function initCharts() {
+        //    const ctx1 = document.getElementById('weeklyActivityChart');
+        //    if (ctx1) {
+        //        new Chart(ctx1.getContext('2d'), {
+        //            type: 'line',
+        //            data: {
+        //                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+        //                datasets: [{
+        //                    label: 'Consultations',
+        //                    data: [5, 7, 8, 6, 9, 4, 2],
+        //                    borderColor: '#3B82F6',
+        //                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        //                    tension: 0.3,
+        //                    fill: true
+        //                }]
+        //            },
+        //            options: {
+        //                responsive: true,
+        //                plugins: {
+        //                    legend: { display: false },
+        //                    tooltip: {
+        //                        callbacks: {
+        //                            label: function (context) {
+        //                                return `${context.parsed.y} consultations`;
+        //                            }
+        //                        }
+        //                    }
+        //                },
+        //                scales: {
+        //                    y: {
+        //                        beginAtZero: true,
+        //                        ticks: {
+        //                            callback: function (value) {
+        //                                return value;
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        });
+        //    }
 
-            const ctx2 = document.getElementById('patientsChart');
-            if (ctx2) {
-                new Chart(ctx2.getContext('2d'), {
-                    type: 'pie',
-                    data: {
-                        labels: ['Nouveaux patients', 'Patients réguliers', 'Patients occasionnels'],
-                        datasets: [{
-                            data: [15, 50, 35],
-                            backgroundColor: ['#3B82F6', '#10B981', '#F59E0B'],
-                            borderWidth: 2,
-                            borderColor: '#fff'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    padding: 20,
-                                    usePointStyle: true
-                                }
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function (context) {
-                                        return `${context.label}: ${context.parsed}%`;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
+        //    const ctx2 = document.getElementById('patientsChart');
+        //    if (ctx2) {
+        //        new Chart(ctx2.getContext('2d'), {
+        //            type: 'pie',
+        //            data: {
+        //                labels: ['Nouveaux patients', 'Patients réguliers', 'Patients occasionnels'],
+        //                datasets: [{
+        //                    data: [15, 50, 35],
+        //                    backgroundColor: ['#3B82F6', '#10B981', '#F59E0B'],
+        //                    borderWidth: 2,
+        //                    borderColor: '#fff'
+        //                }]
+        //            },
+        //            options: {
+        //                responsive: true,
+        //                plugins: {
+        //                    legend: {
+        //                        position: 'bottom',
+        //                        labels: {
+        //                            padding: 20,
+        //                            usePointStyle: true
+        //                        }
+        //                    },
+        //                    tooltip: {
+        //                        callbacks: {
+        //                            label: function (context) {
+        //                                return `${context.label}: ${context.parsed}%`;
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        });
+        //    }
+        //}
 
         // ============================================
         // GESTION DE LA LANGUE
@@ -1367,10 +1365,10 @@
             }
 
             // Initialiser les boutons des modales
-            document.getElementById('add-consultation-btn').addEventListener('click', function () {
-                document.getElementById('consultation-date').value = new Date().toISOString().split('T')[0];
-                showModal('consultation');
-            });
+            //document.getElementById('add-consultation-btn').addEventListener('click', function () {
+            //    document.getElementById('consultation-date').value = new Date().toISOString().split('T')[0];
+            //    showModal('consultation');
+            //});
 
             document.getElementById('mobile-add-appointment-btn').addEventListener('click', function () {
                 document.getElementById('mobile-appointment-date').value = new Date().toISOString().split('T')[0];
@@ -1379,7 +1377,7 @@
             });
 
             // Fermer les modales
-            document.getElementById('closePatientDetailsModal').addEventListener('click', () => closeModal('patientDetails'));
+            //document.getElementById('closePatientDetailsModal').addEventListener('click', () => closeModal('patientDetails'));
             document.getElementById('closePatientDetailsModal2').addEventListener('click', () => closeModal('patientDetails'));
             document.getElementById('closePrescriptionModal').addEventListener('click', () => closeModal('prescription'));
             document.getElementById('cancelPrescriptionBtn').addEventListener('click', () => closeModal('prescription'));
@@ -1484,9 +1482,9 @@
             updateCurrentLangDisplay();
             updateLangPosition();
             initDoctorProfileForm();
-            initForms();
+            //initForms();
             setupEventListeners();
-            initCharts();
+            //initCharts();
             handleHashChange();
 
             setInterval(() => {

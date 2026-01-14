@@ -52,6 +52,7 @@ export default class UserView {
     this.closeViewModal2 = document.getElementById("closeViewUserModal2");
     this.cancelDeleteBtn = document.getElementById("cancelDeleteUserBtn");
     this.editFromViewBtn = document.getElementById("editFromViewUserBtn");
+    this.closeAddPatientModal = document.getElementById("closeAddPatientModal");
   }
 
   getAllEditStaffElements() {
@@ -299,6 +300,70 @@ export default class UserView {
     feather.replace();
   }
 
+  renderDoctorPatientTable(filteredUsersData, currentPage, usersPerPage) {
+        if (!this.ptbody) return;
+
+        const startIndex = (currentPage - 1) * usersPerPage;
+        const endIndex = Math.min(startIndex + usersPerPage, filteredUsersData.length);
+        const paginatedUsers = filteredUsersData.slice(startIndex, endIndex);
+
+        if (paginatedUsers.length === 0) {
+            this.ptbody.innerHTML = `
+        <tr>
+          <td colspan="7" class="px-6 py-12 text-center">
+            <div class="flex flex-col items-center justify-center">
+              -
+            </div>
+          </td>
+        </tr>
+      `;
+            feather.replace();
+            return;
+        }
+
+        let html = "";
+        paginatedUsers.forEach(user => {
+            if (user.status === "active") {
+                const fullName = `${user.firstName} ${user.lastName}`;
+
+                html += `
+          <tr class="user-row" data-user-id="${user.userId}">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                ${generatePatientCode(String(user.userId).slice(0, 3))}...
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <div class="font-medium text-gray-900">${fullName}</div>
+              <div class="text-sm text-gray-500">${user.CIN}</div>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm text-gray-900">${user.email}</div>
+              <div class="text-sm text-gray-500">${user.phoneNumber}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              ${formatDate(user.createdAt)}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex space-x-2">
+                <button class="view-user-btn p-1 text-green-600 hover:text-green-800 transition-colors" title="Voir détails" data-user-id="${user.userId}">
+                  <i data-feather="eye" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+            }
+        });
+
+        this.ptbody.innerHTML = html;
+        this.startItem.textContent = startIndex + 1;
+        this.endItem.textContent = endIndex;
+        this.totalItems.textContent = filteredUsersData.length;
+
+        feather.replace();
+    }
+
   renderPagination(filteredUsersData, currentPage, usersPerPage) {
     if (!this.paginationNumbers) return;
 
@@ -362,6 +427,8 @@ export default class UserView {
     if (this.editStaffBtn) this.editStaffBtn.addEventListener("click", (e) => controller.updateStaffData(e, this.getStaffInputData()))
 
     // if (this.addEditEmergencyContactBtn) this.addEditEmergencyContactBtn.addEventListener("click", () => this.createEmergencyContactBlock());
+
+    if (this.closeAddPatientModal) this.closeAddPatientModal.addEventListener("click", () => closeModal("addUserModal"));
 
     // Add emergency contact (edit modal)
     const addEditBtn = document.getElementById("addEditEmergencyContactBtn");

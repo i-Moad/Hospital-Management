@@ -1,6 +1,7 @@
 import AdminDashboardController from "../controllers/AdminDashboardController.js";
 import AppointmentController from "../controllers/AppointmentController.js";
 import AuthController from "../controllers/AuthController.js";
+import DoctorDashboardController from "../controllers/DoctorDashboardController.js";
 import ServiceController from "../controllers/ServiceController.js";
 import SettingController from "../controllers/SettingController.js";
 import StaffDashboardController from "../controllers/StaffDashboardController.js";
@@ -77,6 +78,8 @@ if (page === "Dashboard-Doctor") {
         redirect();
     }
     new UserController();
+    new DoctorDashboardController();
+    new AppointmentController();
 }
 
 if (page === "Dashboard-Staff") {

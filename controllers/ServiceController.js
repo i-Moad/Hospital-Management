@@ -45,7 +45,7 @@ export default class ServiceController {
   }
 
   openAssignModal(id) {
-    const service = Service.getServiceById(Number(id));
+    const service = Service.getServiceById(id);
     const doctors = User.getAllUsers("doctor");
     if (!service) return;
     this.currentServiceId = id;
